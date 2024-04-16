@@ -1,0 +1,41 @@
+main{
+    display: grid;
+    justify-items: center;
+    color: white;
+}
+
+form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+form div{
+    margin: 10px;
+    width: 100%;
+}
+
+form div *{
+    margin-right: 10px;    
+}
+
+textarea .form-floating{
+    height: 800px;
+}
+
+form .form-btn{
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid black;
+    transition: color 0.5s ease-in-out, border 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+form .form-btn:hover{
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+}
+

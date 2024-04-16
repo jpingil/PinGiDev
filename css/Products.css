@@ -1,0 +1,33 @@
+h2{
+  text-align: center;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  margin-top: var(--header-height);
+}
+
+.product img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid white;
+}
+
+.product .buttons {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0px;
+}
+
+.product .buttons button{
+    padding: 10px;
+    margin: 5px;
+}
+
+@media screen and (max-width: 600px){
+    .products{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

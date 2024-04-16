@@ -1,0 +1,29 @@
+article h2{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+article .product{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+article .product .characteristics{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
+article .product .characteristics *{
+    margin: 10px;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,17 +1,13 @@
-body {
-  margin: 0;
-  padding: 0;
+main{
+  height: 88vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  font-family: "Jost", sans-serif;
-  background: black;
 }
 
 article {
-  width: 350px;
-  height: 500px;
+  width: 500px;
+  height: 550px;
   background: linear-gradient(black, rgb(85, 85, 85));
   overflow: hidden;
   box-shadow: 5px 20px 50px #000;
@@ -46,9 +42,9 @@ input {
   justify-content: center;
   display: flex;
   margin: 20px auto;
-  padding: 10px;
   border: none;
   outline: none;
+  padding: 20px;
   border-radius: 5px;
 }
 
@@ -99,7 +95,7 @@ button:hover {
 
 
 #chk:checked ~ .login {
-  transform: translateY(-500px);
+  transform: translateY(-550px);
 }
 
 #chk:checked ~ .login label {
@@ -108,4 +104,16 @@ button:hover {
 
 #chk:checked ~ .signup label {
   transform: scale(0.6);
+}
+
+
+@media screen and (max-width: 400px) {
+  article{
+    width: 300px;
+    height: 500px;
+  }
+
+  #chk:checked ~ .login {
+    transform: translateY(-500px);
+  }
 }

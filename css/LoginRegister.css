@@ -1,5 +1,10 @@
-main{
-  height: 88vh;
+:root {
+  --height-article: 450px;
+}
+
+main {
+  width: 100%;
+  height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,7 +12,7 @@ main{
 
 article {
   width: 500px;
-  height: 550px;
+  height: var(--height-article);
   background: linear-gradient(black, rgb(85, 85, 85));
   overflow: hidden;
   box-shadow: 5px 20px 50px #000;
@@ -29,7 +34,6 @@ label {
   font-size: 2.3em;
   justify-content: center;
   display: flex;
-  margin: 60px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.5s ease-in-out;
@@ -49,7 +53,7 @@ input {
 }
 
 button {
-  width: 68%;
+  width: 60%;
   height: 40px;
   margin: 10px auto;
   justify-content: center;
@@ -71,10 +75,10 @@ button:hover {
 }
 
 .login {
-  height: 460px;
+  height: var(--height-article);
   background: white;
   border-radius: 60% / 10%;
-  transform: translateY(-180px);
+  transform: translateY(-90px);
   transition: 0.8s ease-in-out;
 }
 
@@ -84,18 +88,17 @@ button:hover {
   transform: scale(0.6);
 }
 
-.login input{
+.login input {
   border: 1px solid black;
 }
 
-.login button{
+.login button {
   color: white;
   background: black;
 }
 
-
 #chk:checked ~ .login {
-  transform: translateY(-550px);
+  transform: translateY(-390px);
 }
 
 #chk:checked ~ .login label {
@@ -106,14 +109,44 @@ button:hover {
   transform: scale(0.6);
 }
 
-
-@media screen and (max-width: 400px) {
-  article{
+@media screen and (max-width: 600px) {
+  article {
     width: 300px;
-    height: 500px;
+    height: 400px;
   }
 
   #chk:checked ~ .login {
-    transform: translateY(-500px);
+    transform: translateY(-350px);
+  }
+
+  .login {
+    height: 400px;
+    transform: translateY(-70px);
+  }
+}
+
+@media screen and (max-width: 300px) {
+
+  article{
+    width: 250px;
+    height: 400px;
+  }
+
+  label {
+    font-size: 1.5rem;
+  }
+
+  input{
+    padding: 20px;
+    width: 80%;
+  }
+
+  #chk:checked ~ .login {
+    transform: translateY(-360px);
+  }
+
+  .login {
+    height: 500px;
+    transform: translateY(-50px);
   }
 }

@@ -33,11 +33,16 @@ header {
   z-index: 1;
 }
 
-header h1{
+header h1 {
   margin-bottom: 0;
 }
 
-header h1 a {
+header h1 a img{
+  width: 200px;
+  height: 100px;
+}
+
+a {
   text-decoration: none;
   color: white;
 }
@@ -59,30 +64,69 @@ footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
   padding: 20px;
 }
 
+#copyright{
+  display: flex;
+  justify-content: center;
+}
+
 .icon {
-  font-size: 50px;
+  font-size: 30px;
   padding: 8px;
   border-radius: 10px;
   transition: 0.5s ease-in-out;
   cursor: pointer;
+  margin: 0px 10px;
 }
 
-.fa-instagram:hover{
+.fa-instagram:hover {
   background-color: purple;
 }
 
-.fa-github{
+.fa-github {
   border: 1px solid black;
 }
 
-.fa-github:hover{
+.fa-github:hover {
   border: 1px solid white;
 }
 
-.fa-envelope:hover{
+.fa-envelope:hover {
   background-color: rgba(255, 0, 0, 0.74);
+}
+
+@media screen and (max-width:400px) {
+  footer{
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  header h1 a img{
+    width: 100px;
+    height: 50px;
+  }  
+
+  .icon{
+    padding: 3px;
+    margin: 0px 3px;
+  }
+
+  .legal{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
+
+  .legal *{
+    margin: 10px;
+  }
+
+  .legal div *{
+    padding: 3px;
+  }
+
 }

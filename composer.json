@@ -1,0 +1,10 @@
+{
+    "name": "PinGiDev",
+    "description": "Framework PinGiDev",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "steampixel/simple-php-router": "^0.7.1",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}

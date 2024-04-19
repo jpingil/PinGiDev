@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core;
+namespace Com\Daw2\Core;
 
 use \PDO;
 

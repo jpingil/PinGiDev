@@ -1,6 +1,6 @@
 <?php
 
-namespace PinGiDev\Core;
+namespace Com\Daw2\Core;
 
 class View {
 

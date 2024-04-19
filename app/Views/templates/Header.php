@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../public/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../public/assets/css/All.css" />
-    <link rel="stylesheet" href="../../public/assets/css/AboutMe.css" />
+    <link rel="stylesheet" href="../../public/assets/css/<?php echo $view;?>.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -62,64 +62,3 @@
         </div>
       </nav>
     </header>
-    <main>
-      <nav>
-        <ul>
-          <li><a href="#description">Description</a></li>
-          <li><a href="#formation">Formation</a></li>
-          <li><a href="#skills">Skills</a></li>
-        </ul>
-      </nav>
-      <section>
-        <h1>Jorge Pino Gil</h1>
-        <p>Web Developer</p>
-      </section>
-      <section id="description">
-        <h2>Description</h2>
-        <div class="description">
-          <img src="../imgs/jorge.jpg" alt="PinGiDev selfie" />
-          <p>
-            Hello! My name is Jorge, and I am a web developer. I finished the
-            higher education cycle in web development and now I want to study
-            computer enginering.
-          </p>
-        </div>
-      </section>
-      <section id="formation">
-        <h2>Formation</h2>
-        <div class="formation">
-          <p>Bachelor's degree</p>
-          <p>Higher Cycle of Web Application Development</p>
-        </div>
-      </section>
-      <section id="skills">
-        <h2>Skills</h2>
-        <div class="aptitudes">
-          <p>CSS</p>
-          <p>PHP</p>
-          <p>Java</p>
-          <p>HTML</p>
-          <p>JavaScript</p>
-          <p>Bootstrap</p>
-          <p>Power Bi</p>
-          <p>AWS</p>
-          <p>SQL</p>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <div class="legal">
-        <p id="legalNotices"><a href="">Legal Notices</a></p>
-        <p id="privacity"><a href="">Privacity</a></p>
-        <p id="moreContact">Telf: 645949745</p>
-      </div>
-      <p id="copyright">© Creative Commons</p>
-      <div class="contact">
-        <i class="fa-brands fa-instagram icon" style="color: #ffffff"></i>
-        <i class="fa-brands fa-github icon" style="color: #ffffff"></i>
-        <i class="fa-regular fa-envelope icon" style="color: #ffffff"></i>
-      </div>
-    </footer>
-    <script src="../js/bootstrap.min.js"></script>
-  </body>
-</html>

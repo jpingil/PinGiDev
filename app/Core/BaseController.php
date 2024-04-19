@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Com\Daw2\Core;
 
 abstract class BaseController {
 

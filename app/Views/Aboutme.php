@@ -14,7 +14,7 @@
       <section id="description">
         <h2>Description</h2>
         <div class="description">
-          <img src="../imgs/jorge.jpg" alt="PinGiDev selfie" />
+            <img src="assets/imgs/AboutMe/jorge.jpg" alt="PinGiDev selfie" />
           <p>
             Hello! My name is Jorge, and I am a web developer. I finished the
             higher education cycle in web development and now I want to study

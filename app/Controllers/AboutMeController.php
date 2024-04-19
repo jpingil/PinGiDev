@@ -15,6 +15,9 @@ namespace Com\Daw2\Controllers;
 class AboutMeController extends \Com\Daw2\Core\BaseController {
 
     public function seeView() {
-        echo "hola";
+        $data = [
+            'section' => 'AboutMe'
+        ];
+        $this->view->showViews(array('templates/Header.php', 'AboutMe.php', 'templates/Footer.php'), $data);
     }
 }

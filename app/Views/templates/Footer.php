@@ -11,4 +11,4 @@
     <i class="fa-regular fa-envelope icon" style="color: #ffffff"></i>
   </div>
 </footer>
-<script src="../../../public/assets/js/bootstrap.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>

@@ -12,12 +12,9 @@ namespace Com\Daw2\Controllers;
  *
  * @author jpingil
  */
-class AboutMeController extends \Com\Daw2\Core\BaseController {
+class UserController extends \Com\Daw2\Core\BaseController {
 
-    public function seeView() {
-        $data = [
-            'section' => 'AboutMe'
-        ];
-        $this->view->showViews(array('templates/Header.php', 'AboutMe.php', 'templates/Footer.php'), $data);
+    public function seeAbouMe() {
+        echo "hola";
     }
 }

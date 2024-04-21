@@ -12,30 +12,36 @@ class FrontController {
         if (!isset($_SESSION['usuario'])) {
             Route::add('/AboutMe',
                     function () {
-                        echo "Hola";
+                        $controlador = new \Com\Daw2\Controllers\AboutMeController();
+                        $controlador->seeAbouMe();
                     }
                     , 'get');
-//
-//        Route::pathNotFound(
-//            function () {
-//                header('location: /AboutMe');
-//            }
-//        );    
+
+            Route::add('/Products',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\ProductsController();
+                        $controlador->seeProducts();
+                    }
+                    , 'get');
+
+            Route::add('/CustomProduct',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\CustomProductController();
+                        $controlador->seeCustomProduct();
+                    }
+                    , 'get');
+
+            Route::add('/LoginRegister',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador->seeLoginRegister();
+                    }
+                    , 'get');
+
+            Route::pathNotFound(
+                    $controller
+            );
         }
-
-        Route::pathNotFound(
-                function () {
-                    $controller = new \Com\Daw2\Controllers\ErroresController();
-                    $controller->error404();
-                }
-        );
-
-        Route::methodNotAllowed(
-                function () {
-                    $controller = new \Com\Daw2\Controllers\ErroresController();
-                    $controller->error405();
-                }
-        );
 
         Route::run();
     }

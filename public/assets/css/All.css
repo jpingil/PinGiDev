@@ -62,16 +62,19 @@ ul li a {
 
 footer {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   margin-top: 20px;
   padding: 20px;
 }
 
 #copyright{
-  display: flex;
-  justify-content: center;
+  justify-self: center;
+}
+
+.contact{
+  justify-self: end;
 }
 
 .icon {

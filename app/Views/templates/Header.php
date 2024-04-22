@@ -67,16 +67,13 @@
                                 $section === 'Favorites') ? 'active' : '';
                                 ?>" href="/Favorites">Favorites</a>
                             </li>
-                            <?php if (!isset($_SESSION['user'])) {
-                                ?>
-                                <li>
-                                    <a class="nav-link <?php
-                                    echo(isset($section) &&
-                                    $section === 'LoginRegister') ? 'active' : '';
-                                    ?>" href="/LoginRegister">Login/Register</a>
-                                </li>
-                            <?php }
-                            ?>
+                            <li>
+                                <a class="nav-link <?php
+                                echo(isset($section) &&
+                                $section === 'LoginRegister') ? 'active' : '';
+                                ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
+                                    <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

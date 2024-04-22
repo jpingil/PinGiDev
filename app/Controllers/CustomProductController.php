@@ -19,6 +19,6 @@ class CustomProductController extends \Com\Daw2\Core\BaseController{
             'section' => 'CustomProduct'
         ];
 
-        $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('templates/Header.php', 'CustomProduct.php', 'templates/Footer.php'), $data);
     }
 }

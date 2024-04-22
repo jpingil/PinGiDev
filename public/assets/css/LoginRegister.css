@@ -78,7 +78,7 @@ button:hover {
   height: var(--height-article);
   background: white;
   border-radius: 60% / 10%;
-  transform: translateY(-90px);
+  transform: translateY(-70px);
   transition: 0.8s ease-in-out;
 }
 

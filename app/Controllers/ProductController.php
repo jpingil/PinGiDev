@@ -12,13 +12,17 @@ namespace Com\Daw2\Controllers;
  *
  * @author jorge
  */
-class ProductsController extends \Com\Daw2\Core\BaseController{
+class ProductController extends \Com\Daw2\Core\BaseController {
 
-    public function seeProducts() :void{
+    public function seeProducts(): void {
+        $productModel = new \Com\Daw2\Models\ProductModel();
+        $products = $productModel->getAll();
+
         $data = [
-            'section' => 'Products'
+            'section' => 'Products',
+            'products' => $products
         ];
-        
+
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
 }

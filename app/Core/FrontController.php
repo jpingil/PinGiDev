@@ -19,15 +19,8 @@ class FrontController {
 
             Route::add('/Products',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\ProductsController();
+                        $controlador = new \Com\Daw2\Controllers\ProductController();
                         $controlador->seeProducts();
-                    }
-                    , 'get');
-
-            Route::add('/CustomProduct',
-                    function () {
-                        $controlador = new \Com\Daw2\Controllers\CustomProductController();
-                        $controlador->seeCustomProduct();
                     }
                     , 'get');
 
@@ -38,9 +31,32 @@ class FrontController {
                     }
                     , 'get');
 
+            Route::add('/CustomProduct',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador->seeLoginRegister();
+                    }
+                    , 'get');
+
+            Route::add('/Favorites',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador->seeLoginRegister();
+                    }
+                    , 'get');
+
             Route::pathNotFound(
-                    $controller
+                    function () {
+                        header("Location: /AboutMe");   
+                    }
             );
+        } else {
+            Route::add('/CustomProduct',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\CustomProductController();
+                        $controlador->seeCustomProduct();
+                    }
+                    , 'get');
         }
 
         Route::run();

@@ -14,6 +14,12 @@
                     placeholder="Password"
                     required
                     />
+                <input
+                    type="password"
+                    name="pswd"
+                    placeholder="Verify password"
+                    required
+                    />
                 <button>Sign up</button>
             </form>
         </section>

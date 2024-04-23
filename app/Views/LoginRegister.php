@@ -32,7 +32,7 @@
 
                 <button type="submit">Sign up</button>                    
                 <?php
-                if (isset($errors)) {
+                if (isset($errors['register'])) {
                     ?>
                     <p class="text-danger d-flex justify-content-center"><?php echo $errors['registerErrors'] ?></p>
                     <?php
@@ -45,14 +45,21 @@
         <section class="login">
             <form action="/Login" method="post">
                 <label for="chk">Login</label>
-                <input type="email" name="email" placeholder="Email" required="" />
+                <input type="email" name="email" placeholder="Email" required />
                 <input
                     type="password"
-                    name="pswd"
+                    name="pass"
                     placeholder="Password"
                     required
                     />
                 <button>Login</button>
+                <?php
+                if (isset($errors['login'])) {
+                    ?>
+                    <p class="text-danger d-flex justify-content-center"><?php echo $errors['login'] ?></p>
+                    <?php
+                }
+                ?>
             </form>
         </section>
 

@@ -14,11 +14,13 @@ namespace Com\Daw2\Controllers;
  */
 class LoginRegisterController extends \Com\Daw2\Core\BaseController {
 
-    public function seeLoginRegister(): void {
+    public function seeLoginRegister(array $errores = null): void {
         $data = [
             'section' => 'LoginRegister'
         ];
-
+        if (!is_null($errors) && !empty($errors)) {
+            $data['errors'] = $errors;
+        }
         $this->view->showViews(array('templates/Header.php', 'LoginRegister.php', 'templates/Footer.php'), $data);
     }
 
@@ -36,19 +38,13 @@ class LoginRegisterController extends \Com\Daw2\Core\BaseController {
             }
         }
 
-        $data = [
-            'section' => 'LoginRegister',
-            'errors' => $errors,
-            'data' => filter_var($_POST, FILTER_SANITIZE_SPECIAL_CHARS)
-        ];
-
-        $this->view->showViews(array('templates/Header.php', 'LoginRegister.php', 'templates/Footer.php'), $data);
+        $this->seeLoginRegister($errors);
     }
 
     private function checkRegister(array $data): array {
         $errors = [];
-        if (!isset($data['userName']) || !isset($data['email']) ||
-                !isset($data['pass']) || !isset($data['pass2'])) {
+        if (empty($data['userName']) || empty($data['email']) ||
+                empty($data['pass']) || empty($data['pass2'])) {
             $errors['registerErrors'] = 'There are empty values.';
         } else {
             if (!filter_var($data['userName'], FILTER_SANITIZE_STRING) ||
@@ -58,7 +54,6 @@ class LoginRegisterController extends \Com\Daw2\Core\BaseController {
                 $errors['registerErrors'] = 'Invalid data.';
             } else {
                 $userModel = new \Com\Daw2\Models\UserModel();
-
                 if (!is_null($userModel->getUserByEmail($data['email']))) {
                     $errors['registerErrors'] = 'That email is already in use.';
                 } else {
@@ -70,8 +65,40 @@ class LoginRegisterController extends \Com\Daw2\Core\BaseController {
         }
         return $errors;
     }
-    
-    public function logout() :void{
-        
+
+    public function processLogin() {
+        $errors = $this->checkLogin($_POST);
+
+        if (empty($errors)) {
+            $userModel = new \Com\Daw2\Models\UserModel();
+            $user = $userModel->getUserByEmail($_POST['email']);
+            if (is_null($user)) {
+                $errors['login'] = 'There is no registered user with this data.';
+            } else {
+                $_SESSION['user'] = $user;
+                header('Location:/AboutMe');
+            }
+        }
+
+        $this->seeLoginRegister($errors);
+    }
+
+    private function checkLogin(array $data): array {
+        $errors = [];
+
+        if (empty($data['email']) || empty($data['pass'])) {
+            $errors['login'] = 'There are empty values.';
+        } else {
+            if (!filter_var($data['email'], FILTER_SANITIZE_EMAIL)) {
+                $errors['login'] = 'Invalid data.';
+            }
+        }
+
+        return $errors;
+    }
+
+    public function logout(): void {
+        session_destroy();
+        header('Location:/LoginRegister');
     }
 }

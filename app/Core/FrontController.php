@@ -50,11 +50,25 @@ class FrontController {
                         $controlador->processRegister();
                     }
                     , 'post');
+
+            Route::add('/Login',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador->processLogin();
+                    }
+                    , 'post');
         } else {
             Route::add('/CustomProduct',
                     function () {
                         $controlador = new \Com\Daw2\Controllers\CustomProductController();
                         $controlador->seeCustomProduct();
+                    }
+                    , 'get');
+
+            Route::add('/Logout',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador->logout();
                     }
                     , 'get');
         }

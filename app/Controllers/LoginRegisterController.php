@@ -14,12 +14,15 @@ namespace Com\Daw2\Controllers;
  */
 class LoginRegisterController extends \Com\Daw2\Core\BaseController {
 
-    public function seeLoginRegister(array $errores = null): void {
+    public function seeLoginRegister(array $errors = null, array $postData = null): void {
         $data = [
             'section' => 'LoginRegister'
         ];
         if (!is_null($errors) && !empty($errors)) {
             $data['errors'] = $errors;
+        }
+        if (!is_null($postData) && !empty($postData)) {
+            $data['data'] = $postData;
         }
         $this->view->showViews(array('templates/Header.php', 'LoginRegister.php', 'templates/Footer.php'), $data);
     }

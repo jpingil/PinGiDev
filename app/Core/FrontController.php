@@ -33,12 +33,12 @@ class FrontController {
 
             Route::add('/Logout',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->logout();
                     }
                     , 'get');
 
-            if ($_SESSION['user']['name'] == 'admin') {
+            if ($_SESSION['user']['rol_name'] == 'admin') {
                 Route::add('/Management',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\UserController();
@@ -52,7 +52,7 @@ class FrontController {
                             $controlador->seeUsers();
                         }
                         , 'get');
-                        
+
                 Route::add('/AdminUsers/add',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\UserController();
@@ -77,34 +77,34 @@ class FrontController {
         } else {
             Route::add('/LoginRegister',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->seeLoginRegister();
                     }
                     , 'get');
 
             Route::add('/Favorites',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->seeLoginRegister();
                     }
                     , 'get');
             Route::add('/CustomProduct',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->seeLoginRegister();
                     }
                     , 'get');
 
             Route::add('/Register',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->processRegister();
                     }
                     , 'post');
 
             Route::add('/Login',
                     function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->processLogin();
                     }
                     , 'post');

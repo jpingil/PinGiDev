@@ -5,6 +5,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
 
+declare(strict_types=1);
+
 namespace Com\Daw2\Controllers;
 
 /**

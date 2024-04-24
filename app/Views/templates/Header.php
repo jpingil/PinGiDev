@@ -67,6 +67,13 @@
                                 $section === 'Favorites') ? 'active' : '';
                                 ?>" href="/Favorites">Favorites</a>
                             </li>
+                            <?php if (isset($_SESSION['user']) && $_SESSION['user']['rol_name'] == 'admin') { ?>
+                                <li>
+                                    <a class="nav-link" href="/Management">Management</a>
+                                </li>
+                                <?php
+                            }
+                            ?>
                             <li>
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
@@ -74,13 +81,7 @@
                                 ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
                                     <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
                             </li>
-                            <?php if (isset($_SESSION['user']) && $_SESSION['user']['name'] == 'admin') { ?>
-                                <li>
-                                    <a class="nav-link" href="/Management">Management</a>
-                                </li>
-                                <?php
-                            }
-                            ?>
+
                         </ul>
                     </div>
                 </div>

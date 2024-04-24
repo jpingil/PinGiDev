@@ -14,7 +14,8 @@ namespace Com\Daw2\Models;
  */
 class UserModel extends \Com\Daw2\Core\BaseDbModel {
 
-    private const SELECT_FROM_ALL = 'SELECT u.*, r.* FROM user u INNER JOIN rol r ON u.id_rol = r.id';
+    private const SELECT_FROM_ALL = 'SELECT u.*, r.*, s.* FROM user u INNER JOIN rol r ON u.id_rol = r.id'
+            . ' INNER JOIN status s ON u.id_status = s.id';
 
     public function getAll(): array {
         $stmt = $this->pdo->query(self::SELECT_FROM_ALL);

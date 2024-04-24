@@ -1,6 +1,6 @@
 <main>
     <article class="col-12">
-              <a class="add" href="/AdminUsers/add">Add User</a>
+        <a class="add" href="/AdminUsers/add">Add User</a>
         <h2>PinGiDev Users</h2>
         <table class="table table-dark">
             <thead>
@@ -12,17 +12,18 @@
             </thead>
             <tbody>
                 <?php
-                if (count($users )> 0) {
+                if (count($users) > 0) {
                     foreach ($users as $user) {
                         ?>
                         <tr>
                             <td><?php echo $user['id']; ?></td>
                             <td><?php echo $user['user_name']; ?></td>
                             <td><?php echo $user['email']; ?></td>
-                            <td><?php echo $user['name']; ?></td>
+                            <td><?php echo $user['rol_name']; ?></td>
                             <td>
                                 <a class="fa-regular fa-pen-to-square icon" style="color: #ffffff;"></a>
-                                <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;"></a>
+                                <a class="fa-solid fa-toggle-<?= ($user['status_name'] === 'activated') ? 'on' : 'off'
+                        ?> icon" style="color: #ffffff;"></a>
                                 <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
                             </td>
                         </tr>

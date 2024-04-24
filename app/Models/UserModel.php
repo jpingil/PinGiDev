@@ -14,8 +14,8 @@ namespace Com\Daw2\Models;
  */
 class UserModel extends \Com\Daw2\Core\BaseDbModel {
 
-    private const SELECT_FROM_ALL = 'SELECT u.*, r.*, s.* FROM user u INNER JOIN rol r ON u.id_rol = r.id'
-            . ' INNER JOIN status s ON u.id_status = s.id';
+    private const SELECT_FROM_ALL = 'SELECT u.*, r.*, s.* FROM User u INNER JOIN Rol r ON u.id_rol = r.id'
+            . ' INNER JOIN Status s ON u.id_status = s.id';
 
     public function getAll(): array {
         $stmt = $this->pdo->query(self::SELECT_FROM_ALL);
@@ -34,8 +34,8 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
     public function login(string $email, string $pass): ?array {
         $user = $this->getUserByEmail($email);
         if (!is_null($user)) {
-//            if (password_verify($pass, $user['pass'])) {
-            if ($pass === $user['pass']) {
+            if (password_verify($pass, $user['pass'])) {
+//            if ($pass === $user['pass']) {
                 unset($user['pass']);
                 return $user;
             }
@@ -44,13 +44,13 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
     }
 
     public function register(array $vars) {
-        $stmt = $this->pdo->prepare('INSERT INTO User (user_name, pass, email, id_rol) '
-                . 'VALUES (:userName, :pass, :email, 1)');
+        $stmt = $this->pdo->prepare('INSERT INTO User (user_name, pass, email, id_rol, id_status) '
+                . 'VALUES (:userName, :pass, :email, 1, 0)');
         $stmt->execute(
                 [
                     'userName' => $vars['userName'],
-                    'pass' => $vars['pass'],
-//                    'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
+//                    'pass' => $vars['pass'],
+                    'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
                     'email' => $vars['email']
                 ]
         );

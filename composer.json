@@ -1,6 +1,6 @@
 {
-    "name": "PinGiDev",
-    "description": "Framework PinGiDev",
+    "name": "com/daw2",
+    "description": "Framework DAw2",
     "type": "project",
     "license": "MIT",
     "autoload": {
@@ -13,3 +13,4 @@
         "vlucas/phpdotenv": "^5.5"
     }
 }
+

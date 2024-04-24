@@ -33,7 +33,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $products = $productModel->getAll();
 
         $data = [
-            'section' => 'AdminProducts',
             'products' => $products
         ];
 
@@ -41,10 +40,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     }
 
     public function seeAdd(): void {
-        $data = [
-            'section' => 'CustomProduct',
-        ];
-
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'admin/templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'admin/templates/Footer.php'));
     }
 }

@@ -133,7 +133,6 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $users = $userModel->getAll();
 
         $data = [
-            'section' => 'AdminUsers',
             'users' => $users
         ];
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);

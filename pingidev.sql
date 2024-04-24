@@ -7,14 +7,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema PinGiDev
--- -----------------------------------------------------
 
--- -----------------------------------------------------
--- Schema PinGiDev
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `PinGiDev` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
 -- Schema pingidev
 -- -----------------------------------------------------
@@ -23,13 +16,13 @@ CREATE SCHEMA IF NOT EXISTS `PinGiDev` DEFAULT CHARACTER SET utf8 ;
 -- Schema pingidev
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `pingidev` DEFAULT CHARACTER SET utf8mb4 ;
-USE `PinGiDev` ;
+USE `pingidev` ;
 
 -- -----------------------------------------------------
--- Table `PinGiDev`.`Status`
+-- Table `pingidev`.`Status`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `PinGiDev`.`Status` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `pingidev`.`Status` (
+  `id` INT NOT NULL DEFAULT 0,
   `status_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -53,11 +46,11 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `pingidev`.`Rol`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pingidev`.`Rol` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL DEFAULT 1,
   `rol_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -81,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `pingidev`.`User` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_User_Status1`
     FOREIGN KEY (`id_status`)
-    REFERENCES `PinGiDev`.`Status` (`id`)
+    REFERENCES `pingidev`.`Status` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -141,7 +134,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `pingidev`.`Actions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pingidev`.`Actions` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL,
   `action_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -178,11 +171,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-INSERT INTO rol (id, rol_name) VALUES (0, 'admin');
-INSERT INTO rol (id, rol_name) VALUES (1, 'defaultUser');
+INSERT INTO Rol (id, rol_name) VALUES (0, 'admin');
+INSERT INTO Rol (id, rol_name) VALUES (1, 'defaultUser');
 
-INSERT INTO status (id, status_name) VALUES (0, 'activated');
-INSERT INTO status (id, status_name) VALUES (1, 'deactivated');
+INSERT INTO Status (id, status_name) VALUES (0, 'activated');
+INSERT INTO Status (id, status_name) VALUES (1, 'deactivated');
 
 
-INSERT INTO user (id, user_name, pass, email, id_rol, id_status) VALUES (0, 'jpingil', '12345678', 'jorgepinogil013@gmail.com', 0, 0);
+

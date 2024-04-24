@@ -1,0 +1,10 @@
+article{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table{
+    width: 80%;
+}

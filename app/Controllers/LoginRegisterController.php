@@ -50,20 +50,23 @@ class LoginRegisterController extends \Com\Daw2\Core\BaseController {
                 empty($data['pass']) || empty($data['pass2'])) {
             $errors['registerErrors'] = 'There are empty values.';
         } else {
-            if (!filter_var($data['userName'], FILTER_SANITIZE_STRING) ||
-                    !filter_var($data['pass'], FILTER_SANITIZE_EMAIL) ||
-                    !filter_var($data['pass'], FILTER_SANITIZE_STRING) ||
-                    !filter_var($data['pass2'], FILTER_SANITIZE_STRING)) {
-                $errors['registerErrors'] = 'Invalid data.';
-            } else {
-                $userModel = new \Com\Daw2\Models\UserModel();
-                if (!is_null($userModel->getUserByEmail($data['email']))) {
-                    $errors['registerErrors'] = 'That email is already in use.';
-                } else {
-                    if ($data['pass'] !== $data['pass2']) {
-                        $errors['registerErrors'] = "Passwords don't match.";
-                    }
-                }
+            if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $data['userName'])) {
+                $errors['registerErrors'] = 'The username can only contain numbers, '
+                        . 'letters, underscores, and must be between 4 and 15 characters.';
+            }
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $errors['registerErros'] = 'The email is not valid.';
+            }
+
+            $userModel = new \Com\Daw2\Models\UserModel();
+            if (!is_null($userModel->getUserByEmail($data['email']))) {
+                $errors['registerErrors'] = 'That email is already in use.';
+            }
+            if (!preg_match('/^.{8,18}$/', $data['pass'])) {
+                $errors['registerErrors'] = 'The password must be between 8 and 18 characters long.';
+            }
+            if ($data['pass'] !== $data['pass2']) {
+                $errors['registerErrors'] = 'The passwords must match.';
             }
         }
         return $errors;
@@ -74,7 +77,7 @@ class LoginRegisterController extends \Com\Daw2\Core\BaseController {
 
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
-            $user = $userModel->getUserByEmail($_POST['email']);
+            $user = $userModel->login($_POST['email'], $_POST['pass']);
             if (is_null($user)) {
                 $errors['login'] = 'There is no registered user with this data.';
             } else {

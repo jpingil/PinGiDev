@@ -34,7 +34,7 @@
                 <?php
                 if (isset($errors['register'])) {
                     ?>
-                    <p class="text-danger d-flex justify-content-center"><?php echo $errors['registerErrors'] ?></p>
+                    <p class="text-danger d-flex justify-content-center"><?php echo $errors['register'] ?></p>
                     <?php
                 }
                 ?>

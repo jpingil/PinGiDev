@@ -74,6 +74,13 @@
                                 ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
                                     <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
                             </li>
+                            <?php if (isset($_SESSION['user']) && $_SESSION['user']['name'] == 'admin') { ?>
+                                <li>
+                                    <a class="nav-link" href="/Management">Management</a>
+                                </li>
+                                <?php
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>

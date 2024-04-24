@@ -23,7 +23,30 @@ class FrontController {
                 }
                 , 'get');
 
-        if (!isset($_SESSION['user'])) {
+        if (isset($_SESSION['user'])) {
+            Route::add('/CustomProduct',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\CustomProductController();
+                        $controlador->seeCustomProduct();
+                    }
+                    , 'get');
+
+            Route::add('/Logout',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
+                        $controlador->logout();
+                    }
+                    , 'get');
+
+            if ($_SESSION['user']['name'] == 'admin') {
+                Route::add('/Management',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->seeUsers();
+                        }
+                        , 'get');
+            }
+        } else {
             Route::add('/LoginRegister',
                     function () {
                         $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
@@ -57,21 +80,8 @@ class FrontController {
                         $controlador->processLogin();
                     }
                     , 'post');
-        } else {
-            Route::add('/CustomProduct',
-                    function () {
-                        $controlador = new \Com\Daw2\Controllers\CustomProductController();
-                        $controlador->seeCustomProduct();
-                    }
-                    , 'get');
-
-            Route::add('/Logout',
-                    function () {
-                        $controlador = new \Com\Daw2\Controllers\LoginRegisterController();
-                        $controlador->logout();
-                    }
-                    , 'get');
         }
+
 
         Route::pathNotFound(
                 function () {

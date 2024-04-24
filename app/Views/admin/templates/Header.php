@@ -46,26 +46,23 @@
                             <li class="nav-item">
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
-                                $section === 'AboutMe') ? 'active' : '';
-                                ?>" href="/AboutMe">About Me</a>
+                                $section === 'AdminUsers') ? 'active' : '';
+                                ?>" href="/AdminUsers">Users</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
-                                $section === 'Products') ? 'active' : '';
-                                ?>" href="/Products">Products</a>
+                                $section === 'AdminProducts') ? 'active' : '';
+                                ?>" href="/AdminProducts">Products</a>
                             </li>
                             <li>
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
-                                $section === 'CustomProduct') ? 'active' : '';
-                                ?>" href="/CustomProduct">Custom Product</a>
+                                $section === 'AdminCustomProduct') ? 'active' : '';
+                                ?>" href="/AdminCustomProduct">Custom Products</a>
                             </li>
                             <li>
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'Favorites') ? 'active' : '';
-                                ?>" href="/Favorites">Favorites</a>
+                                <a class="nav-link" href="/AboutMe">Web</a>
                             </li>
                             <li>
                                 <a class="nav-link <?php
@@ -74,6 +71,7 @@
                                 ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
                                     <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
                             </li>
+
                         </ul>
                     </div>
                 </div>

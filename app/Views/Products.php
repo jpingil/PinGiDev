@@ -6,7 +6,7 @@
         <div class="products">
             <div class="product">
                 <a href="Product.html">
-                    <img src="" alt="" />
+                    <img src="assets/imgs/Products" alt="" />
                 </a>
                 <div class="buttons">
                     <button class="btnCompra"><?php echo $products['price']; ?></button>

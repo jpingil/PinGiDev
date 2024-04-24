@@ -14,14 +14,30 @@ namespace Com\Daw2\Models;
  */
 class UserModel extends \Com\Daw2\Core\BaseDbModel {
 
+    private const SELECT_FROM_ALL = 'SELECT u.*, r.* FROM user u INNER JOIN rol r ON u.id_rol = r.id';
+
+    public function getAll(): array {
+        $stmt = $this->pdo->query(self::SELECT_FROM_ALL);
+        return $stmt->fetchAll();
+    }
+
     public function getUserByEmail(string $email): ?array {
-        $stmt = $this->pdo->prepare('SELECT * FROM User WHERE email = :email');
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE email = ?');
         $stmt->execute([$email]);
         if ($row = $stmt->fetch()) {
             return $row;
-        } else {
-            return null;
         }
+        return null;
+    }
+
+    public function login(string $email, string $pass): ?array {
+        $user = $this->getUserByEmail($email);
+        if (!is_null($user)) {
+            if (password_verify($pass, $user['pass'])) {
+                return $user;
+            }
+        }
+        return null;
     }
 
     public function register(array $vars) {

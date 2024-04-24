@@ -25,4 +25,24 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
+
+    public function seeAdminProducts(): void {
+        $productModel = new \Com\Daw2\Models\ProductModel();
+        $products = $productModel->getAll();
+
+        $data = [
+            'section' => 'AdminProducts',
+            'products' => $products
+        ];
+
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminProducts.php', 'admin/templates/Footer.php'), $data);
+    }
+
+    public function seeAdd(): void {
+        $data = [
+            'section' => 'CustomProduct',
+        ];
+
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'admin/templates/Footer.php'), $data);
+    }
 }

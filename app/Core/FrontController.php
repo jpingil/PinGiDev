@@ -45,6 +45,34 @@ class FrontController {
                             $controlador->seeUsers();
                         }
                         , 'get');
+
+                Route::add('/AdminUsers',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->seeUsers();
+                        }
+                        , 'get');
+                        
+                Route::add('/AdminUsers/add',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->seeAdd();
+                        }
+                        , 'get');
+
+                Route::add('/AdminProducts',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->seeAdminProducts();
+                        }
+                        , 'get');
+
+                Route::add('/AdminProducts/add',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->seeAdd();
+                        }
+                        , 'get');
             }
         } else {
             Route::add('/LoginRegister',

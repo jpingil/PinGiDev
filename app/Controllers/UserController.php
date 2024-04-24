@@ -25,4 +25,15 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
     }
+
+    public function seeAdd(): void {
+        $userModel = new \Com\Daw2\Models\UserModel();
+        $users = $userModel->getAll();
+
+        $data = [
+            'section' => 'AdminUsers',
+            'users' => $users
+        ];
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
+    }
 }

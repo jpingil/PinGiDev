@@ -22,7 +22,7 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
     }
 
     public function getUserByEmail(string $email): ?array {
-        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE email = ?');
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.email = ?');
         $stmt->execute([$email]);
         if ($row = $stmt->fetch()) {
             return $row;
@@ -33,7 +33,9 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
     public function login(string $email, string $pass): ?array {
         $user = $this->getUserByEmail($email);
         if (!is_null($user)) {
-            if (password_verify($pass, $user['pass'])) {
+//            if (password_verify($pass, $user['pass'])) {
+            if ($pass === $user['pass']) {
+                unset($user['pass']);
                 return $user;
             }
         }
@@ -46,7 +48,8 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         $stmt->execute(
                 [
                     'userName' => $vars['userName'],
-                    'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
+                    'pass' => $vars['pass'],
+//                    'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
                     'email' => $vars['email']
                 ]
         );

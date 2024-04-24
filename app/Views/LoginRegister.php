@@ -2,9 +2,7 @@
 
 <main>
     <article>
-
         <input type="checkbox" id="chk" />
-
         <section class="signup">
 
             <form action="/Register" method="post">
@@ -38,7 +36,6 @@
                     <?php
                 }
                 ?>
-
             </form>
         </section>
 

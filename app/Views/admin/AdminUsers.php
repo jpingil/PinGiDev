@@ -14,6 +14,7 @@
                 <?php
                 if (count($users) > 0) {
                     foreach ($users as $user) {
+                        
                         ?>
                         <tr>
                             <td><?php echo $user['id']; ?></td>

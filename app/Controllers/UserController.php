@@ -129,12 +129,6 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function seeAdd(): void {
-        $userModel = new \Com\Daw2\Models\UserModel();
-        $users = $userModel->getAll();
-
-        $data = [
-            'users' => $users
-        ];
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php','admin/AddUsers.php', 'admin/templates/Footer.php'));
     }
 }

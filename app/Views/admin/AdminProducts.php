@@ -7,26 +7,28 @@
             <th scope="col">Id</th>
             <th scope="col">Product Name</th>
             <th scope="col">Description</th>
-            <th scope="col">Route</th>
+            <th scope="col">Folder</th>
+            <th scope="col">Actions</th>
+
             </thead>
             <tbody>
                 <?php
                 if (count($products)) {
                     foreach ($products as $product) {
-                        
+                        ?>
+                        <tr>
+                            <td><?php echo $product['id']; ?></td>
+                            <td><?php echo $product['product_name']; ?></td>
+                            <td><?php echo $product['product_description']; ?></td>
+                            <td><?php echo $product['folder_imgs']; ?></td>
+                            <td>
+                                <a class="fa-regular fa-pen-to-square icon" style="color: #ffffff;"></a>
+                                <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;"></a>
+                                <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
+                            </td>
+                        </tr>  
+                        <?php
                     }
-                    ?>
-                    <tr>
-                        <td><?php echo $products['id']; ?></td>
-                        <td><?php echo $products['title']; ?></td>
-                        <td><?php echo $user['route']; ?></td>
-                        <td>
-                            <a class="fa-regular fa-pen-to-square icon" style="color: #ffffff;"></a>
-                            <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;"></a>
-                            <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
-                        </td>
-                    </tr>  
-                    <?php
                 }
                 ?>
             </tbody>

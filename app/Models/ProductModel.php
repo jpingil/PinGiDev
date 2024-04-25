@@ -17,9 +17,20 @@ namespace Com\Daw2\Models;
 class ProductModel extends \Com\Daw2\Core\BaseDbModel {
 
     private const SELECT_FROM = 'SELECT * FROM Product';
+    private const ROUTE_FOLDER_IMGS = 'imgs/Product/';
 
-    function getAll(): array {
+    public function getAll(): array {
         $stmt = $this->pdo->query(self::SELECT_FROM);
         return $stmt->fetchAll();
+    }
+
+    public function insert($vars): bool {
+        $stmt = $this->pdo->prepare('INSERT INTO Product (product_name, product_description, folder_imgs) values'
+                . ' (:product_name, :product_description, :folder_imgs)');
+        return $stmt->execute([
+                    'product_name' => $vars['product_name'],
+                    'product_description' => $vars['product_description'],
+                    'folder_imgs' => self::ROUTE_FOLDER_IMGS . $vars['product_name']
+        ]);
     }
 }

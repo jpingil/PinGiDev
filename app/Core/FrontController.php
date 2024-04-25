@@ -73,6 +73,13 @@ class FrontController {
                             $controlador->seeAdd();
                         }
                         , 'get');
+
+                Route::add('/AdminProducts/add',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->processAdd();
+                        }
+                        , 'post');
             }
         } else {
             Route::add('/LoginRegister',

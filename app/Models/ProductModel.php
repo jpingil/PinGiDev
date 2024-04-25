@@ -16,7 +16,7 @@ namespace Com\Daw2\Models;
  */
 class ProductModel extends \Com\Daw2\Core\BaseDbModel {
 
-    private const SELECT_FROM = 'SELECT * FROM Product';
+    private const SELECT_FROM = 'SELECT * FROM product';
     private const ROUTE_FOLDER_IMGS = 'imgs/Product/';
 
     public function getAll(): array {

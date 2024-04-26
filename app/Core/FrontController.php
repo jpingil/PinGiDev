@@ -88,12 +88,20 @@ class FrontController {
                         }
                         , 'post');
 
-                Route::add('/AdminProducts/edit([^/0-9/*])',
+                Route::add('/AdminProducts/edit/([0-9]+)',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\ProductController();
                             $controlador->seeAdd();
                         }
                         , 'get');
+                        
+                Route::add('/Product/([0-9]+)',
+                function () {
+                $controlador = new \Com\Daw2\Controllers\ProductController();
+                $controlador->seeProduct();
+                }
+                , 'get');
+
             }
         } else {
             Route::add('/LoginRegister',

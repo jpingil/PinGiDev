@@ -146,4 +146,17 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $this->seeAdd(null, $product);
         }
     }
+    
+    public function seeProduct(int $id):void{
+        $productModel = new \Com\Daw2\Models\ProductModel();
+        $data = $productModel->getProductById($id);
+        
+        if($data === false){
+            header('Location: /Products');
+        }else{
+            $product = $productModel->getAll();
+            
+            
+        }
+    }
 }

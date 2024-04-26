@@ -36,7 +36,7 @@
                 cols="30"
                 rows="10"
                 placeholder="Product description"
-                value="<?= (isset($data['product_name'])) ? $data['product_description'] : ''; ?>"
+                value="<?= (isset($data['product_description'])) ? $data['product_description'] : ''; ?>"
                 ></textarea>
             <label for="floatingarea">Description</label>
         </div>
@@ -52,6 +52,8 @@
             <div id="image-preview"></div>
             <input type="file" name="image" id="image" accept="image/*"/>
             <label for="image">Image</label>
+            <?php echo (isset($edit)) ? 'disabled' : ''; ?>
+
         </div>
         <?php if (isset($errors['image'])) {
             ?>
@@ -69,6 +71,7 @@
                 name="images[]"
                 multiple
                 accept="image/*"
+                <?php echo (isset($edit)) ? 'disabled' : ''; ?>
                 />
             <label for="images">Images</label>
         </div>

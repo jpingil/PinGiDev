@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2024 a las 13:25:47
+-- Tiempo de generación: 26-04-2024 a las 19:25:15
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -88,7 +88,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `folder_imgs`) VALUES
-(25, 'Travel', 'Travel website template', 'imgs/Product/Travel');
+(25, 'Travel', 'Travel website template', 'imgs/Product/Travel'),
+(26, 'Travel 2', 'Travel prueba 2', 'imgs/Product/Travel 2');
 
 -- --------------------------------------------------------
 
@@ -236,7 +237,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

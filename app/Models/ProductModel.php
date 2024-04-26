@@ -34,7 +34,7 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         ]);
     }
 
-    public function getProductById(int $id) {
+    public function getProductById(int $id): bool {
         $stmt = $this->pdo->prepare(self::SELECT_FROM . 'WHERE id_product = ?');
         return $stmt->execute([$id]);
     }

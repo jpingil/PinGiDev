@@ -23,8 +23,8 @@
                             <td><?php echo $product['folder_imgs']; ?></td>
                             <td>
                                 <a class="fa-regular fa-pen-to-square icon" style="
-                                   color: #ffffff;" href="/AdminProducts/edit<?= $product['id_product']; ?>"></a>
-                                <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;"></a>
+                                   color: #ffffff;" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
+                                   <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;" onclick="changeButton()"></a>
                                 <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
                             </td>
                         </tr>  

@@ -60,6 +60,13 @@ class FrontController {
                         }
                         , 'get');
 
+                Route::add('/AdminUsers/ban(/[^0-9]*/)',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->ban();
+                        }
+                        , 'get');
+
                 Route::add('/AdminProducts',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\ProductController();
@@ -80,6 +87,13 @@ class FrontController {
                             $controlador->processAdd();
                         }
                         , 'post');
+
+                Route::add('/AdminProducts/edit([^/0-9/*])',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->seeAdd();
+                        }
+                        , 'get');
             }
         } else {
             Route::add('/LoginRegister',

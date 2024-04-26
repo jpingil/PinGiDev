@@ -8,7 +8,7 @@
             <div class="products">
                 <div class="product">
                     <a href="Product.html">
-                        <img src="assets/imgs/Products" alt="<?php $product['product_name'];?>F" />
+                        <img src="assets/<?php echo $product['folder_imgs'] . '/Main Image/' . $product['product_name']; ?>.jpg" alt="<?php echo $product['product_description']; ?>"/>
                     </a>
                     <div class="buttons">
                         <button class="btnCompra"><?php echo $product['product_name']; ?></button>
@@ -16,6 +16,8 @@
                     </div>
                 </div>
             </div>
-        <?php }
-    } ?>
+            <?php
+        }
+    }
+    ?>
 </main>

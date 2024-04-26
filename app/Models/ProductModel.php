@@ -33,4 +33,9 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
                     'folder_imgs' => self::ROUTE_FOLDER_IMGS . $vars['product_name']
         ]);
     }
+
+    public function getProductById(int $id) {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM . 'WHERE id_product = ?');
+        return $stmt->execute([$id]);
+    }
 }

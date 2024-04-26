@@ -17,12 +17,13 @@
                     foreach ($products as $product) {
                         ?>
                         <tr>
-                            <td><?php echo $product['id']; ?></td>
+                            <td><?php echo $product['id_product']; ?></td>
                             <td><?php echo $product['product_name']; ?></td>
                             <td><?php echo $product['product_description']; ?></td>
                             <td><?php echo $product['folder_imgs']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" style="color: #ffffff;"></a>
+                                <a class="fa-regular fa-pen-to-square icon" style="
+                                   color: #ffffff;" href="/AdminProducts/edit<?= $product['id_product']; ?>"></a>
                                 <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;"></a>
                                 <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
                             </td>

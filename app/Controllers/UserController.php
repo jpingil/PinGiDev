@@ -116,7 +116,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         header('Location:/LoginRegister');
     }
 
-    public function seeUsers(): void {
+    public function seeUsers(array $banRemoveProcess = null): void {
         $userModel = new \Com\Daw2\Models\UserModel();
         $users = $userModel->getAll();
 
@@ -125,10 +125,48 @@ class UserController extends \Com\Daw2\Core\BaseController {
             'users' => $users
         ];
 
+        if (!is_null($banRemoveProcess)) {
+            $data['banRemoveProcess'] = $banRemoveProcess;
+        }
+
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function seeAdd(): void {
-        $this->view->showViews(array('admin/templates/Header.php','admin/AddUsers.php', 'admin/templates/Footer.php'));
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'admin/templates/Footer.php'));
+    }
+
+    public function ban(int $id) {
+        if ($id === $_SESSION['user']['id_user']) {
+            $banRemoveProcess = [
+                'class' => 'warning',
+                'message' => "You can't ban yourself"
+            ];
+        } else {
+            $userModel = new \Com\Daw2\Models\UserModel();
+            $user = $userModel->getUserById($id);
+            $ban = 0;
+            if ($user['id_status'] == 0) {
+                $ban = 1;
+            } else {
+                if ($user['id_status'] == 1) {
+                    $ban = 0;
+                }
+            }
+
+            $banRemoveProcess = [];
+            if ($userModel->updateStatus($id, $ban)) {
+                $banRemoveProcess = [
+                    'class' => 'success',
+                    'message' => 'User status changed.'
+                ];
+            } else {
+                $banRemoveProcess = [
+                    'class' => 'danger',
+                    'message' => 'Error changing user status.'
+                ];
+            }
+        }
+        $this->seeUsers($banRemoveProcess);
     }
 }

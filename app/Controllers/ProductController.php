@@ -69,8 +69,24 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $productModel = new \Com\Daw2\Models\ProductModel();
 
             if ($productModel->insert($_POST)) {
-                mkdir('../public/assets/imgs/Products/' . $_POST['product_name'] . '/Main Image/', 0777, true);
-                mkdir('../public/assets/imgs/Products/' . $_POST['product_name'] . '/Carousel Images/', 0777, true);
+                $mainImageFile = '../public/assets/imgs/Product/' .
+                        $_POST['product_name'] . '/Main Image/';
+                $carouselImagesFile = '../public/assets/imgs/Product/' .
+                        $_POST['product_name'] . '/Carousel Images/';
+
+                mkdir($mainImageFile, 0777, true);
+                mkdir($carouselImagesFile, 0777, true);
+
+                $mainImageName = $_POST['product_name'] . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+                move_uploaded_file($_FILES['image']['tmp_name'], $mainImageFile . $mainImageName);
+
+                foreach ($_FILES['images']['tmp_name'] as $key => $tmpName) {
+                    $carouselImageName = $_POST['product_name'] . $key . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                    $carouselImageDest = $carouselImagesFile . $carouselImageName;
+                    move_uploaded_file($tmpName, $carouselImageDest);
+                }
+
                 header('Location: /AdminProducts');
             }
         }
@@ -119,8 +135,15 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 }
             }
         }
-
-
         return $errors;
+    }
+
+    public function seeEdit(int $id): void {
+        $productModel = new \Com\Daw2\Models\ProductModel();
+        $product = $productModel->getProductById($id);
+
+        if ($product) {
+            $this->seeAdd(null, $product);
+        }
     }
 }

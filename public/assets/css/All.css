@@ -1,135 +1,136 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.2 ease-in-out;
 }
 
 :root {
-  --header-height: 100px;
-  --nav-height: 80px;
+    --header-height: 100px;
+    --nav-height: 80px;
 }
 
 body {
-  background: black;
-  color: white;
+    background: black;
+    color: white;
 }
 
 main {
-  margin-top: var(--header-height);
+    margin-top: var(--header-height);
 }
 
 header {
-  top: 0;
-  width: 100%;
-  height: var(--header-height);
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  background-color: black;
-  z-index: 1;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    background-color: black;
+    z-index: 1;
 }
 
 header h1 {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 header h1 a img{
-  width: 200px;
-  height: 100px;
+    width: 200px;
+    height: 100px;
 }
 
 a {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 ul {
-  list-style: none;
-  display: flex;
+    list-style: none;
+    display: flex;
 }
 
 ul li {
-  padding: 10px;
+    padding: 10px;
 }
 
 ul li a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 footer {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-  margin-top: 20px;
-  padding: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
 }
 
 #copyright{
-  justify-self: center;
+    justify-self: center;
 }
 
 .contact{
-  justify-self: end;
+    justify-self: end;
 }
 
 .icon {
-  font-size: 30px;
-  padding: 8px;
-  border-radius: 10px;
-  transition: 0.5s ease-in-out;
-  cursor: pointer;
-  margin: 0px 10px;
+    font-size: 30px;
+    padding: 8px;
+    border-radius: 10px;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    margin: 0px 10px;
 }
 
 .fa-instagram:hover {
-  background-color: purple;
+    background-color: purple;
 }
 
 .fa-github {
-  border: 1px solid black;
+    border: 1px solid black;
 }
 
 .fa-github:hover {
-  border: 1px solid white;
+    border: 1px solid white;
 }
 
 .fa-envelope:hover {
-  background-color: rgba(255, 0, 0, 0.74);
+    background-color: rgba(255, 0, 0, 0.74);
 }
 
-@media screen and (max-width:400px) {
-  footer{
-    display: flex;
-    flex-direction: column;
-  }
+@media screen and (max-width:500px) {
+    footer{
+        display: flex;
+        flex-direction: column;
+    }
 
-  header h1 a img{
-    width: 100px;
-    height: 50px;
-  }  
+    header h1 a img{
+        width: 100px;
+        height: 50px;
+    }
 
-  .icon{
-    padding: 3px;
-    margin: 0px 3px;
-  }
+    .icon{
+        padding: 3px;
+        margin: 0px 3px;
+    }
 
-  .legal{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-  }
+    .legal{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+    }
 
-  .legal *{
-    margin: 10px;
-  }
+    .legal *{
+        margin: 10px;
+    }
 
-  .legal div *{
-    padding: 3px;
-  }
+    .legal div *{
+        padding: 3px;
+    }
 
 }

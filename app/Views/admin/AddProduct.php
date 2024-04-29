@@ -52,7 +52,7 @@
 
 
             <?php
-            if (isset($section) && $section === '/AdminProducts/edit') {
+            if (isset($section) && strpos($section, 'edit') !== false) {
                 ?>
                 <p><?php echo $data['img_folder'] . '/Main Image'; ?></p>
                 <?php
@@ -77,7 +77,7 @@
             <div id="images-preview"></div>
 
             <?php
-            if (isset($section) && $section === '/AdminProducts/edit') {
+            if (isset($section) && strpos($section, 'edit') !== false) {
                 ?>
                 <p><?php echo $data['img_folder'] . '/Carousel'; ?></p>
                 <?php

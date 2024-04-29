@@ -16,7 +16,7 @@ namespace Com\Daw2\Controllers;
  */
 class ProductController extends \Com\Daw2\Core\BaseController {
 
-    private const MAX_FILE_SIZE_BYTES = 512000;
+    private const MAX_FILE_SIZE_BYTES = 512000*2;
 
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
@@ -74,13 +74,12 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 $mainImageName = $_POST['product_name'] . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
                 move_uploaded_file($_FILES['image']['tmp_name'], $mainImageFile . $mainImageName);
-
-                foreach ($_FILES['images']['tmp_name'] as $key => $tmpName) {
-                    $carouselImageName = $_POST['product_name'] . $key . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                
+                for ($i = 0; $i < count($_FILES['images']['tmp_name']); $i++) {
+                    $carouselImageName = $_POST['product_name'] . $i.  '.' . pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION);
                     $carouselImageDest = $carouselImagesFile . $carouselImageName;
-                    move_uploaded_file($tmpName, $carouselImageDest);
+                    move_uploaded_file($_FILES['images']['tmp_name'][$i], $carouselImageDest);
                 }
-
                 header('Location: /AdminProducts');
             }
         }
@@ -145,6 +144,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 'section' => '/AdminProducts/edit/' . $product['id_product'],
                 'title' => 'Edit Product',
                 'data' => $product,
+                
             ];
 
             $this->seeAdd($data);
@@ -176,7 +176,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 //Change carousel imgs names
                 for ($i = 0; $i < count($product_old['img_carousel_length']); $i++) {
                     $oldImgRoute = '../public/assets/imgs/Product/' .
-                            $_POST['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
+                            $product_old['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
                             '.' . $product_old['img_extension'];
                     $newImgRoute = '../public/assets/imgs/Product/' .
                             $_POST['product_name'] . '/Carousel Images/' . $_POST['product_name'] . $i .

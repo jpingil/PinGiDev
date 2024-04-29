@@ -83,25 +83,32 @@ class FrontController {
 
                 Route::add('/AdminProducts/add',
                         function () {
+                            $add = true;
                             $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->processAdd();
+                            $controlador->processAdd($add);
                         }
                         , 'post');
 
                 Route::add('/AdminProducts/edit/([0-9]+)',
-                        function () {
+                        function ($id) {
                             $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->seeAdd();
+                            $controlador->seeEdit($id);
                         }
                         , 'get');
-                        
-                Route::add('/Product/([0-9]+)',
-                function () {
-                $controlador = new \Com\Daw2\Controllers\ProductController();
-                $controlador->seeProduct();
-                }
-                , 'get');
 
+                Route::add('/AdminProducts/edit/([0-9]+)',
+                        function ($id) {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->processEdit($id);
+                        }
+                        , 'post');
+
+                Route::add('/Product/([0-9]+)',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->seeProduct();
+                        }
+                        , 'get');
             }
         } else {
             Route::add('/LoginRegister',

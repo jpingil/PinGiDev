@@ -1,6 +1,6 @@
 <main>
-    <h2>Add Product</h2>
-    <form action="/AdminProducts/add" method="post"  enctype="multipart/form-data">
+    <h2><?php echo $title; ?></h2>
+    <form action="<?php echo $section; ?>" method="post"  enctype="multipart/form-data">
         <?php if (isset($errors['form'])) {
             ?>
             <div class="alert alert-danger" role="alert">
@@ -36,8 +36,7 @@
                 cols="30"
                 rows="10"
                 placeholder="Product description"
-                value="<?= (isset($data['product_description'])) ? $data['product_description'] : ''; ?>"
-                ></textarea>
+                ><?= (isset($data['product_description'])) ? $data['product_description'] : ''; ?></textarea>
             <label for="floatingarea">Description</label>
         </div>
         <?php if (isset($errors['product_description'])) {
@@ -50,9 +49,20 @@
         ?>
         <div class="imgsPreview">
             <div id="image-preview"></div>
-            <input type="file" name="image" id="image" accept="image/*"/>
+
+
+            <?php
+            if (isset($section) && $section === '/AdminProducts/edit') {
+                ?>
+                <p><?php echo $data['img_folder'] . '/Main Image'; ?></p>
+                <?php
+            } else {
+                ?>
+                <input type="file" name="image" id="image" accept="image/*"/>
+                <?php
+            }
+            ?>
             <label for="image">Image</label>
-            <?php echo (isset($edit)) ? 'disabled' : ''; ?>
 
         </div>
         <?php if (isset($errors['image'])) {
@@ -65,14 +75,25 @@
         ?>
         <div class="imgsPreview">
             <div id="images-preview"></div>
-            <input
-                type="file"
-                id="images"
-                name="images[]"
-                multiple
-                accept="image/*"
-                <?php echo (isset($edit)) ? 'disabled' : ''; ?>
-                />
+
+            <?php
+            if (isset($section) && $section === '/AdminProducts/edit') {
+                ?>
+                <p><?php echo $data['img_folder'] . '/Carousel'; ?></p>
+                <?php
+            } else {
+                ?>
+                <input
+                    type="file"
+                    id="images"
+                    name="images[]"
+                    multiple
+                    accept="image/*"
+                    />
+                    <?php
+                }
+                ?>
+
             <label for="images">Images</label>
         </div>
         <?php

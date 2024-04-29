@@ -17,7 +17,7 @@ namespace Com\Daw2\Models;
 class ProductModel extends \Com\Daw2\Core\BaseDbModel {
 
     private const SELECT_FROM = 'SELECT * FROM product';
-    private const ROUTE_FOLDER_IMGS = 'imgs/Product/';
+    private const ROUTE_IMG_FOLDER = 'imgs/Product/';
 
     public function getAll(): array {
         $stmt = $this->pdo->query(self::SELECT_FROM);
@@ -25,17 +25,36 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
     }
 
     public function insert($vars): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO Product (product_name, product_description, folder_imgs) values'
-                . ' (:product_name, :product_description, :folder_imgs)');
+        $stmt = $this->pdo->prepare('INSERT INTO product (product_name, product_description, '
+                . 'img_folder, img_extension, img_carousel_length) values'
+                . ' (:product_name, :product_description, :img_folder, :img_extension, :img_carousel_length)');
         return $stmt->execute([
                     'product_name' => $vars['product_name'],
                     'product_description' => $vars['product_description'],
-                    'folder_imgs' => self::ROUTE_FOLDER_IMGS . $vars['product_name']
+                    'img_folder' => self::ROUTE_IMG_FOLDER . $vars['product_name'],
+                    'img_extension' => $vars['img_extension'],
+                    'img_carousel_length' => $vars['img_carousel_length']
         ]);
     }
 
-    public function getProductById(int $id): bool {
-        $stmt = $this->pdo->prepare(self::SELECT_FROM . 'WHERE id_product = ?');
-        return $stmt->execute([$id]);
+    public function update($vars): bool {
+        $stmt = $this->pdo->prepare('UPDATE product set product_name = :product_name, '
+                . 'product_description = :product_description, img_folder = :img_folder WHERE id_product = :id_product');
+        return $stmt->execute([
+                    'product_name' => $vars['product_name'],
+                    'product_description' => $vars['product_description'],
+                    'img_folder' => self::ROUTE_IMG_FOLDER . $vars['product_name'],
+                    'id_product' => $vars['id_product']
+        ]);
+    }
+
+    public function getProductById(int $id): ?array {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE id_product = ?');
+        $stmt->execute([$id]);
+        if ($row = $stmt->fetch()) {
+            return $row;
+        }
+
+        return null;
     }
 }

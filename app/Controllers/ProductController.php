@@ -16,7 +16,7 @@ namespace Com\Daw2\Controllers;
  */
 class ProductController extends \Com\Daw2\Core\BaseController {
 
-    private const MAX_FILE_SIZE_BYTES = 512000*2;
+    private const MAX_FILE_SIZE_BYTES = 512000 * 2;
 
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
@@ -74,12 +74,18 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 $mainImageName = $_POST['product_name'] . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
                 move_uploaded_file($_FILES['image']['tmp_name'], $mainImageFile . $mainImageName);
-                
-                for ($i = 0; $i < count($_FILES['images']['tmp_name']); $i++) {
-                    $carouselImageName = $_POST['product_name'] . $i.  '.' . pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION);
+
+                $counter = 0;
+                foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+                    $carouselImageName = $_POST['product_name'] . $counter . '.' . pathinfo($_FILES['images']['name'][$key], PATHINFO_EXTENSION);
                     $carouselImageDest = $carouselImagesFile . $carouselImageName;
-                    move_uploaded_file($_FILES['images']['tmp_name'][$i], $carouselImageDest);
+                    move_uploaded_file($tmp_name, $carouselImageDest);
+                    $counter++;
                 }
+
+                var_dump($_FILES);
+                die();
+
                 header('Location: /AdminProducts');
             }
         }
@@ -144,7 +150,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 'section' => '/AdminProducts/edit/' . $product['id_product'],
                 'title' => 'Edit Product',
                 'data' => $product,
-                
             ];
 
             $this->seeAdd($data);
@@ -176,7 +181,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 //Change carousel imgs names
                 for ($i = 0; $i < count($product_old['img_carousel_length']); $i++) {
                     $oldImgRoute = '../public/assets/imgs/Product/' .
-                            $product_old['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
+                            $_POST['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
                             '.' . $product_old['img_extension'];
                     $newImgRoute = '../public/assets/imgs/Product/' .
                             $_POST['product_name'] . '/Carousel Images/' . $_POST['product_name'] . $i .
@@ -200,12 +205,14 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
     public function seeProduct(int $id): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
-        $data = $productModel->getProductById($id);
-
-        if ($data === false) {
-            header('Location: /Products');
-        } else {
-            $product = $productModel->getAll();
+        $product = $productModel->getProductById($id);
+        if (!is_null($product)) {
+            $data = [
+                'section' => 'Product',
+                'product' => $product
+            ];
         }
+
+        $this->view->showViews(array('templates/Header.php', 'Product.php', 'templates/Footer.php'), $data);
     }
 }

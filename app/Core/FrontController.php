@@ -23,6 +23,13 @@ class FrontController {
                 }
                 , 'get');
 
+        Route::add('/Product/([0-9]+)',
+                function ($id) {
+                    $controlador = new \Com\Daw2\Controllers\ProductController();
+                    $controlador->seeProduct($id);
+                }
+                , 'get');
+
         if (isset($_SESSION['user'])) {
             Route::add('/CustomProduct',
                     function () {
@@ -102,13 +109,6 @@ class FrontController {
                             $controlador->processEdit($id);
                         }
                         , 'post');
-
-                Route::add('/Product/([0-9]+)',
-                        function () {
-                            $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->seeProduct();
-                        }
-                        , 'get');
             }
         } else {
             Route::add('/LoginRegister',

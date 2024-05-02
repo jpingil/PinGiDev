@@ -16,7 +16,7 @@ namespace Com\Daw2\Models;
  */
 class ProductModel extends \Com\Daw2\Core\BaseDbModel {
 
-    private const SELECT_FROM = 'SELECT * FROM product';
+    private const SELECT_FROM = 'SELECT * FROM product p inner join favorites f on p.id_product = f.id_product';
     private const ROUTE_IMG_FOLDER = 'imgs/Product/';
 
     public function getAll(): array {
@@ -56,5 +56,19 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         }
 
         return null;
+    }
+
+    /**
+     * 
+     * @param int $idProduct id of the product that we want see if is favorite
+     * @return bool if this query have a row, this query is true and the product is fav
+     */
+    public function isFav(int $idProduct): bool {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE id_product = ?');
+        if ($row = $stmt->fetch()) {
+            return true;
+        }
+
+        return false;
     }
 }

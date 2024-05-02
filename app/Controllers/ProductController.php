@@ -209,6 +209,11 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $this->seeAdd($data);
     }
 
+    public function productFav() {
+        $json_data = file_get_contents('php://input');
+        $json = json_decode($json_data);
+    }
+
     public function seeProduct(int $id): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $product = $productModel->getProductById($id);

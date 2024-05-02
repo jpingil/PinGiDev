@@ -13,7 +13,7 @@
                         <img src="assets/<?php echo $product['img_folder'] . '/Main Image/' . $product['product_name']; ?>.jpg" alt="<?php echo $product['product_description']; ?>"/>
                     </a>
                     <div class="buttons">
-                        <button class="btnFavorito"><i class="fa fa-heart"></i></button>
+                        <button class="btnFav"><i class="fa fa-heart"></i></button>
                     </div>
                 </div>
                 <?php

@@ -95,6 +95,14 @@ class FrontController {
                         }
                         , 'post');
 
+                Route::add('/PostFav',
+                        function () {
+                            $add = true;
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->($add);
+                        }
+                        , 'post');
+
                 Route::add('/AdminProducts',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\ProductController();

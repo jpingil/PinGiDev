@@ -30,9 +30,9 @@
                             <td><?php echo $user['email']; ?></td>
                             <td><?php echo $user['rol_name']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" style="color: #ffffff;"></a>
+                                <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>" style="color: #ffffff;"></a>
                                 <a class="fa-solid fa-toggle-<?= ($user['status_name'] === 'activated') ? 'on' : 'off'
-                        ?> icon" style="color: #ffffff;" href="/AdminUsers/ban<?= $user['id_user']; ?>"></a>
+                ?> icon" style="color: #ffffff;" href="/AdminUsers/ban<?= $user['id_user']; ?>"></a>
                                 <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
                             </td>
                         </tr>

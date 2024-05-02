@@ -1,6 +1,6 @@
 <main>
     <h2><?php echo $title; ?></h2>
-    <form action="<?php echo $section; ?>" method="post"  enctype="multipart/form-data">
+    <form action='/AdminProducts/add' method="post"  enctype="multipart/form-data">
         <?php if (isset($errors['form'])) {
             ?>
             <div class="alert alert-danger" role="alert">
@@ -58,7 +58,7 @@
                 <?php
             } else {
                 ?>
-                <input type="file" name="image" id="image" accept="image/*"/>
+                <input type="file" name="image" id="image"/>
                 <?php
             }
             ?>
@@ -88,7 +88,6 @@
                     id="images"
                     name="images[]"
                     multiple
-                    accept="image/*"
                     />
                     <?php
                 }

@@ -27,9 +27,6 @@ class UserController extends \Com\Daw2\Core\BaseController {
             $data['data'] = $postData;
         }
 
-        //        var_dump($postData);
-        //        var_dump($errors);
-        //        die();
         $this->view->showViews(array('templates/Header.php', 'LoginRegister.php', 'templates/Footer.php'), $data);
     }
 
@@ -120,6 +117,8 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $userModel = new \Com\Daw2\Models\UserModel();
         $users = $userModel->getAll();
 
+        $data['section'] = 'AdminUsers';
+        $data['users'] = $users;
         $data = [
             'section' => 'AdminUsers',
             'users' => $users
@@ -132,41 +131,72 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
     }
 
-    public function seeAdd(): void {
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'admin/templates/Footer.php'));
+    public function seeAdd(array $data = null): void {
+        $styles = ['CustomProduct'];
+
+        $data['styles'] = $styles;
+        $data['section'] = 'AdminUsers';
+
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'admin/templates/Footer.php'), $data);
     }
 
-    public function ban(int $id) {
-        if ($id === $_SESSION['user']['id_user']) {
-            $banRemoveProcess = [
-                'class' => 'warning',
-                'message' => "You can't ban yourself"
-            ];
-        } else {
+    public function processAdd(): void {
+        $errors = $this->checkRegister($_POST);
+        if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
-            $user = $userModel->getUserById($id);
-            $ban = 0;
-            if ($user['id_status'] == 0) {
-                $ban = 1;
-            } else {
-                if ($user['id_status'] == 1) {
-                    $ban = 0;
-                }
-            }
-
-            $banRemoveProcess = [];
-            if ($userModel->updateStatus($id, $ban)) {
-                $banRemoveProcess = [
-                    'class' => 'success',
-                    'message' => 'User status changed.'
-                ];
-            } else {
-                $banRemoveProcess = [
-                    'class' => 'danger',
-                    'message' => 'Error changing user status.'
-                ];
-            }
+            $userModel->register($_POST);
+            header('Location: /AdminUsers');
         }
-        $this->seeUsers($banRemoveProcess);
+
+        $data = [];
+        $data['errors'] = $errors;
+        $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->seeAdd($data);
     }
+
+    public function seeEdit(int $id): void {
+        $userModel = new \Com\Daw2\Models\UserModel();
+        $user = $userModel->getUserById($id);
+        if ($user) {
+            $data = [];
+            $data['input'] = $user;
+            $this->seeAdd($data);
+        } else {
+            Header('Location: /AdminUsers');
+        }
+    }
+
+//    public function ban(int $id) {
+//        if ($id === $_SESSION['user']['id_user']) {
+//            $banRemoveProcess = [
+//                'class' => 'warning',
+//                'message' => "You can't ban yourself"
+//            ];
+//        } else {
+//            $userModel = new \Com\Daw2\Models\UserModel();
+//            $user = $userModel->getUserById($id);
+//            $ban = 0;
+//            if ($user['id_status'] == 0) {
+//                $ban = 1;
+//            } else {
+//                if ($user['id_status'] == 1) {
+//                    $ban = 0;
+//                }
+//            }
+//
+//            $banRemoveProcess = [];
+//            if ($userModel->updateStatus($id, $ban)) {
+//                $banRemoveProcess = [
+//                    'class' => 'success',
+//                    'message' => 'User status changed.'
+//                ];
+//            } else {
+//                $banRemoveProcess = [
+//                    'class' => 'danger',
+//                    'message' => 'Error changing user status.'
+//                ];
+//            }
+//        }
+//        $this->seeUsers($banRemoveProcess);
+//    }
 }

@@ -60,34 +60,36 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
         if (empty($errors)) {
             $productModel = new \Com\Daw2\Models\ProductModel();
+            $validExtensions = ['jpeg', 'jpg', 'png'];
             $_POST['img_extension'] = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $_POST['img_carousel_length'] = count($_FILES['images']['name']);
-            if ($productModel->insert($_POST)) {
-                $mainImageFile = '../public/assets/imgs/Product/' .
-                        $_POST['product_name'] . '/Main Image/';
-                $carouselImagesFile = '../public/assets/imgs/Product/' .
-                        $_POST['product_name'] . '/Carousel Images/';
 
-                mkdir($mainImageFile, 0777, true);
-                mkdir($carouselImagesFile, 0777, true);
-
-                $mainImageName = $_POST['product_name'] . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-
-                move_uploaded_file($_FILES['image']['tmp_name'], $mainImageFile . $mainImageName);
-
-                $counter = 0;
-                foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-                    $carouselImageName = $_POST['product_name'] . $counter . '.' . pathinfo($_FILES['images']['name'][$key], PATHINFO_EXTENSION);
-                    $carouselImageDest = $carouselImagesFile . $carouselImageName;
-                    move_uploaded_file($tmp_name, $carouselImageDest);
-                    $counter++;
+            if (in_array($_POST['img_extension'], $validExtensions)) {
+                if ($productModel->insert($_POST)) {
+                    $mainImageFile = '../public/assets/imgs/Product/' .
+                            $_POST['product_name'] . '/Main Image/';
+                    mkdir($mainImageFile, 0777, true);
+                    $mainImageName = $_POST['product_name'] . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                    move_uploaded_file($_FILES['image']['tmp_name'], $mainImageFile . $mainImageName);
                 }
-
-                var_dump($_FILES);
-                die();
-
-                header('Location: /AdminProducts');
             }
+
+            foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+                $carouselImageName = $_FILES['images']['name'][$key];
+                $extension = pathinfo($carouselImageName, PATHINFO_EXTENSION);
+
+                if (in_array($extension, $validExtensions)) {
+                    $carouselImagesFile = '../public/assets/imgs/Product/' . $_POST['product_name'] . '/Carousel Images/';
+                    mkdir($carouselImagesFile, 0777, true);
+
+                    $uniqueFilename = $_POST['product_name'] . '_' . $key . '.' . $extension;
+                    move_uploaded_file($_FILES['images']['tmp_name'][$key], $carouselImagesFile . $uniqueFilename);
+                }
+            }
+
+
+
+            header('Location: /AdminProducts');
         }
 
         unset($_POST['image'], $_POST['images']);
@@ -127,7 +129,9 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                     }
                 }
 
-                for ($i = 0; $i < count($_FILES['images']['error']); $i++) {
+                for ($i = 0;
+                        $i < count($_FILES['images']['error']);
+                        $i++) {
                     if ($_FILES['images']['error'][$i] !== 0) {
                         $errors['images'] = 'The error to load the image is the ' . $_FILES['images']['error'][$i];
                     } else {
@@ -164,12 +168,12 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $_POST['id_product'] = $id;
             if ($productModel->update($_POST)) {
 
-                //Change direcory  name
+//Change direcory  name
                 rename(('../public/assets/imgs/Product/' .
                         $product_old['product_name']), ('../public/assets/imgs/Product/' .
                         $_POST['product_name']));
 
-                //Change main img name
+//Change main img name
                 $oldImgRoute = '../public/assets/imgs/Product/' .
                         $_POST['product_name'] . '/Main Image/' . $product_old['product_name'] .
                         '.' . $product_old['img_extension'];
@@ -178,8 +182,10 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                         '.' . $product_old['img_extension'];
                 rename($oldImgRoute, $newImgRoute);
 
-                //Change carousel imgs names
-                for ($i = 0; $i < count($product_old['img_carousel_length']); $i++) {
+//Change carousel imgs names
+                for ($i = 0;
+                        $i < count($product_old['img_carousel_length']);
+                        $i++) {
                     $oldImgRoute = '../public/assets/imgs/Product/' .
                             $_POST['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
                             '.' . $product_old['img_extension'];

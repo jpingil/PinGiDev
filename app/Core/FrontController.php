@@ -67,12 +67,33 @@ class FrontController {
                         }
                         , 'get');
 
-                Route::add('/AdminUsers/ban(/[^0-9]*/)',
+                Route::add('/AdminUsers/add',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->processAdd();
+                        }
+                        , 'post');
+
+                Route::add('/AdminUsers/edit/([0-9]+)',
+                        function ($id) {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->seeEdit($id);
+                        }
+                        , 'post');
+
+                Route::add('/AdminUsers/edit/([0-9]+)',
+                        function ($id) {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->processEdit($id);
+                        }
+                        , 'post');
+
+                Route::add('/AdminUsers/ban/([0-9]+)',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\UserController();
                             $controlador->ban();
                         }
-                        , 'get');
+                        , 'post');
 
                 Route::add('/AdminProducts',
                         function () {

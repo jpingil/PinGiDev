@@ -29,6 +29,12 @@ class FrontController {
                     $controlador->seeProduct($id);
                 }
                 , 'get');
+        Route::add('/ProductFav',
+                function () {
+                    $controlador = new \Com\Daw2\Controllers\FavoriteController();
+                    $controlador->changeFav();
+                }
+                , 'post');
 
         if (isset($_SESSION['user'])) {
             Route::add('/CustomProduct',
@@ -92,13 +98,6 @@ class FrontController {
                         function () {
                             $controlador = new \Com\Daw2\Controllers\UserController();
                             $controlador->ban();
-                        }
-                        , 'post');
-
-                Route::add('/ProductFav',
-                        function () {
-                            $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->productFav();
                         }
                         , 'post');
 

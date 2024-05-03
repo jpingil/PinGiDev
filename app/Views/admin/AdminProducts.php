@@ -23,16 +23,16 @@
             <tbody>
                 <?php
                 if (count($products)) {
-                    foreach ($products as $product) {
+                    foreach ($products as $favorite) {
                         ?>
                         <tr>
-                            <td><?php echo $product['id_product']; ?></td>
-                            <td><?php echo $product['product_name']; ?></td>
-                            <td><?php echo $product['product_description']; ?></td>
-                            <td><?php echo $product['img_folder']; ?></td>
+                            <td><?php echo $favorite['id_product']; ?></td>
+                            <td><?php echo $favorite['product_name']; ?></td>
+                            <td><?php echo $favorite['product_description']; ?></td>
+                            <td><?php echo $favorite['img_folder']; ?></td>
                             <td>
                                 <a class="fa-regular fa-pen-to-square icon" style="
-                                   color: #ffffff;" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
+                                   color: #ffffff;" href="/AdminProducts/edit/<?= $favorite['id_product']; ?>"></a>
                                 <a class="fa-solid fa-toggle-on icon" style="color: #ffffff;" onclick="changeButton()"></a>
                                 <a class="fa-regular fa-trash-can icon" style="color: #ffffff;"></a>
                             </td>

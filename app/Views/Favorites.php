@@ -2,15 +2,17 @@
 <main>
     <h2>Products</h2>
     <?php
-    if (!empty($products)) {
+    if (!empty($favorites)) {
         ?>
         <div class="products">
             <?php
-            foreach ($products as $favorite) {
+            foreach ($favorites as $favorite) {
                 ?>
                 <div class="product">
-                    <a href="/Product/<?php echo $favorite['id_product']; ?>">
-                        <img src="assets/<?php echo $favorite['img_folder'] . '/Main Image/' . $favorite['product_name']; ?>.jpg" alt="<?php echo $favorite['product_description']; ?>"/>
+                    <a href="/Product/<?php echo $favorite['id']; ?>">
+                        <img src="assets/<?php echo $favorite['img_folder'] . '/Main Image/' .
+        $favorite['product_name'];
+                ?>.jpg" alt="<?php echo $favorite['product_description']; ?>"/>
                     </a>
                     <div class="buttons">
                         <i class="fa fa-heart btnFav <?php

@@ -21,15 +21,19 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
-        $productsLikedByUser = $productModel->getAllProductsFavsByUser();
         $jss = ['postsFetch'];
 
         $data = [
             'section' => 'Products',
             'products' => $products,
-            'favsProducts' => $productsLikedByUser,
             'jss' => $jss
         ];
+
+        if (isset($_SESSION['user'])) {
+            $favoriteModel = new \Com\Daw2\Models\FavoriteModel();
+            $userFavorites = $favoriteModel->getFavsByIdUser();
+            $data['favsProducts'] = $userFavorites;
+        }
 
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
@@ -209,38 +213,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             'data' => $post
         ];
         $this->seeAdd($data);
-    }
-
-    public function productFav(): void {
-        $success = false;
-        $action = '';
-
-        //Get fetch data
-        $json_data = file_get_contents('php://input');
-
-        // True to make it an asoaciative array
-        $data = json_decode($json_data, true);
-        $productModel = new \Com\Daw2\Models\ProductModel();
-
-        if (filter_var($data['id_product'], FILTER_VALIDATE_INT)) {
-            //Verify if this product exists
-            if ($productModel->exists($data['id_product'])) {
-                if ($productModel->isFav($data['id_product'])) {
-                    $action = 'noFav';
-                    if ($productModel->deleteFav($data['id_product'])) {
-                        $success = true;
-                    }
-                } else {
-                    $action = 'fav';
-                    if ($productModel->insert($data['id_product'])) {
-                        $success = true;
-                    }
-                }
-            }
-        }
-        $response = ['success' => $success, 'action' => $action];
-        header('Content-Type: application/json');
-        echo json_encode($response);
     }
 
     public function seeProduct(int $id): void {

@@ -5,13 +5,13 @@
 
             <div class="carousel-inner">
                 <?php
-                for ($i = 0; $i < $product['img_carousel_length']; $i++) {
+                for ($i = 0; $i < $favorite['img_carousel_length']; $i++) {
                     ?>
                     <div class="carousel-item active">
                         <img src="<?=
-                        'assets/' . $product['img_folder'] . '/Carousel Images/' .
-                        $product['product_name'] . $i . '.' . $product['img_extension'];
-                        ?>" alt="<?= $product['product_description']; ?>" class="d-block w-100">
+                        'assets/' . $favorite['img_folder'] . '/Carousel Images/' .
+                        $favorite['product_name'] . $i . '.' . $favorite['img_extension'];
+                        ?>" alt="<?= $favorite['product_description']; ?>" class="d-block w-100">
                     </div>
                     <?php
                 }

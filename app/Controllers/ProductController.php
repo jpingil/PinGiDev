@@ -21,18 +21,19 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
+        $productsLikedByUser = $productModel->getAllProductsFavsByUser();
         $jss = ['postsFetch'];
 
         $data = [
             'section' => 'Products',
             'products' => $products,
+            'favsProducts' => $productsLikedByUser,
             'jss' => $jss
         ];
 
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
-    
-    
+
     public function seeAdminProducts(array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
@@ -209,11 +210,14 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         ];
         $this->seeAdd($data);
     }
-    
 
     public function productFav(): void {
         $success = false;
+        $action = '';
+
+        //Get fetch data
         $json_data = file_get_contents('php://input');
+
         // True to make it an asoaciative array
         $data = json_decode($json_data, true);
         $productModel = new \Com\Daw2\Models\ProductModel();
@@ -236,7 +240,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         }
         $response = ['success' => $success, 'action' => $action];
         header('Content-Type: application/json');
-        echo json_encode($data);
+        echo json_encode($response);
     }
 
     public function seeProduct(int $id): void {
@@ -250,9 +254,5 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         }
 
         $this->view->showViews(array('templates/Header.php', 'Product.php', 'templates/Footer.php'), $data);
-    }
-    
-    private function favVerify(array $products){
-        $favorites = [];
     }
 }

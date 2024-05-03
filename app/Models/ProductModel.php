@@ -86,6 +86,15 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         return false;
     }
 
+    public function getAllProductsFavsByUser(int $idUser = null): array {
+        if (is_null($idUser)) {
+            $idUser = $_SESSION['user']['id_user'];
+        }
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_FAVS . ' WHERE id_user = ?');
+        $stmt->execute([$idUser]);
+        return $stmt->fetchAll();
+    }
+
     public function insertFav(int $idProduct, int $id_user = null): bool {
         if (is_null($id_user)) {
             $id_user = $_SESSION['user']['id_user'];

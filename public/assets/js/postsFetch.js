@@ -18,13 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                         return response.json();
                     })
-                    .then(function (data) {
-                        if (data.success) {
-                            if (data.action == "fav") {
+                    .then(function (response) {
+                        if (response.success) {
+                            if (response.action == "fav") {
                                 favIcon.classList.remove("noFav");
                                 favIcon.classList.add("fav");
                             }
-                            if (data.action == "noFav") {
+                            if (response.action == "noFav") {
                                 favIcon.classList.remove("fav");
                                 favIcon.classList.add("noFav");
                             }

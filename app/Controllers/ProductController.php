@@ -21,15 +21,18 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
+        $jss = ['postsFetch'];
 
         $data = [
             'section' => 'Products',
-            'products' => $products
+            'products' => $products,
+            'jss' => $jss
         ];
 
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
-
+    
+    
     public function seeAdminProducts(array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
@@ -120,7 +123,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             }
 
             if (is_null($edit)) {
-                // ERROR 0 = ALL OK
+                // ERROR 0 = all ok
                 if ($_FILES['image']['error'] !== 0) {
                     $errors['image'] = $_FILES['image']['error'];
                 } else {
@@ -168,12 +171,12 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $_POST['id_product'] = $id;
             if ($productModel->update($_POST)) {
 
-//Change direcory  name
+                //Change direcory  name
                 rename(('../public/assets/imgs/Product/' .
                         $product_old['product_name']), ('../public/assets/imgs/Product/' .
                         $_POST['product_name']));
 
-//Change main img name
+                //Change main img name
                 $oldImgRoute = '../public/assets/imgs/Product/' .
                         $_POST['product_name'] . '/Main Image/' . $product_old['product_name'] .
                         '.' . $product_old['img_extension'];
@@ -182,10 +185,8 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                         '.' . $product_old['img_extension'];
                 rename($oldImgRoute, $newImgRoute);
 
-//Change carousel imgs names
-                for ($i = 0;
-                        $i < count($product_old['img_carousel_length']);
-                        $i++) {
+                //Change carousel imgs names
+                for ($i = 0; $i < count($product_old['img_carousel_length']); $i++) {
                     $oldImgRoute = '../public/assets/imgs/Product/' .
                             $_POST['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
                             '.' . $product_old['img_extension'];
@@ -208,10 +209,34 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         ];
         $this->seeAdd($data);
     }
+    
 
-    public function productFav() {
+    public function productFav(): void {
+        $success = false;
         $json_data = file_get_contents('php://input');
-        $json = json_decode($json_data);
+        // True to make it an asoaciative array
+        $data = json_decode($json_data, true);
+        $productModel = new \Com\Daw2\Models\ProductModel();
+
+        if (filter_var($data['id_product'], FILTER_VALIDATE_INT)) {
+            //Verify if this product exists
+            if ($productModel->exists($data['id_product'])) {
+                if ($productModel->isFav($data['id_product'])) {
+                    $action = 'noFav';
+                    if ($productModel->deleteFav($data['id_product'])) {
+                        $success = true;
+                    }
+                } else {
+                    $action = 'fav';
+                    if ($productModel->insert($data['id_product'])) {
+                        $success = true;
+                    }
+                }
+            }
+        }
+        $response = ['success' => $success, 'action' => $action];
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 
     public function seeProduct(int $id): void {
@@ -225,5 +250,9 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         }
 
         $this->view->showViews(array('templates/Header.php', 'Product.php', 'templates/Footer.php'), $data);
+    }
+    
+    private function favVerify(array $products){
+        $favorites = [];
     }
 }

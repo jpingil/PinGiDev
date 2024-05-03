@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2024 a las 19:25:15
+-- Tiempo de generación: 03-05-2024 a las 09:05:51
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -80,16 +80,10 @@ CREATE TABLE `product` (
   `id_product` int(11) NOT NULL,
   `product_name` varchar(100) NOT NULL,
   `product_description` varchar(1000) DEFAULT NULL,
-  `folder_imgs` varchar(45) NOT NULL
+  `img_folder` varchar(45) NOT NULL,
+  `img_extension` varchar(5) NOT NULL DEFAULT 'jpg',
+  `img_carousel_length` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `product`
---
-
-INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `folder_imgs`) VALUES
-(25, 'Travel', 'Travel website template', 'imgs/Product/Travel'),
-(26, 'Travel 2', 'Travel prueba 2', 'imgs/Product/Travel 2');
 
 -- --------------------------------------------------------
 
@@ -149,7 +143,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `id_status`) VALUES
-(4, 'jpingil', '$2y$10$McD86dxgkmU3aXq/iNcntuJ3H5VK3QUZHpYwMBo2QdoTj5P803aM6', 'jorgepinogil013@gmail.com', 0, 0);
+(4, 'jpingil', '$2y$10$McD86dxgkmU3aXq/iNcntuJ3H5VK3QUZHpYwMBo2QdoTj5P803aM6', 'jorgepinogil013@gmail.com', 0, 0),
+(5, 'jorgeview', '$2y$10$fbVGlMI6IetYzMkPGkKDIekWKUTRG5ZjUs0hwOAUSn/0kEMl.blku', 'jorgepingil@gmail.com', 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -237,13 +232,13 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

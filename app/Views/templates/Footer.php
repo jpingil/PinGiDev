@@ -12,5 +12,14 @@
     </div>
 </footer>
 <script src="assets/js/bootstrap.min.js"></script>
+<?php
+if (isset($jss)) {
+    foreach ($jss as $js) {
+        ?>
+        <script src="assets/js/<?php echo $js ?>.js"></script>
+        <?php
+    }
+}
+?>
 </body>
 </html>

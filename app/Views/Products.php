@@ -13,7 +13,8 @@
                         <img src="assets/<?php echo $product['img_folder'] . '/Main Image/' . $product['product_name']; ?>.jpg" alt="<?php echo $product['product_description']; ?>"/>
                     </a>
                     <div class="buttons">
-                        <button class="btnFav"><i class="fa fa-heart"></i></button>
+                        <i class="fa fa-heart btnFav <?php echo ($favorite) ? 'fav' : 'noFav' ?>" id="
+                           <?php echo $product['id_product']; ?>"></i>
                     </div>
                 </div>
                 <?php

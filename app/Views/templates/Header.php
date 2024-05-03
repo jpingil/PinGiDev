@@ -58,12 +58,6 @@
                             <li>
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
-                                $section === 'CustomProduct') ? 'active' : '';
-                                ?>" href="/CustomProduct">Custom Product</a>
-                            </li>
-                            <li>
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
                                 $section === 'Favorites') ? 'active' : '';
                                 ?>" href="/Favorites">Favorites</a>
                             </li>

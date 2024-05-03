@@ -95,11 +95,10 @@ class FrontController {
                         }
                         , 'post');
 
-                Route::add('/PostFav',
+                Route::add('/ProductFav',
                         function () {
-                            $add = true;
                             $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->($add);
+                            $controlador->productFav();
                         }
                         , 'post');
 
@@ -119,9 +118,8 @@ class FrontController {
 
                 Route::add('/AdminProducts/add',
                         function () {
-                            $add = true;
                             $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->processAdd($add);
+                            $controlador->processAdd();
                         }
                         , 'post');
 

@@ -17,7 +17,10 @@ namespace Com\Daw2\Controllers;
 class UserController extends \Com\Daw2\Core\BaseController {
 
     public function seeLoginRegister(array $errors = null, array $postData = null): void {
+        $styles = ['LoginRegister'];
+
         $data = [
+            'styles' => $styles,
             'section' => 'LoginRegister'
         ];
         if (!is_null($errors) && !empty($errors)) {
@@ -31,7 +34,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processRegister(): void {
-        $errors = $this->checkRegister($_POST);
+        $errors = $this->checkRegister();
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
             $userModel->register($_POST);
@@ -49,28 +52,32 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->seeLoginRegister($errors, $postData);
     }
 
-    private function checkRegister(array $data): array {
+    private function checkRegister(bool $edit = false): array {
         $errors = [];
-        if (empty($data['userName']) || empty($data['email']) ||
-                empty($data['pass']) || empty($data['pass2'])) {
+
+        if (empty($_POST['user_name']) || empty($_POST['email']) ||
+                empty($_POST['pass']) || empty($_POST['pass2'])) {
             $errors['register'] = 'There are empty values.';
         } else {
-            if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $data['userName'])) {
+            if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $_POST['user_name'])) {
                 $errors['register'] = 'The username can only contain numbers, '
                         . 'letters, underscores, and must be between 4 and 15 characters.';
             }
-            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['register'] = 'The email is not valid.';
             }
 
             $userModel = new \Com\Daw2\Models\UserModel();
-            if (!is_null($userModel->getUserByEmail($data['email']))) {
-                $errors['register'] = 'That email is already in use.';
+            if (!$edit) {
+                if (!is_null($userModel->getUserByEmail($_POST['email']))) {
+                    $errors['register'] = 'That email is already in use.';
+                }
             }
-            if (!preg_match('/^.{8,18}$/', $data['pass'])) {
+
+            if (!preg_match('/^.{8,18}$/', $_POST['pass'])) {
                 $errors['register'] = 'The password must be between 8 and 18 characters long.';
             }
-            if ($data['pass'] !== $data['pass2']) {
+            if ($_POST['pass'] !== $_POST['pass2']) {
                 $errors['register'] = 'The passwords must match.';
             }
         }
@@ -113,7 +120,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         header('Location:/LoginRegister');
     }
 
-    public function seeUsers(array $banRemoveProcess = null): void {
+    public function seeUsers(array $banRemoveWarnings = null): void {
         $userModel = new \Com\Daw2\Models\UserModel();
         $users = $userModel->getAll();
 
@@ -124,27 +131,29 @@ class UserController extends \Com\Daw2\Core\BaseController {
             'users' => $users
         ];
 
-        if (!is_null($banRemoveProcess)) {
-            $data['banRemoveProcess'] = $banRemoveProcess;
+        if (!is_null($banRemoveWarnings)) {
+            $data['banRemoveWarnings'] = $banRemoveWarnings;
         }
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'templates/Footer.php'), $data);
     }
 
     public function seeAdd(array $data = null): void {
-        $styles = ['CustomProduct'];
+        $styles = ['AddAdmins'];
 
         $data['styles'] = $styles;
         $data['section'] = 'AdminUsers';
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'admin/templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'templates/Footer.php'), $data);
     }
 
     public function processAdd(): void {
-        $errors = $this->checkRegister($_POST);
+        $errors = $this->checkRegister();
+
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
             $userModel->register($_POST);
+
             header('Location: /AdminUsers');
         }
 
@@ -166,9 +175,34 @@ class UserController extends \Com\Daw2\Core\BaseController {
         }
     }
 
-//    public function ban(int $id) {
+    public function processEdit(int $id): void {
+        
+        
+    }
+
+//    public function banUser() {
+//        $success = false;
+//        $action = '';
+//
+//        //Get fetch data
+//        $json_data = file_get_contents('php://input');
+//
+//        // True to make it an asoaciative array
+//        $data = json_decode($json_data, true);
+//        $idUser = intval($data['id_user']);
+//
+//        if (filter_var($idUser, FILTER_VALIDATE_INT)) {
+//            $userModel = new \Com\Daw2\Models\UserModel();
+//            $user = $userModel->getUserById($idUser);
+//
+//            if (!is_null($user)) {
+//                
+//            }
+//        }
+//        $banRemoveWarnings = [];
+//
 //        if ($id === $_SESSION['user']['id_user']) {
-//            $banRemoveProcess = [
+//            $banRemoveWarnings = [
 //                'class' => 'warning',
 //                'message' => "You can't ban yourself"
 //            ];
@@ -184,19 +218,18 @@ class UserController extends \Com\Daw2\Core\BaseController {
 //                }
 //            }
 //
-//            $banRemoveProcess = [];
 //            if ($userModel->updateStatus($id, $ban)) {
-//                $banRemoveProcess = [
+//                $banRemoveWarnings = [
 //                    'class' => 'success',
 //                    'message' => 'User status changed.'
 //                ];
 //            } else {
-//                $banRemoveProcess = [
+//                $banRemoveWarnings = [
 //                    'class' => 'danger',
 //                    'message' => 'Error changing user status.'
 //                ];
 //            }
 //        }
-//        $this->seeUsers($banRemoveProcess);
+//        $this->seeUsers($banRemoveWarnings);
 //    }
 }

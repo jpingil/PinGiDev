@@ -4,6 +4,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
+declare(strict_types=1);
 
 namespace Com\Daw2\Controllers;
 
@@ -15,9 +16,15 @@ namespace Com\Daw2\Controllers;
 class FavoriteController extends \Com\Daw2\Core\BaseController {
 
     public function seeFavorites(): void {
+        $jss = ['Fetch'];
+        $styles = ['Products'];
         $favoriteModel = new \Com\Daw2\Models\FavoriteModel();
+
         $data = [
-            'favorites' => $favoriteModel->getFavsByIdUser()
+            'styles' => $styles,
+            'section' => 'Favorites',
+            'favorites' => $favoriteModel->getFavsByIdUser(),
+            'jss' => $jss
         ];
         $this->view->showViews(array('templates/Header.php', 'Favorites.php', 'templates/Footer.php'), $data);
     }

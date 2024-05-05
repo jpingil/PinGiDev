@@ -17,7 +17,10 @@ namespace Com\Daw2\Controllers;
 class AboutMeController extends \Com\Daw2\Core\BaseController {
 
     public function seeAbouMe() :void{
+        $styles = ['AboutMe'];
+        
         $data = [
+            'styles' => $styles,
             'section' => 'AboutMe'
         ];
         

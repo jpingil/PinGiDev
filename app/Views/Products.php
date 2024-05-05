@@ -6,26 +6,28 @@
         ?>
         <div class="products">
             <?php
-            foreach ($products as $favorite) {
+            foreach ($products as $product) {
                 ?>
                 <div class="product">
-                    <a href="/Product/<?php echo $favorite['id_product']; ?>">
-                        <img src="assets/<?php echo $favorite['img_folder'] . '/Main Image/' . $favorite['product_name']; ?>.jpg" alt="<?php echo $favorite['product_description']; ?>"/>
+                    <a href="/Product/<?php echo $product['id_product']; ?>">
+                        <img src="assets/<?php echo $product['img_folder'] . '/Main Image/' . $product['product_name'] . '.' . $product['img_extension']; ?>" alt="<?php echo $product['product_description']; ?>"/>
                     </a>
                     <div class="buttons">
-                        <i class="fa fa-heart btnFav <?php
-                        if (isset($_SESSION['user'])) {
-                            foreach ($favsProducts as $favProduct) {
-                                if ($favProduct['id_product'] == $favorite['id_product']) {
-                                    echo 'fav';
-                                } else {
-                                    echo 'noFav';
+                        <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?>>
+                            <i class="fa fa-heart btnFav <?php
+                            if (isset($_SESSION['user'])) {
+                                foreach ($favsProducts as $favProduct) {
+                                    if ($favProduct['id_product'] == $product['id_product']) {
+                                        echo 'fav';
+                                    } else {
+                                        echo 'noFav';
+                                    }
                                 }
+                            } else {
+                                echo 'noFav';
                             }
-                        } else {
-                            echo 'noFav';
-                        }
-                        ?>" id="<?php echo $favorite['id_product']; ?>"></i>
+                            ?>"  id="<?php echo $product['id_product']; ?>"></i>
+                        </a>
                     </div>
                 </div>
                 <?php

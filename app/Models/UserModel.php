@@ -33,15 +33,15 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         return null;
     }
 
-    public function register(array $vars):bool {
+    public function register(array $vars): bool {
         $stmt = $this->pdo->prepare('INSERT INTO user (user_name, pass, email, id_rol, id_status) '
                 . 'VALUES (:userName, :pass, :email, 1, 0)');
         return $stmt->execute(
-                [
-                    'userName' => $vars['userName'],
-                    'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
-                    'email' => $vars['email']
-                ]
+                        [
+                            'userName' => $vars['userName'],
+                            'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
+                            'email' => $vars['email']
+                        ]
         );
     }
 
@@ -53,6 +53,15 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
                             'id_user' => $id
                         ]
         );
+    }
+
+    public function editUser(int $idUser, array $post): bool {
+        $stmt->prepare('UPDATE user SET user_name = :user_name, email = :email, pass = :pass WHERE id_user = id_user');
+        return $stmt->execute([
+                    'user_name' => $post['userName'],
+                    'email' => $post['email'],
+                    'pass' => $post['pass']
+        ]);
     }
 
     public function getUserByEmail(string $email): ?array {

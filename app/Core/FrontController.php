@@ -29,12 +29,6 @@ class FrontController {
                     $controlador->seeProduct($id);
                 }
                 , 'get');
-        Route::add('/ProductFav',
-                function () {
-                    $controlador = new \Com\Daw2\Controllers\FavoriteController();
-                    $controlador->changeFav();
-                }
-                , 'post');
 
         if (isset($_SESSION['user'])) {
             Route::add('/CustomProduct',
@@ -48,6 +42,20 @@ class FrontController {
                     function () {
                         $controlador = new \Com\Daw2\Controllers\UserController();
                         $controlador->logout();
+                    }
+                    , 'get');
+
+            Route::add('/ProductFav',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\FavoriteController();
+                        $controlador->changeFav();
+                    }
+                    , 'post');
+
+            Route::add('/Favorites',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\FavoriteController();
+                        $controlador->seeFavorites();
                     }
                     , 'get');
 
@@ -85,19 +93,19 @@ class FrontController {
                             $controlador = new \Com\Daw2\Controllers\UserController();
                             $controlador->seeEdit($id);
                         }
-                        , 'post');
+                        , 'get');
 
                 Route::add('/AdminUsers/edit/([0-9]+)',
                         function ($id) {
                             $controlador = new \Com\Daw2\Controllers\UserController();
-                            $controlador->processEdit($id);
+                            $controlador->processAdd($id);
                         }
                         , 'post');
 
-                Route::add('/AdminUsers/ban/([0-9]+)',
+                Route::add('/AdminUsers/ban',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\UserController();
-                            $controlador->ban();
+                            $controlador->banUser();
                         }
                         , 'post');
 

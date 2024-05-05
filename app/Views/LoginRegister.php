@@ -7,7 +7,7 @@
 
             <form action="/Register" method="post">
                 <label for="chk">Sign up</label>
-                <input type="text" name="userName" placeholder="User name" 
+                <input type="text" name="user_name" placeholder="User name" 
                        value="<?php echo (isset($data['userName'])) ? $data['userName'] : ""; ?>"
                        required />
                 <input type="email" name="email" placeholder="Email"

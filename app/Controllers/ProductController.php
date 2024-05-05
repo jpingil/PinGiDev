@@ -21,9 +21,11 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
-        $jss = ['postsFetch'];
+        $jss = ['Fetch'];
+        $styles = ['Products'];
 
         $data = [
+            'styles' => $styles,
             'section' => 'Products',
             'products' => $products,
             'jss' => $jss
@@ -38,6 +40,21 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
 
+    public function seeProduct(int $id): void {
+        $productModel = new \Com\Daw2\Models\ProductModel();
+        $styles = ['Product'];
+        $product = $productModel->getProductById($id);
+        if (!is_null($product)) {
+            $data = [
+                'stlyles' => $styles,
+                'section' => 'Products',
+                'product' => $product
+            ];
+        }
+
+        $this->view->showViews(array('templates/Header.php', 'Product.php', 'templates/Footer.php'), $data);
+    }
+
     public function seeAdminProducts(array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
@@ -45,11 +62,11 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $data['section'] = 'AdminProducts';
         $data['products'] = $products;
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminProducts.php', 'admin/templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminProducts.php', 'templates/Footer.php'), $data);
     }
 
     public function seeAdd(array $data = null): void {
-        $styles = ['CustomProduct', 'AddProducts'];
+        $styles = ['AddAdmins', 'AddProducts'];
 
         $data['styles'] = $styles;
         $data['js'] = 'FormImages';
@@ -60,7 +77,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         }
 
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'admin/templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'templates/Footer.php'), $data);
     }
 
     public function processAdd(): void {
@@ -213,18 +230,5 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             'data' => $post
         ];
         $this->seeAdd($data);
-    }
-
-    public function seeProduct(int $id): void {
-        $productModel = new \Com\Daw2\Models\ProductModel();
-        $product = $productModel->getProductById($id);
-        if (!is_null($product)) {
-            $data = [
-                'section' => 'Product',
-                'product' => $product
-            ];
-        }
-
-        $this->view->showViews(array('templates/Header.php', 'Product.php', 'templates/Footer.php'), $data);
     }
 }

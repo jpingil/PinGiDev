@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         return response.json();
                     })
                     .then(function (data) {
-                        console.log(data);
                         if (data.success) {
                             if (data.action == "fav") {
                                 favIcon.classList.remove("noFav");
@@ -43,9 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var bans = document.querySelectorAll(".btnBan");
     bans.forEach((ban) => {
         ban.addEventListener("click", function () {
-            var idUser = this.id;
-
-            fetch("/AdminUser/ban", {
+            var idUser = ban.id;
+            fetch("/AdminUsers/ban", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,29 +53,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 }),
             })
                     .then(function (response) {
-                        console.log('eiiiiiiiiiiiiii');
-                        if (!response) {
-                            throw new Error("Error in response.");
+                        if (!response.ok) {
+                            throw new Error("Response error.");
                         }
-
                         return response.json();
                     })
                     .then(function (data) {
-                        console.log('ieeee');
-
+                        console.log(data);
                         if (data.success) {
-                            if (data.action === "ban") {
-                                ban.classList.remove("fa-toggle-on");
-                                ban.classList.add("fa-toggle-off");
+                            if (data.action == "ban") {
+                                favIcon.classList.remove("on");
+                                favIcon.classList.add("off");
                             }
-                            if (data.action === "noBan") {
-                                ban.classList.remove("fa-toggle-off");
-                                ban.classList.add("fa-toggle-on");
+                            if (data.action == "noBan") {
+                                favIcon.classList.remove("off");
+                                favIcon.classList.add("on");
                             }
                         }
                     })
                     .catch(function (error) {
-                        console.error("Error " + error);
+                        console.error("Error: " + error);
                     });
         });
     });

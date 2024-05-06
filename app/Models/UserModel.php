@@ -72,6 +72,14 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         ]);
     }
 
+    public function updateUserStatus(int $idUser, int $idStatus): bool {
+        $stmt = $this->pdo->prepare('UPDATE user SET id_status = :id_status WHERE id_user = :id_user');
+        return $stmt->execute([
+                    'id_status' => $idStatus,
+                    'id_user' => $idUser
+        ]);
+    }
+
     public function getUserByEmail(string $email): ?array {
         $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.email = ?');
         $stmt->execute([$email]);

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Fetch to ban users and products
     var bans = document.querySelectorAll(".btnBan");
-    bans.forEach(function (ban) {
+    bans.forEach((ban) => {
         ban.addEventListener("click", function () {
             var idUser = this.id;
 
@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }),
             })
                     .then(function (response) {
+                        console.log('eiiiiiiiiiiiiii');
                         if (!response) {
                             throw new Error("Error in response.");
                         }
@@ -62,14 +63,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         return response.json();
                     })
                     .then(function (data) {
+                        console.log('ieeee');
+
                         if (data.success) {
                             if (data.action === "ban") {
-                                ban.classList.remove("noBan");
-                                ban.classList.add("ban");
+                                ban.classList.remove("fa-toggle-on");
+                                ban.classList.add("fa-toggle-off");
                             }
                             if (data.action === "noBan") {
-                                ban.classList.remove("ban");
-                                ban.classList.add("noBan");
+                                ban.classList.remove("fa-toggle-off");
+                                ban.classList.add("fa-toggle-on");
                             }
                         }
                     })

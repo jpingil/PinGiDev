@@ -133,20 +133,13 @@ class UserController extends \Com\Daw2\Core\BaseController {
         header('Location:/LoginRegister');
     }
 
-    public function seeUsers(array $banRemoveWarnings = null): void {
+    public function seeUsers(array $data = null): void {
         $userModel = new \Com\Daw2\Models\UserModel();
         $users = $userModel->getAll();
 
+        $data['jss'] = ['Fetch'];
         $data['section'] = 'AdminUsers';
         $data['users'] = $users;
-        $data = [
-            'section' => 'AdminUsers',
-            'users' => $users
-        ];
-
-        if (!is_null($banRemoveWarnings)) {
-            $data['banRemoveWarnings'] = $banRemoveWarnings;
-        }
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'templates/Footer.php'), $data);
     }
@@ -218,19 +211,43 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     public function banUser() {
         $success = false;
-        $action = '';
+        $action = 'noBan';
 
         //Get fetch data
         $json_data = file_get_contents('php://input');
 
         // True to make it an asoaciative array
         $data = json_decode($json_data, true);
-        $idUser = intval($data['id_user']);
-        $message = $this->verifyUser($idUser);
-        
-        if(empty($message)){
-            
-        }
+//        $idUser = intval($data['id_user']);
+//        $message = $this->verifyUser($idUser);
+
+//        if (empty($message)) {
+//            $userModel = new \Com\Daw2\Models\UserModel();
+//            $user = $userModel->getUserById($id);
+//            $idStatus = 0;
+//
+//            //0 = 'activated'
+//            if ($user['id_status'] === 0) {
+//                $idStatus = 1;
+//            }
+//
+//            if ($userModel->updateUserStatus($idUser, $idStatus)) {
+//                $success = true;
+//            }
+//
+//            $response = [
+//                'success' => $success,
+//                'action' => $action,
+//            ];
+//        } else {
+            $response = [
+                'success' => $success,
+                'action' => $action
+//                'message' => $message
+            ];
+//        }
+
+        echo json_encode($response);
     }
 
     private function verifyUser(int $idUser): ?array {

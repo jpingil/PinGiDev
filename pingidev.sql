@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-05-2024 a las 09:05:51
+-- Tiempo de generación: 06-05-2024 a las 19:01:26
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -43,6 +43,13 @@ CREATE TABLE `favorites` (
   `id_user` int(11) NOT NULL,
   `id_product` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `favorites`
+--
+
+INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
+(72, 6, 73);
 
 -- --------------------------------------------------------
 
@@ -84,6 +91,13 @@ CREATE TABLE `product` (
   `img_extension` varchar(5) NOT NULL DEFAULT 'jpg',
   `img_carousel_length` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `product`
+--
+
+INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`) VALUES
+(73, 'Test Web', 'Web to do a test', 'imgs/Product/Test Web', 'jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -143,8 +157,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `id_status`) VALUES
-(4, 'jpingil', '$2y$10$McD86dxgkmU3aXq/iNcntuJ3H5VK3QUZHpYwMBo2QdoTj5P803aM6', 'jorgepinogil013@gmail.com', 0, 0),
-(5, 'jorgeview', '$2y$10$fbVGlMI6IetYzMkPGkKDIekWKUTRG5ZjUs0hwOAUSn/0kEMl.blku', 'jorgepingil@gmail.com', 1, 0);
+(6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
+(7, 'jorgepg013', '$2y$10$ervE5kW4UgcDR1k1PxSaVu8yoM8ThsFlUCNN6WpFTb0rGCvQ2UW3u', 'jorgepingil@gmail.com', 1, 0),
+(8, 'jorgepruebaedit', '$2y$10$AY46G43B1H0K2hrFvjfFKOrTR8x4loNv6KSfp2Q1N/LxJtmp7LV9i', 'jorgeprueba@gmail.com', 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -214,7 +229,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
@@ -232,13 +247,13 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

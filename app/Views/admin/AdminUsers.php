@@ -3,10 +3,10 @@
         <a class="add" href="/AdminUsers/add">Add User</a>
         <h2>PinGiDev Users</h2>
         <?php
-        if (isset($banRemoveProcess)) {
+        if (isset($message)) {
             ?>
-            <div class="alert alert-<?= $banRemoveProcess['class']; ?>">
-                <p><?= $banRemoveProcess['message']; ?></p>
+            <div class="alert alert-<?= $message['class']; ?>">
+                <p><?= $message['message']; ?></p>
             </div>
             <?php
         }
@@ -32,7 +32,7 @@
                             <td>
                                 <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>"></a>
                                 <i class="fa-solid fa-toggle-<?= ($user['status_name'] === 'activated') ? 'on' : 'off'
-                ?> icon"></i>
+                ?> icon btnBan"></i>
                                 <i class="fa-regular fa-trash-can icon"></i>
                             </td>
                         </tr>

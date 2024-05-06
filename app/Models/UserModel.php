@@ -34,13 +34,18 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
     }
 
     public function register(array $vars): bool {
+        if (!isset($vars['id_rol'])) {
+            $vars['id_rol'] = 1;
+        }
+
         $stmt = $this->pdo->prepare('INSERT INTO user (user_name, pass, email, id_rol, id_status) '
-                . 'VALUES (:userName, :pass, :email, 1, 0)');
+                . 'VALUES (:user_name, :pass, :email, :id_rol, 0)');
         return $stmt->execute(
                         [
-                            'userName' => $vars['userName'],
+                            'user_name' => $vars['user_name'],
                             'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
-                            'email' => $vars['email']
+                            'email' => $vars['email'],
+                            'id_rol' => $vars['id_rol']
                         ]
         );
     }
@@ -55,12 +60,15 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         );
     }
 
-    public function editUser(int $idUser, array $post): bool {
-        $stmt->prepare('UPDATE user SET user_name = :user_name, email = :email, pass = :pass WHERE id_user = id_user');
+    public function updateUser(int $idUser, array $vars): bool {
+        $stmt = $this->pdo->prepare('UPDATE user SET user_name = :user_name, email = :email, pass = :pass, id_rol = :id_rol WHERE id_user = :id_user');
+
         return $stmt->execute([
-                    'user_name' => $post['userName'],
-                    'email' => $post['email'],
-                    'pass' => $post['pass']
+                    'user_name' => $vars['user_name'],
+                    'email' => $vars['email'],
+                    'pass' => password_hash($vars['pass'], PASSWORD_DEFAULT),
+                    'id_user' => $idUser,
+                    'id_rol' => $vars['id_rol']
         ]);
     }
 

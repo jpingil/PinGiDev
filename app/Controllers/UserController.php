@@ -52,7 +52,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->seeLoginRegister($errors, $postData);
     }
 
-    private function checkRegister(bool $edit = false): array {
+    private function checkRegister(array $user = null): array {
         $errors = [];
 
         if (empty($_POST['user_name']) || empty($_POST['email']) ||
@@ -68,8 +68,13 @@ class UserController extends \Com\Daw2\Core\BaseController {
             }
 
             $userModel = new \Com\Daw2\Models\UserModel();
-            if (!$edit) {
+            if (is_null($user)) {
                 if (!is_null($userModel->getUserByEmail($_POST['email']))) {
+                    $errors['register'] = 'That email is already in use.';
+                }
+            } else {
+                $updateUser = $userModel->getUserByEmail($_POST['email']);
+                if (($updateUser['email'] !== $user['email']) && (!is_null($updateUser))) {
                     $errors['register'] = 'That email is already in use.';
                 }
             }
@@ -79,6 +84,14 @@ class UserController extends \Com\Daw2\Core\BaseController {
             }
             if ($_POST['pass'] !== $_POST['pass2']) {
                 $errors['register'] = 'The passwords must match.';
+            }
+
+            if (isset($_POST['id_rol'])) {
+                $rolModel = new \Com\Daw2\Models\RolModel();
+                $_POST['id_rol'] = intval($_POST['id_rol']);
+                if (is_null($rolModel->getRolById($_POST['id_rol'])) && !empty($_POST['id_rol'])) {
+                    $errors['register'] = 'The rol is not valid.';
+                }
             }
         }
         return $errors;
@@ -139,21 +152,30 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function seeAdd(array $data = null): void {
+        $rolModel = new \Com\Daw2\Models\RolModel();
+
         $styles = ['AddAdmins'];
 
         $data['styles'] = $styles;
         $data['section'] = 'AdminUsers';
+        $data['rols'] = $rolModel->getAll();
+
+        if (empty($data['title'])) {
+            $data['title'] = 'Add User';
+        }
+
+        if (empty($data['action'])) {
+            $data['action'] = '/AdminUser/add';
+        }
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'templates/Footer.php'), $data);
     }
 
     public function processAdd(): void {
         $errors = $this->checkRegister();
-
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
             $userModel->register($_POST);
-
             header('Location: /AdminUsers');
         }
 
@@ -169,6 +191,9 @@ class UserController extends \Com\Daw2\Core\BaseController {
         if ($user) {
             $data = [];
             $data['input'] = $user;
+            $data['title'] = 'Edit User';
+            $data['action'] = '/AdminUser/edit';
+
             $this->seeAdd($data);
         } else {
             Header('Location: /AdminUsers');
@@ -176,60 +201,60 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processEdit(int $id): void {
-        
-        
+        $userModel = new \Com\Daw2\Models\UserModel();
+        $errors = $this->checkRegister($userModel->getUserById($id));
+        if (empty($errors)) {
+            $userModel->updateUser($id, $_POST);
+            header('Location: /AdminUsers');
+        }
+
+        $data = [];
+        $data['title'] = 'Edit User';
+        $data['action'] = '/AdminUser/edit';
+        $data['errors'] = $errors;
+        $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->seeAdd($data);
     }
 
-//    public function banUser() {
-//        $success = false;
-//        $action = '';
-//
-//        //Get fetch data
-//        $json_data = file_get_contents('php://input');
-//
-//        // True to make it an asoaciative array
-//        $data = json_decode($json_data, true);
-//        $idUser = intval($data['id_user']);
-//
-//        if (filter_var($idUser, FILTER_VALIDATE_INT)) {
-//            $userModel = new \Com\Daw2\Models\UserModel();
-//            $user = $userModel->getUserById($idUser);
-//
-//            if (!is_null($user)) {
-//                
-//            }
-//        }
-//        $banRemoveWarnings = [];
-//
-//        if ($id === $_SESSION['user']['id_user']) {
-//            $banRemoveWarnings = [
-//                'class' => 'warning',
-//                'message' => "You can't ban yourself"
-//            ];
-//        } else {
-//            $userModel = new \Com\Daw2\Models\UserModel();
-//            $user = $userModel->getUserById($id);
-//            $ban = 0;
-//            if ($user['id_status'] == 0) {
-//                $ban = 1;
-//            } else {
-//                if ($user['id_status'] == 1) {
-//                    $ban = 0;
-//                }
-//            }
-//
-//            if ($userModel->updateStatus($id, $ban)) {
-//                $banRemoveWarnings = [
-//                    'class' => 'success',
-//                    'message' => 'User status changed.'
-//                ];
-//            } else {
-//                $banRemoveWarnings = [
-//                    'class' => 'danger',
-//                    'message' => 'Error changing user status.'
-//                ];
-//            }
-//        }
-//        $this->seeUsers($banRemoveWarnings);
-//    }
+    public function banUser() {
+        $success = false;
+        $action = '';
+
+        //Get fetch data
+        $json_data = file_get_contents('php://input');
+
+        // True to make it an asoaciative array
+        $data = json_decode($json_data, true);
+        $idUser = intval($data['id_user']);
+        $message = $this->verifyUser($idUser);
+        
+        if(empty($message)){
+            
+        }
+    }
+
+    private function verifyUser(int $idUser): ?array {
+        $message = [];
+
+        if (filter_var($idUser, FILTER_VALIDATE_INT)) {
+            if ($_SESSION['user']['id_user'] === $idUser) {
+                $message = [
+                    'class' => 'warning',
+                    'message' => 'You can´t ban or delete yourself'
+                ];
+            } else {
+                $userModel = new \Com\Daw2\Models\UserModel();
+                $user = $userModel->getUserById($idUser);
+
+                if (is_null($user)) {
+                    $message = [
+                        'class' => 'danger',
+                        'message' => 'This user doesn´t exists.'
+                    ];
+                }
+            }
+        }
+
+        return $message;
+    }
 }

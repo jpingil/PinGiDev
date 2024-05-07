@@ -249,19 +249,24 @@ class UserController extends \Com\Daw2\Core\BaseController {
         echo json_encode($response);
     }
 
-    public function deleteUser(): void {
-        $json_data = file_get_contents('php://input');
-        $data = json_decode($json_data, true);
-        $idUser = $data['id_user'];
-        
+    public function deleteUser($idUser): void {
+        $idUser = intval($idUser);
         $message = $this->verifyUser($idUser);
-        
-        if(empty($message)){
+
+        if (empty($message)) {
             $userModel = new \Com\Daw2\Models\UserModel();
-            $user = $userModel->getUserById($idUser);
-            
-            
+
+            if ($userModel->deleteUser($idUser)) {
+                $message = [
+                    'class' => 'success',
+                    'message' => 'The user was delete.'
+                ];
+            }
         }
+
+        $data = [];
+        $data['message'] = $message;
+        $this->seeUsers($data);
     }
 
     private function verifyUser(int $idUser): ?array {

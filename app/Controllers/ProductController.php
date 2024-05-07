@@ -22,11 +22,13 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
         $styles = ['Products'];
+        $jss = ['Fetch'];
 
         $data = [
             'styles' => $styles,
             'section' => 'Products',
             'products' => $products,
+            'jss' => $jss
         ];
 
         if (isset($_SESSION['user'])) {
@@ -250,7 +252,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 $productBan = 1;
                 $action = 'ban';
             }
-            
+
             if ($productModel->updateProductBan($idProduct, $productBan)) {
                 $success = true;
             }

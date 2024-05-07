@@ -116,12 +116,12 @@ class FrontController {
                         }
                         , 'post');
 
-                Route::add('/AdminUsers/delete',
-                        function () {
+                Route::add('/AdminUsers/delete/([0-9]+)',
+                        function ($id) {
                             $controlador = new \Com\Daw2\Controllers\UserController();
-                            $controlador->deleteUser();
+                            $controlador->deleteUser($id);
                         }
-                        , 'post');
+                        , 'get');
 
                 Route::add('/AdminProducts',
                         function () {

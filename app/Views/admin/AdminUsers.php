@@ -33,7 +33,7 @@
                                 <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>"></a>
                                 <i class="fa-solid fa-toggle-<?php echo ($user['user_ban'] === 0) ? 'on' : 'off'
                         ?> icon btnBan" id="AdminUsers-<?php echo $user['id_user']; ?>"></i>
-                                <i class="fa-regular fa-trash-can icon"></i>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminUsers/delete/<?php echo $user['id_user'];?>"></a>
                             </td>
                         </tr>
                         <?php

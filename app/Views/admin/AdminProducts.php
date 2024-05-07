@@ -1,12 +1,12 @@
 <main>
-    <article class="col-12">
+    <article class="col-12 p-3">
         <a class="add" href="/AdminProducts/add">Add New Product</a>
         <h2>PinGiDev Products</h2>
         <?php
         if (isset($message)) {
             ?>
-            <div class="alert alert-<?= $class; ?>">
-                <p><?= $message; ?></p>
+            <div class="alert alert-<?= $class; ?> m-2">
+                <p><?php echo $message; ?></p>
             </div>
             <?php
         }
@@ -34,7 +34,7 @@
                                 <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
                                 <i class="fa-solid fa-toggle-<?php echo ($product['product_ban']) ? 'off' : 'on'; ?> icon btnBan" 
                                    id="AdminProducts-<?php echo $product['id_product']; ?>"></i>
-                                <a class="fa-regular fa-trash-can icon"></a>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $product['id_product'];?>"></a>
                             </td>
                         </tr>  
                         <?php

@@ -255,6 +255,13 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $idUser = $data['id_user'];
         
         $message = $this->verifyUser($idUser);
+        
+        if(empty($message)){
+            $userModel = new \Com\Daw2\Models\UserModel();
+            $user = $userModel->getUserById($idUser);
+            
+            
+        }
     }
 
     private function verifyUser(int $idUser): ?array {

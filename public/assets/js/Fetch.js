@@ -113,6 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                         return response.json();
                     })
+                    .then(function (data) {
+                        if (data.success) {
+                            
+                        }
+                    })
                     .catch(function (error) {
                         console.error("Error: " + error);
                     });

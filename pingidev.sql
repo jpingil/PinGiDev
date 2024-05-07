@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-05-2024 a las 19:01:26
+-- Tiempo de generación: 07-05-2024 a las 19:05:04
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -44,13 +44,6 @@ CREATE TABLE `favorites` (
   `id_product` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `favorites`
---
-
-INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(72, 6, 73);
-
 -- --------------------------------------------------------
 
 --
@@ -89,15 +82,16 @@ CREATE TABLE `product` (
   `product_description` varchar(1000) DEFAULT NULL,
   `img_folder` varchar(45) NOT NULL,
   `img_extension` varchar(5) NOT NULL DEFAULT 'jpg',
-  `img_carousel_length` int(11) NOT NULL DEFAULT 1
+  `img_carousel_length` int(11) NOT NULL DEFAULT 1,
+  `product_ban` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `product`
 --
 
-INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`) VALUES
-(73, 'Test Web', 'Web to do a test', 'imgs/Product/Test Web', 'jpg', 1);
+INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`, `product_ban`) VALUES
+(73, 'Test Web', 'Web to do a test', 'imgs/Product/Test Web', 'jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -121,25 +115,6 @@ INSERT INTO `rol` (`id_rol`, `rol_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `status`
---
-
-CREATE TABLE `status` (
-  `id_status` int(11) NOT NULL DEFAULT 0,
-  `status_name` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `status`
---
-
-INSERT INTO `status` (`id_status`, `status_name`) VALUES
-(0, 'activated'),
-(1, 'deactivated');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `user`
 --
 
@@ -149,14 +124,14 @@ CREATE TABLE `user` (
   `pass` varchar(200) NOT NULL,
   `email` varchar(45) NOT NULL,
   `id_rol` int(11) NOT NULL,
-  `id_status` int(11) NOT NULL
+  `user_ban` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `id_status`) VALUES
+INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
 (6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
 (7, 'jorgepg013', '$2y$10$ervE5kW4UgcDR1k1PxSaVu8yoM8ThsFlUCNN6WpFTb0rGCvQ2UW3u', 'jorgepingil@gmail.com', 1, 0),
 (8, 'jorgepruebaedit', '$2y$10$AY46G43B1H0K2hrFvjfFKOrTR8x4loNv6KSfp2Q1N/LxJtmp7LV9i', 'jorgeprueba@gmail.com', 1, 0);
@@ -208,18 +183,11 @@ ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
--- Indices de la tabla `status`
---
-ALTER TABLE `status`
-  ADD PRIMARY KEY (`id_status`);
-
---
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD KEY `fk_users_rol_idx` (`id_rol`),
-  ADD KEY `fk_User_Status1_idx` (`id_status`);
+  ADD KEY `fk_users_rol_idx` (`id_rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -229,7 +197,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
@@ -284,7 +252,6 @@ ALTER TABLE `order`
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `fk_User_Status1` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 

@@ -14,8 +14,7 @@ namespace Com\Daw2\Models;
  */
 class UserModel extends \Com\Daw2\Core\BaseDbModel {
 
-    private const SELECT_FROM_ALL = 'SELECT u.*, r.*, s.* FROM user u INNER JOIN rol r ON u.id_rol = r.id_rol'
-            . ' INNER JOIN status s ON u.id_status = s.id_status';
+    private const SELECT_FROM_ALL = 'SELECT u.*, r.* FROM user u INNER JOIN rol r ON u.id_rol = r.id_rol';
 
     public function getAll(): array {
         $stmt = $this->pdo->query(self::SELECT_FROM_ALL);
@@ -38,7 +37,7 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
             $vars['id_rol'] = 1;
         }
 
-        $stmt = $this->pdo->prepare('INSERT INTO user (user_name, pass, email, id_rol, id_status) '
+        $stmt = $this->pdo->prepare('INSERT INTO user (user_name, pass, email, id_rol, ban) '
                 . 'VALUES (:user_name, :pass, :email, :id_rol, 0)');
         return $stmt->execute(
                         [
@@ -50,18 +49,9 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         );
     }
 
-    public function updateStatus(int $id, int $id_status): bool {
-        $stmt = $this->pdo->prepare('UPDATE user SET id_status = :id_status WHERE id_user = :id_user');
-        return $stmt->execute(
-                        [
-                            'id_status' => $id_status,
-                            'id_user' => $id
-                        ]
-        );
-    }
-
     public function updateUser(int $idUser, array $vars): bool {
-        $stmt = $this->pdo->prepare('UPDATE user SET user_name = :user_name, email = :email, pass = :pass, id_rol = :id_rol WHERE id_user = :id_user');
+        $stmt = $this->pdo->prepare('UPDATE user SET user_name = :user_name, '
+                . 'email = :email, pass = :pass, id_rol = :id_rol WHERE id_user = :id_user');
 
         return $stmt->execute([
                     'user_name' => $vars['user_name'],
@@ -72,12 +62,26 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         ]);
     }
 
-    public function updateUserStatus(int $idUser, int $idStatus): bool {
-        $stmt = $this->pdo->prepare('UPDATE user SET id_status = :id_status WHERE id_user = :id_user');
+    public function isUserBan(int $idUser): bool {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.id_user = ? and u.user_ban = 1');
+        $stmt->execute([$idUser]);
+        if ($row = $stmt->fetch()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateUserBan(int $idUser, int $userBan): bool {
+        $stmt = $this->pdo->prepare('UPDATE user SET user_ban = :user_ban WHERE id_user = :id_user');
         return $stmt->execute([
-                    'id_status' => $idStatus,
-                    'id_user' => $idUser
+                    'id_user' => $idUser,
+                    'user_ban' => $userBan
         ]);
+    }
+
+    public function deleteUser(int $idUser): bool {
+        $stmt = $this->pdo->prepare('DELETE FROM user WHERE id_user = ?');
+        return $stmt->execute([$idUser]);
     }
 
     public function getUserByEmail(string $email): ?array {

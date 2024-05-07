@@ -32,7 +32,8 @@
                             <td><?php echo $product['img_folder']; ?></td>
                             <td>
                                 <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
-                                <a class="fa-solid fa-toggle-on icon"></a>
+                                <i class="fa-solid fa-toggle-<?php echo ($product['product_ban']) ? 'off' : 'on'; ?> icon btnBan" 
+                                   id="AdminProducts-<?php echo $product['id_product']; ?>"></i>
                                 <a class="fa-regular fa-trash-can icon"></a>
                             </td>
                         </tr>  

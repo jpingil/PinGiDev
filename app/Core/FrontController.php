@@ -109,6 +109,20 @@ class FrontController {
                         }
                         , 'post');
 
+                Route::add('/AdminUsers/ban',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->banUser();
+                        }
+                        , 'post');
+
+                Route::add('/AdminUsers/delete',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->deleteUser();
+                        }
+                        , 'post');
+
                 Route::add('/AdminProducts',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\ProductController();
@@ -141,6 +155,20 @@ class FrontController {
                         function ($id) {
                             $controlador = new \Com\Daw2\Controllers\ProductController();
                             $controlador->processEdit($id);
+                        }
+                        , 'post');
+
+                Route::add('/AdminProducts/ban',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->banProduct();
+                        }
+                        , 'post');
+
+                Route::add('/AdminProducts/delete',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->deleteProduct();
                         }
                         , 'post');
             }

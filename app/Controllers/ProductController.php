@@ -21,14 +21,12 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
-        $jss = ['Fetch'];
         $styles = ['Products'];
 
         $data = [
             'styles' => $styles,
             'section' => 'Products',
             'products' => $products,
-            'jss' => $jss
         ];
 
         if (isset($_SESSION['user'])) {
@@ -58,10 +56,10 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeAdminProducts(array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
-
+        $jss = ['Fetch'];
         $data['section'] = 'AdminProducts';
         $data['products'] = $products;
-
+        $data['jss'] = $jss;
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminProducts.php', 'templates/Footer.php'), $data);
     }
 
@@ -230,5 +228,57 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             'data' => $post
         ];
         $this->seeAdd($data);
+    }
+
+    public function banProduct() {
+        $success = false;
+        $action = 'noBan';
+        $productBan = 0;
+
+        //Get fetch data
+        $json_data = file_get_contents('php://input');
+
+        // True to make it an asoaciative array
+        $data = json_decode($json_data, true);
+        $idProduct = intval($data['id_product']);
+        $message = $this->verifyProduct($idProduct);
+        if (empty($message)) {
+            $productModel = new \Com\Daw2\Models\ProductModel();
+            $product = $productModel->getProductById($idProduct);
+
+            if (!$productModel->isProductBan($idProduct)) {
+                $productBan = 1;
+                $action = 'ban';
+            }
+            
+            if ($productModel->updateProductBan($idProduct, $productBan)) {
+                $success = true;
+            }
+        } else {
+            $response['message'] = $message;
+        }
+
+        $response = [
+            'success' => $success,
+            'action' => $action
+        ];
+
+        echo json_encode($response);
+    }
+
+    private function verifyProduct(int $idProduct): ?array {
+        $message = [];
+
+        if (filter_var($idProduct, FILTER_VALIDATE_INT) && $idProduct > 0) {
+            $productModel = new \Com\Daw2\Models\ProductModel();
+            if (is_null($productModel->getProductById($idProduct))) {
+                $message = [
+                    'class' => 'danger',
+                    'message' => 'This product doesn´t exists.'
+                ];
+            }
+        }
+
+        return $message;
     }
 }

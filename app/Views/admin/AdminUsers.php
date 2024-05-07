@@ -31,8 +31,8 @@
                             <td><?php echo $user['rol_name']; ?></td>
                             <td>
                                 <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>"></a>
-                                <i class="fa-solid fa-toggle-<?= ($user['status_name'] === 'activated') ? 'on' : 'off'
-                ?> icon btnBan"></i>
+                                <i class="fa-solid fa-toggle-<?php echo ($user['user_ban'] === 0) ? 'on' : 'off'
+                        ?> icon btnBan" id="AdminUsers-<?php echo $user['id_user']; ?>"></i>
                                 <i class="fa-regular fa-trash-can icon"></i>
                             </td>
                         </tr>

@@ -209,44 +209,52 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->seeAdd($data);
     }
 
-    public function banUser() {
+    /*
+     * Fetch function to ban users
+     */
+
+    public function banUser(): void {
         $success = false;
-        $action = 'noBan';
-//Get fetch data
+        $action = 'ban';
+        $userBan = 1;
+
+        //Get fetch data
         $json_data = file_get_contents('php://input');
 
-// True to make it an asoaciative array
+        // True to make it an asoaciative array
         $data = json_decode($json_data, true);
         $idUser = intval($data['id_user']);
         $message = $this->verifyUser($idUser);
         if (empty($message)) {
-            $success = true;
             $userModel = new \Com\Daw2\Models\UserModel();
             $user = $userModel->getUserById($idUser);
-            $idStatus = 0;
 
-//0 = 'activated'
-            if ($user['id_status'] == 0) {
-//                $idStatus = 1;
-//
-//                if ($userModel->updateStatus($idUser, $idStatus)) {
-//                    $success = true;
-//                    $response = [
-//                        'success' => $success,
-//                        'action' => $action,
-//                    ];
-//                }
-//            } else {
-//                $response = [
-//                    'success' => $success,
-//                    'action' => $action,
-//                    'message' => $message
-//                ];
-//            }
-                $success = false;
+            if ($userModel->isUserBan($idUser)) {
+                $userBan = 0;
+                $action = 'noBan';
             }
+
+            if ($userModel->updateUserBan($idUser, $userBan)) {
+                $success = true;
+            }
+        } else {
+            $response['message'] = $message;
         }
-        echo json_encode($response = ['success' => $success]);
+
+        $response = [
+            'success' => $success,
+            'action' => $action
+        ];
+
+        echo json_encode($response);
+    }
+
+    public function deleteUser(): void {
+        $json_data = file_get_contents('php://input');
+        $data = json_decode($json_data, true);
+        $idUser = $data['id_user'];
+        
+        $message = $this->verifyUser($idUser);
     }
 
     private function verifyUser(int $idUser): ?array {

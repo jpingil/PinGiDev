@@ -41,3 +41,15 @@ table tbody td .icon{
 .fa-trash-can:hover{
     color: rgb(255, 32, 32);
 }
+
+@media screen and (max-width:500px) {
+    table{
+        font-size: 10px;
+    }
+
+    table tbody td .icon{
+        margin: 0px;
+        font-size: 7px;
+    }
+
+}

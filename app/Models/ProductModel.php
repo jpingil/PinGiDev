@@ -17,7 +17,6 @@ namespace Com\Daw2\Models;
 class ProductModel extends \Com\Daw2\Core\BaseDbModel {
 
     private const SELECT_FROM = 'SELECT * FROM product';
-
     private const ROUTE_IMG_FOLDER = 'imgs/Product/';
 
     /**
@@ -64,6 +63,23 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         ]);
     }
 
+    public function isProductBan(int $idProduct): bool {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE id_product = ? and product_ban = 1');
+        $stmt->execute([$idProduct]);
+        if ($row = $stmt->fetch()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateProductBan(int $idProduct, int $banProduct): bool {
+        $stmt = $this->pdo->prepare('UPDATE product SET product_ban = :product_ban WHERE id_product = :id_product');
+        return $stmt->execute([
+                    'id_product' => $idProduct,
+                    'product_ban' => $banProduct
+        ]);
+    }
+
     public function getProductById(int $id): ?array {
         $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE id_product = ?');
         $stmt->execute([$id]);
@@ -72,6 +88,4 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         }
         return null;
     }
-
-
 }

@@ -37,7 +37,7 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
             $vars['id_rol'] = 1;
         }
 
-        $stmt = $this->pdo->prepare('INSERT INTO user (user_name, pass, email, id_rol, ban) '
+        $stmt = $this->pdo->prepare('INSERT INTO user (user_name, pass, email, id_rol, user_ban) '
                 . 'VALUES (:user_name, :pass, :email, :id_rol, 0)');
         return $stmt->execute(
                         [

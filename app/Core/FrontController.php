@@ -171,6 +171,13 @@ class FrontController {
                             $controlador->deleteProduct();
                         }
                         , 'post');
+
+                Route::add('/AdminLogs',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\LogController();
+                            $controlador->getAll();
+                        }
+                        , 'get');
             }
         } else {
             Route::add('/LoginRegister',

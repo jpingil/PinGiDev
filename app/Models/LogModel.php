@@ -22,4 +22,10 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
                     'id_actions' => $idAction
         ]);
     }
+
+    public function getAll(): array {
+        $stmt = $this->pdo->query('SELECT * FROM logs l INNER JOIN user u ON l.id_user '
+                . '= u.id_user INNER JOIN actions a ON l.id_actions = a.id_actions');
+        return $stmt->fetchAll();
+    }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2024 a las 19:05:04
+-- Tiempo de generación: 08-05-2024 a las 19:21:56
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -29,8 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `actions` (
   `id_actions` int(11) NOT NULL,
-  `action_name` varchar(45) NOT NULL
+  `actions_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `actions`
+--
+
+INSERT INTO `actions` (`id_actions`, `actions_name`) VALUES
+(0, 'register'),
+(1, 'login'),
+(2, 'logout'),
+(3, 'fav'),
+(4, 'noFav'),
+(5, 'purchase');
 
 -- --------------------------------------------------------
 
@@ -44,6 +56,13 @@ CREATE TABLE `favorites` (
   `id_product` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `favorites`
+--
+
+INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
+(136, 6, 73);
+
 -- --------------------------------------------------------
 
 --
@@ -53,9 +72,19 @@ CREATE TABLE `favorites` (
 CREATE TABLE `logs` (
   `id_logs` int(11) NOT NULL,
   `log_date` varchar(45) NOT NULL,
-  `Actions_id` int(11) NOT NULL,
-  `User_id` int(11) NOT NULL
+  `id_actions` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `logs`
+--
+
+INSERT INTO `logs` (`id_logs`, `log_date`, `id_actions`, `id_user`) VALUES
+(7, '2024-05-08 18:27:52', 4, 6),
+(8, '2024-05-08 18:27:53', 3, 6),
+(9, '2024-05-08 18:27:54', 4, 6),
+(10, '2024-05-08 18:27:55', 3, 6);
 
 -- --------------------------------------------------------
 
@@ -133,7 +162,6 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
 (6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
-(7, 'jorgepg013', '$2y$10$ervE5kW4UgcDR1k1PxSaVu8yoM8ThsFlUCNN6WpFTb0rGCvQ2UW3u', 'jorgepingil@gmail.com', 1, 0),
 (8, 'jorgepruebaedit', '$2y$10$AY46G43B1H0K2hrFvjfFKOrTR8x4loNv6KSfp2Q1N/LxJtmp7LV9i', 'jorgeprueba@gmail.com', 1, 0);
 
 --
@@ -159,8 +187,8 @@ ALTER TABLE `favorites`
 --
 ALTER TABLE `logs`
   ADD PRIMARY KEY (`id_logs`),
-  ADD KEY `fk_Actions_has_User_User1_idx` (`User_id`),
-  ADD KEY `fk_Actions_has_User_Actions1_idx` (`Actions_id`);
+  ADD KEY `fk_Actions_has_User_User1_idx` (`id_user`),
+  ADD KEY `fk_Actions_has_User_Actions1_idx` (`id_actions`);
 
 --
 -- Indices de la tabla `order`
@@ -197,13 +225,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -238,8 +266,8 @@ ALTER TABLE `favorites`
 -- Filtros para la tabla `logs`
 --
 ALTER TABLE `logs`
-  ADD CONSTRAINT `fk_Actions_has_User_Actions1` FOREIGN KEY (`Actions_id`) REFERENCES `actions` (`id_actions`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Actions_has_User_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Actions_has_User_Actions1` FOREIGN KEY (`id_actions`) REFERENCES `actions` (`id_actions`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Actions_has_User_User1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `order`

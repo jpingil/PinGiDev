@@ -42,15 +42,9 @@ class UserController extends \Com\Daw2\Core\BaseController {
                 if (is_null($user)) {
                     $errors['register'] = 'Unexpected error';
                 } else {
-                    $actionModel = new \Com\Daw2\Models\ActionModel();
-                    $action = $actionModel->getActionIdByName('register');
-                    if (!is_null($action)) {
-                        $logModel = new \Com\Daw2\Models\LogModel();
-                        if ($logModel->insertLog($user['id_user'], $action['id_actions'])) {
-                            $_SESSION['user'] = $user;
-                        } else {
-                            $errors['register'] = 'Unexpected error';
-                        }
+                    $logController = new \Com\Daw2\Controllers\LogController();
+                    if ($logController->generateLog($user['id_user'], 'register')) {
+                        $_SESSION['user'] = $user;
                     } else {
                         $errors['register'] = 'Unexpected error';
                     }
@@ -121,8 +115,8 @@ class UserController extends \Com\Daw2\Core\BaseController {
             if (is_null($user)) {
                 $errors['login'] = 'There is no registered user with this data.';
             } else {
-                $logModel = new \Com\Daw2\Models\LogModel();
-                if ($logModel->insertLog($user['id_user'], 'login')) {
+                $logController = new \Com\Daw2\Controllers\LogController();
+                if ($logController->generateLog($user['id_user'], 'login')) {
                     $_SESSION['user'] = $user;
                 } else {
                     $errors['login'] = 'Unexpected error.';
@@ -150,7 +144,12 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     public function logout(): void {
         session_destroy();
-
+        try {
+            $logController = new \Com\Daw2\Controllers\LogController();
+            $logController->generateLog($_SESSION['user']['id_user'], 'logout');
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
         header('Location:/LoginRegister');
     }
 

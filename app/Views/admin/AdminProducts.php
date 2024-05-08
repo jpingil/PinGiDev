@@ -23,18 +23,18 @@
             <tbody>
                 <?php
                 if (count($products)) {
-                    foreach ($products as $product) {
+                    foreach ($products as $log) {
                         ?>
                         <tr>
-                            <td><?php echo $product['id_product']; ?></td>
-                            <td><?php echo $product['product_name']; ?></td>
-                            <td><?php echo $product['product_description']; ?></td>
-                            <td><?php echo $product['img_folder']; ?></td>
+                            <td><?php echo $log['id_product']; ?></td>
+                            <td><?php echo $log['product_name']; ?></td>
+                            <td><?php echo $log['product_description']; ?></td>
+                            <td><?php echo $log['img_folder']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
-                                <i class="fa-solid fa-toggle-<?php echo ($product['product_ban']) ? 'off' : 'on'; ?> icon btnBan" 
-                                   id="AdminProducts-<?php echo $product['id_product']; ?>"></i>
-                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $product['id_product'];?>"></a>
+                                <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $log['id_product']; ?>"></a>
+                                <i class="fa-solid fa-toggle-<?php echo ($log['product_ban']) ? 'off' : 'on'; ?> icon btnBan" 
+                                   id="AdminProducts-<?php echo $log['id_product']; ?>"></i>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $log['id_product'];?>"></a>
                             </td>
                         </tr>  
                         <?php

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 19:21:56
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 7.4.30
+-- Servidor: localhost:3306
+-- Tiempo de generación: 08-05-2024 a las 22:25:42
+-- Versión del servidor: 10.6.7-MariaDB-2ubuntu1.1
+-- Versión de PHP: 8.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(136, 6, 73);
+(139, 6, 73);
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
 --
 
 CREATE TABLE `logs` (
-  `id_logs` int(11) NOT NULL,
+  `id_log` int(11) NOT NULL,
   `log_date` varchar(45) NOT NULL,
   `id_actions` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
@@ -80,11 +80,21 @@ CREATE TABLE `logs` (
 -- Volcado de datos para la tabla `logs`
 --
 
-INSERT INTO `logs` (`id_logs`, `log_date`, `id_actions`, `id_user`) VALUES
+INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (7, '2024-05-08 18:27:52', 4, 6),
 (8, '2024-05-08 18:27:53', 3, 6),
 (9, '2024-05-08 18:27:54', 4, 6),
-(10, '2024-05-08 18:27:55', 3, 6);
+(10, '2024-05-08 18:27:55', 3, 6),
+(11, '2024-05-08 21:14:24', 1, 6),
+(12, '2024-05-08 21:21:38', 1, 6),
+(13, '2024-05-08 21:21:51', 2, 6),
+(14, '2024-05-08 21:33:12', 1, 6),
+(15, '2024-05-08 21:33:18', 4, 6),
+(16, '2024-05-08 21:33:23', 3, 6),
+(17, '2024-05-08 21:49:00', 4, 6),
+(18, '2024-05-08 21:49:01', 3, 6),
+(19, '2024-05-08 21:49:01', 4, 6),
+(20, '2024-05-08 21:49:06', 3, 6);
 
 -- --------------------------------------------------------
 
@@ -162,7 +172,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
 (6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
-(8, 'jorgepruebaedit', '$2y$10$AY46G43B1H0K2hrFvjfFKOrTR8x4loNv6KSfp2Q1N/LxJtmp7LV9i', 'jorgeprueba@gmail.com', 1, 0);
+(8, 'jorgepruebaedit', '$2y$10$AY46G43B1H0K2hrFvjfFKOrTR8x4loNv6KSfp2Q1N/LxJtmp7LV9i', 'jorgeprueba@gmail.com', 1, 0),
+(9, 'jorgeprueba', '$2y$10$Q9qOa3eyOoua5G34ABB1Ue1J2NUCXMLlvMAv7luRmyEnWAMWI9jWG', 'jorgeprueba1@gmail.com', 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -186,7 +197,7 @@ ALTER TABLE `favorites`
 -- Indices de la tabla `logs`
 --
 ALTER TABLE `logs`
-  ADD PRIMARY KEY (`id_logs`),
+  ADD PRIMARY KEY (`id_log`),
   ADD KEY `fk_Actions_has_User_User1_idx` (`id_user`),
   ADD KEY `fk_Actions_has_User_Actions1_idx` (`id_actions`);
 
@@ -225,13 +236,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -249,7 +260,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

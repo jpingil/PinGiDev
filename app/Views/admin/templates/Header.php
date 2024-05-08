@@ -67,8 +67,8 @@
                             <li>
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
-                                $section === 'AdminCustomProduct') ? 'active' : '';
-                                ?>" href="/AdminCustomProduct">Custom Products</a>
+                                $section === 'AdminLogs') ? 'active' : '';
+                                ?>" href="/AdminLogs">Logs</a>
                             </li>
                             <li>
                                 <a class="nav-link" href="/AboutMe">Web</a>

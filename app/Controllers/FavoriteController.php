@@ -31,7 +31,7 @@ class FavoriteController extends \Com\Daw2\Core\BaseController {
 
     public function changeFav(): void {
         $success = false;
-        $action = '';
+        $actionName = '';
 
         //Get fetch data
         $json_data = file_get_contents('php://input');
@@ -48,18 +48,27 @@ class FavoriteController extends \Com\Daw2\Core\BaseController {
 
                 if ($favoriteModel->isFav($idProduct)) {
                     if ($favoriteModel->deleteFav($idProduct)) {
-                        $success = true;
-                        $action = 'noFav';
+                        $actionName = 'noFav';
                     }
                 } else {
                     if ($favoriteModel->insertFav($idProduct)) {
-                        $success = true;
-                        $action = 'fav';
+                        $actionName = 'fav';
+                    }
+                }
+
+                if ($actionName !== '') {
+                    $actionModel = new \Com\Daw2\Models\ActionModel();
+                    $action = $actionModel->getActionIdByName($actionName);
+                    if (!is_null($action)) {
+                        $logModel = new \Com\Daw2\Models\LogModel();
+                        if ($logModel->insertLog($_SESSION['user']['id_user'], $action['id_actions'])) {
+                            $success = true;
+                        }
                     }
                 }
             }
         }
-        $response = ['success' => $success, 'action' => $action];
+        $response = ['success' => $success, 'action' => $actionName];
         header('Content-Type: application/json');
         echo json_encode($response);
     }

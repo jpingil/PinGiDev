@@ -46,13 +46,13 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $product = $productModel->getProductById($id);
         if (!is_null($product)) {
             $data = [
-                'stlyles' => $styles,
+                'styles' => $styles,
                 'section' => 'Products',
                 'product' => $product
             ];
         }
 
-        $this->view->showViews(array('templates/Header.php', 'Product.php', 'templates/Footer.php'), $data);
+        $this->view->show('Product.php', $data);
     }
 
     public function seeAdminProducts(array $data = null): void {

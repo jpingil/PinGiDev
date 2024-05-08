@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         return response.json();
                     })
                     .then(function (data) {
+                        console.log(data);
                         if (data.success) {
                             if (data.action == "fav") {
                                 favIcon.classList.remove("noFav");
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     })
                     .then(function (data) {
                         if (data.success) {
-                            
+
                         }
                     })
                     .catch(function (error) {

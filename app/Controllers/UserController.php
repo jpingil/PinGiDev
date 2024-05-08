@@ -37,13 +37,28 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $errors = $this->checkRegister();
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
-            $userModel->register($_POST);
-            $user = $userModel->getUserByEmail($_POST['email']);
-            if (is_null($user)) {
-                $errors['login'] = 'Unexpected error';
+            if ($userModel->register($_POST)) {
+                $user = $userModel->getUserByEmail($_POST['email']);
+                if (is_null($user)) {
+                    $errors['register'] = 'Unexpected error';
+                } else {
+                    $actionModel = new \Com\Daw2\Models\ActionModel();
+                    $action = $actionModel->getActionIdByName('register');
+                    if (!is_null($action)) {
+                        $logModel = new \Com\Daw2\Models\LogModel();
+                        if ($logModel->insertLog($user['id_user'], $action['id_actions'])) {
+                            $_SESSION['user'] = $user;
+                        } else {
+                            $errors['register'] = 'Unexpected error';
+                        }
+                    } else {
+                        $errors['register'] = 'Unexpected error';
+                    }
+
+                    header('Location: /AboutMe');
+                }
             } else {
-                $_SESSION['user'] = $user;
-                header('Location: /AboutMe');
+                $errors['register'] = 'Unexpected error.';
             }
         }
 
@@ -106,8 +121,13 @@ class UserController extends \Com\Daw2\Core\BaseController {
             if (is_null($user)) {
                 $errors['login'] = 'There is no registered user with this data.';
             } else {
-                $_SESSION['user'] = $user;
-                header('Location:/AboutMe');
+                $logModel = new \Com\Daw2\Models\LogModel();
+                if ($logModel->insertLog($user['id_user'], 'login')) {
+                    $_SESSION['user'] = $user;
+                } else {
+                    $errors['login'] = 'Unexpected error.';
+                }
+                header('Location: /AboutMe');
             }
         }
 
@@ -130,6 +150,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     public function logout(): void {
         session_destroy();
+
         header('Location:/LoginRegister');
     }
 

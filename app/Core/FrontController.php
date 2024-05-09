@@ -59,6 +59,13 @@ class FrontController {
                     }
                     , 'get');
 
+            Route::add('/Order/([0-9]+)',
+                    function ($id) {
+                        $controlador = new \Com\Daw2\Controllers\OrderController();
+                        $controlador->processOrder($id);
+                    }
+                    , 'post');
+
             if ($_SESSION['user']['rol_name'] == 'admin') {
                 Route::add('/Management',
                         function () {
@@ -176,6 +183,13 @@ class FrontController {
                         function () {
                             $controlador = new \Com\Daw2\Controllers\LogController();
                             $controlador->getAll();
+                        }
+                        , 'get');
+                        
+                Route::add('/AdminOrders',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\OrderController();
+                            $controlador->seeAdminOrders();
                         }
                         , 'get');
             }

@@ -17,19 +17,34 @@ article .product{
     align-items: center;
 }
 
-article .product .characteristics{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-}
-
-article .product .characteristics *{
-    margin: 10px;
-}
-
-.buttons{
-    width: 100%;
+form{
+    width: 50%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    z-index: 0;
+}
+
+form div{
+    margin: 10px;
+    width: 100%;
+}
+
+
+textarea{
+    height: 200px;
+}
+
+form .form-btn{
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    background-color: white;
+    transition: 0.5s ease-in-out;
+}
+
+form .form-btn:hover{
+    transform: scale(1.1);
 }

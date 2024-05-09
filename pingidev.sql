@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 08-05-2024 a las 22:25:42
--- Versión del servidor: 10.6.7-MariaDB-2ubuntu1.1
--- Versión de PHP: 8.1.9
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 09-05-2024 a las 19:31:23
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,7 @@ INSERT INTO `actions` (`id_actions`, `actions_name`) VALUES
 (2, 'logout'),
 (3, 'fav'),
 (4, 'noFav'),
-(5, 'purchase');
+(5, 'order');
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(139, 6, 73);
+(142, 6, 73);
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,15 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (17, '2024-05-08 21:49:00', 4, 6),
 (18, '2024-05-08 21:49:01', 3, 6),
 (19, '2024-05-08 21:49:01', 4, 6),
-(20, '2024-05-08 21:49:06', 3, 6);
+(20, '2024-05-08 21:49:06', 3, 6),
+(21, '2024-05-09 10:11:47', 1, 6),
+(22, '2024-05-09 12:32:17', 4, 6),
+(23, '2024-05-09 12:32:18', 3, 6),
+(24, '2024-05-09 12:32:18', 4, 6),
+(25, '2024-05-09 12:32:19', 3, 6),
+(26, '2024-05-09 12:38:32', 4, 6),
+(27, '2024-05-09 12:38:33', 3, 6),
+(28, '2024-05-09 18:50:21', 1, 6);
 
 -- --------------------------------------------------------
 
@@ -104,10 +112,18 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 
 CREATE TABLE `order` (
   `id_order` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `description` varchar(200) NOT NULL
+  `id_user` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `order_description` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `order`
+--
+
+INSERT INTO `order` (`id_order`, `id_user`, `id_product`, `order_description`) VALUES
+(1, 6, 73, 'asdfadf'),
+(2, 6, 73, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.\r\n');
 
 -- --------------------------------------------------------
 
@@ -206,8 +222,8 @@ ALTER TABLE `logs`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id_order`),
-  ADD KEY `fk_user_has_product_product1_idx` (`product_id`),
-  ADD KEY `fk_user_has_product_user1_idx` (`user_id`);
+  ADD KEY `fk_user_has_product_product1_idx` (`id_product`),
+  ADD KEY `fk_user_has_product_user1_idx` (`id_user`);
 
 --
 -- Indices de la tabla `product`
@@ -236,19 +252,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
 --
 ALTER TABLE `order`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
@@ -284,8 +300,8 @@ ALTER TABLE `logs`
 -- Filtros para la tabla `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `fk_user_has_product_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id_product`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_has_product_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_user_has_product_product1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_product_user1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `user`

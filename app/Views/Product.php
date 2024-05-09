@@ -91,9 +91,9 @@
                 <h2>Product</h2>
                 <div class="product" >
                     <img src="<?php
-                    echo '../assets/' . $log['img_folder'] . '/Main Image/' .
-                    $log['product_name'] . '.' . $log['img_extension'];
-                    ?>" alt="<?php echo $log['product_description']; ?>" class="d-block w-100" id="product">
+                    echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
+                    $product['product_name'] . '.' . $product['img_extension'];
+                    ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="product">
 
                     <button class="carousel-control-prev" type="button" data-bs-target="#product" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
@@ -102,7 +102,20 @@
                         <span class="carousel-control-next-icon"></span>
                     </button>
                 </div>
-                
+                <form action="/Order/<?php echo $product['id_product'];?>" method="post">
+                    <div class="description form-floating">
+                        <textarea
+                            class="form-control"
+                            name="description"
+                            id="floatingarea"
+                            cols="30"
+                            rows="10"
+                            placeholder="Product description"
+                            ></textarea>
+                        <label for="floatingarea">Description</label>
+                    </div>
+                    <button class="form-btn">Enviar</button>
+                </form>
             </article>
         </main>
         <footer>

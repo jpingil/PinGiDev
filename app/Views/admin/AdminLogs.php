@@ -1,6 +1,5 @@
 <main>
     <article class="col-12 p-3">
-        <a class="add" href="/AdminProducts/add">Add New Product</a>
         <h2>PinGiDev Logs</h2>
         <table class="table table-dark">
             <thead>

@@ -64,6 +64,12 @@
                                 $section === 'AdminProducts') ? 'active' : '';
                                 ?>" href="/AdminProducts">Products</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?php
+                                echo(isset($section) &&
+                                $section === 'AdminOrders') ? 'active' : '';
+                                ?>" href="/AdminOrders">Orders</a>
+                            </li>
                             <li>
                                 <a class="nav-link <?php
                                 echo(isset($section) &&

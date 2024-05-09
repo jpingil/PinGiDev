@@ -25,7 +25,7 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
 
     public function getAll(): array {
         $stmt = $this->pdo->query('SELECT * FROM logs l INNER JOIN user u ON l.id_user '
-                . '= u.id_user INNER JOIN actions a ON l.id_actions = a.id_actions');
+                . '= u.id_user INNER JOIN actions a ON l.id_actions = a.id_actions order by log_date desc');
         return $stmt->fetchAll();
     }
 }

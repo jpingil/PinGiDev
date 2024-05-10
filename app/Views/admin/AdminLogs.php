@@ -1,7 +1,7 @@
 <main>
     <article class="col-12 p-3">
         <h2>PinGiDev Logs</h2>
-        <table class="table table-dark">
+        <table>
             <thead>
             <th scope="col">Date</th>
             <th scope="col">Id</th>

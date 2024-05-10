@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2024 a las 19:31:23
+-- Tiempo de generación: 10-05-2024 a las 19:20:22
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -61,7 +61,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(142, 6, 73);
+(166, 6, 73);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,58 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (25, '2024-05-09 12:32:19', 3, 6),
 (26, '2024-05-09 12:38:32', 4, 6),
 (27, '2024-05-09 12:38:33', 3, 6),
-(28, '2024-05-09 18:50:21', 1, 6);
+(28, '2024-05-09 18:50:21', 1, 6),
+(29, '2024-05-10 09:13:17', 1, 6),
+(30, '2024-05-10 09:15:58', 4, 6),
+(31, '2024-05-10 09:16:02', 3, 6),
+(32, '2024-05-10 09:16:11', 4, 6),
+(33, '2024-05-10 10:55:22', 3, 6),
+(34, '2024-05-10 10:55:25', 4, 6),
+(35, '2024-05-10 10:55:27', 3, 6),
+(36, '2024-05-10 10:55:30', 4, 6),
+(37, '2024-05-10 11:55:20', 3, 6),
+(38, '2024-05-10 11:55:23', 4, 6),
+(39, '2024-05-10 11:55:24', 3, 6),
+(40, '2024-05-10 12:02:07', 4, 6),
+(41, '2024-05-10 12:02:08', 3, 6),
+(42, '2024-05-10 13:06:09', 1, 6),
+(43, '2024-05-10 16:08:57', 1, 6),
+(44, '2024-05-10 16:11:04', 4, 6),
+(45, '2024-05-10 16:11:05', 3, 6),
+(46, '2024-05-10 16:11:09', 4, 6),
+(47, '2024-05-10 16:16:39', 3, 6),
+(48, '2024-05-10 16:37:51', 4, 6),
+(49, '2024-05-10 16:37:55', 3, 6),
+(50, '2024-05-10 16:37:56', 4, 6),
+(51, '2024-05-10 16:37:56', 3, 6),
+(52, '2024-05-10 16:37:59', 4, 6),
+(53, '2024-05-10 16:38:02', 3, 6),
+(54, '2024-05-10 16:38:05', 4, 6),
+(55, '2024-05-10 16:38:06', 3, 6),
+(56, '2024-05-10 16:38:10', 4, 6),
+(57, '2024-05-10 16:38:11', 3, 6),
+(58, '2024-05-10 16:38:11', 4, 6),
+(59, '2024-05-10 16:38:12', 3, 6),
+(60, '2024-05-10 16:38:13', 4, 6),
+(61, '2024-05-10 16:38:13', 3, 6),
+(62, '2024-05-10 16:38:18', 4, 6),
+(63, '2024-05-10 16:38:18', 3, 6),
+(64, '2024-05-10 16:38:19', 4, 6),
+(65, '2024-05-10 16:38:19', 3, 6),
+(66, '2024-05-10 16:38:23', 4, 6),
+(67, '2024-05-10 16:38:24', 3, 6),
+(68, '2024-05-10 16:38:24', 4, 6),
+(69, '2024-05-10 16:38:29', 3, 6),
+(70, '2024-05-10 17:03:22', 4, 6),
+(71, '2024-05-10 17:03:24', 3, 6),
+(72, '2024-05-10 17:03:25', 4, 6),
+(73, '2024-05-10 17:03:25', 3, 6),
+(74, '2024-05-10 17:03:26', 4, 6),
+(75, '2024-05-10 17:03:26', 3, 6),
+(76, '2024-05-10 17:03:27', 4, 6),
+(77, '2024-05-10 17:03:28', 3, 6),
+(78, '2024-05-10 17:05:38', 4, 6),
+(79, '2024-05-10 17:05:44', 3, 6);
 
 -- --------------------------------------------------------
 
@@ -188,8 +239,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
 (6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
-(8, 'jorgepruebaedit', '$2y$10$AY46G43B1H0K2hrFvjfFKOrTR8x4loNv6KSfp2Q1N/LxJtmp7LV9i', 'jorgeprueba@gmail.com', 1, 0),
-(9, 'jorgeprueba', '$2y$10$Q9qOa3eyOoua5G34ABB1Ue1J2NUCXMLlvMAv7luRmyEnWAMWI9jWG', 'jorgeprueba1@gmail.com', 0, 0);
+(11, 'jorgeprueba', '$2y$10$Y9m5ZJKS.8CsUz9RaaCdt.JYTFKBz2MaQVm.UNgexWPs0/sY.LBmK', 'jorge@a.com', 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -252,13 +302,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -276,7 +326,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

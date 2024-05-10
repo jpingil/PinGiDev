@@ -11,7 +11,7 @@
             <?php
         }
         ?>
-        <table class="table table-dark">
+        <table>
             <thead>
             <th scope="col">Id</th>
             <th scope="col">Product Name</th>

@@ -10,6 +10,7 @@
                 if ($product['product_ban'] !== 1) {
                     ?>
                     <div class="product">
+                        <h3><?php echo $product['product_name']; ?></h3>
                         <a href="/Product/<?php echo $product['id_product']; ?>">
                             <img src="assets/<?php echo $product['img_folder'] . '/Main Image/' . $product['product_name'] . '.' . $product['img_extension']; ?>" alt="<?php echo $product['product_description']; ?>"/>
                         </a>

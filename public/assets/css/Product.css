@@ -1,50 +1,86 @@
-article{
+.product {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.product img {
+    width: 100%;
+    height: 100%;
+}
+
+form{
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    z-index: 0;
 }
 
-article h2{
-    text-align: center;
-    margin-bottom: 30px;
-}
 
-article .product{
-    width: 50%;
+
+.product-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-form{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.description {
     color: black;
-    z-index: 0;
-}
-
-form div{
-    margin: 10px;
     width: 100%;
 }
 
 
-textarea{
-    height: 200px;
+textarea {
+    height: 250px;
 }
 
-form .form-btn{
-    width: 100%;
+.orderBtn {
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    background-color: black;
     border-radius: 10px;
     border: none;
-    padding: 10px;
-    background-color: white;
-    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid grey;
+    width: 90%;
+    transition: all 0.5s ease-in-out;
 }
 
-form .form-btn:hover{
-    transform: scale(1.1);
+.orderBtn:hover {
+    border: 1px solid white;
+    background-color: green;
+    color: white;
+}
+
+@media screen and (max-width: 1000px) {
+    .product{
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .product-info{
+        width: 100%;
+        margin-top: 20px;
+    }
+
+}
+
+@media screen and (min-height: 1000px) {
+    article #product{
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .product-info{
+        width: 100%;
+    }
 }

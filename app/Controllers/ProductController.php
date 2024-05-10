@@ -48,7 +48,8 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $data = [
                 'styles' => $styles,
                 'section' => 'Products',
-                'product' => $product
+                'product' => $product,
+                'jss' => $jss
             ];
         }
 
@@ -267,7 +268,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
         echo json_encode($response);
     }
-
 
     private function verifyProduct(int $idProduct): ?array {
         $message = [];

@@ -18,6 +18,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         $orderModel = new \Com\Daw2\Models\OrderModel();
         $styles = ['Admin'];
         $data = [
+            'section' => 'AdminOrders',
             'styles' => $styles,
             'orders' => $orderModel->getAll()
         ];

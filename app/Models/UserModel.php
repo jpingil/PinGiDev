@@ -33,7 +33,7 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
     }
 
     public function register(array $vars): bool {
-        if (!isset($vars['id_rol'])) {
+        if (empty($vars['id_rol'])) {
             $vars['id_rol'] = 1;
         }
 

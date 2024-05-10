@@ -89,35 +89,34 @@
         <main>
             <article>
                 <h2>Product</h2>
-                <div class="product" >
+                <div class="product">
                     <img src="<?php
                     echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
                     $product['product_name'] . '.' . $product['img_extension'];
-                    ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="product">
+                    ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="producImg">
+                    <form method="post">
+                        <div class="product-info">
+                            <h3><?php echo $product['product_name']; ?></h3>
+                            <p><?php echo $product['product_description']; ?></p>
 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#product" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#product" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+                            <div class="description form-floating">
+                                <textarea
+                                    class="form-control"
+                                    name="description"
+                                    id="floatingarea"
+                                    cols="30"
+                                    rows="10"
+                                    placeholder="Product description"
+                                    ></textarea>
+                                <label for="floatingarea">Description</label>
+                            </div>
+                        </div>
+                        <button class="orderBtn">Enviar</button>
+                    </form>
                 </div>
-                <form action="/Order/<?php echo $product['id_product'];?>" method="post">
-                    <div class="description form-floating">
-                        <textarea
-                            class="form-control"
-                            name="description"
-                            id="floatingarea"
-                            cols="30"
-                            rows="10"
-                            placeholder="Product description"
-                            ></textarea>
-                        <label for="floatingarea">Description</label>
-                    </div>
-                    <button class="form-btn">Enviar</button>
-                </form>
             </article>
         </main>
+        
         <footer>
             <div class="legal">
                 <p id="legalNotices"><a href="">Legal Notices</a></p>

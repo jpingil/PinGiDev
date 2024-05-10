@@ -1,4 +1,3 @@
-
 <main>
     <h2>Favorites</h2>
     <?php
@@ -6,20 +5,26 @@
         ?>
         <div class="products">
             <?php
-            foreach ($favorites as $product) {
-                ?>
-                <div class="product">
-                    <a href="/Product/<?php echo $product['id_product']; ?>">
-                        <img src="assets/<?php echo $product['img_folder'] . '/Main Image/' . $product['product_name'].'.'.$product['img_extension']; ?>" alt="<?php echo $product['product_description']; ?>"/>
-                    </a>
-                    <div class="buttons">
-                        <i class="fa fa-heart btnFav fav" id="<?php echo $product['id_product']; ?>"></i>
+            foreach ($favorites as $favorite) {
+                if ($favorite['product_ban'] !== 1) {
+                    ?>
+                    <div class="product">
+                        <h3><?php echo $favorite['product_name']; ?></h3>
+                        <a href="/Product/<?php echo $favorite['id_product']; ?>">
+                            <img src="assets/<?php echo $favorite['img_folder'] . '/Main Image/' . $favorite['product_name'] . '.' . $favorite['img_extension']; ?>" alt="<?php echo $favorite['product_description']; ?>"/>
+                        </a>
+                        <div class="buttons">
+                            <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?>>
+                                <i class="fa fa-heart btnFav fav"  id="<?php echo $favorite['id_product']; ?>"></i>
+                            </a>
+                        </div>
                     </div>
                     <?php
                 }
-                ?>
-            </div>
-            <?php
-        }
-        ?>
+            }
+            ?>
+        </div>
+        <?php
+    }
+    ?>
 </main>

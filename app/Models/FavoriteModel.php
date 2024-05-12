@@ -15,16 +15,19 @@ namespace Com\Daw2\Models;
 class FavoriteModel extends \Com\Daw2\Core\BaseDbModel {
 
     private const SELECT_FROM_FAVS = 'SELECT * FROM favorites f INNER JOIN product'
-            . ' p ON f.id_product = p.id_product';
+            . ' p ON f.id_product = p.id_product INNER JOIN user u ON u.id_user = f.id_user';
 
     /**
      * 
      * @param int $idProduct id of the product that we want see if is favorite
      * @return bool if this query have a row, this query is true and the product is fav
      */
-    public function isFav(int $idProduct): bool {
-        $stmt = $this->pdo->prepare(self::SELECT_FROM_FAVS . ' WHERE p.id_product = ?');
-        $stmt->execute([$idProduct]);
+    public function isFav(int $idUser, int $idProduct): bool {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_FAVS . ' WHERE f.id_product = :id_product AND f.id_user = :id_user');
+        $stmt->execute([
+            'id_product' => $idProduct,
+            'id_user' => $idUser
+        ]);
         if ($row = $stmt->fetch()) {
             return true;
         }
@@ -40,7 +43,7 @@ class FavoriteModel extends \Com\Daw2\Core\BaseDbModel {
         if (is_null($idUser)) {
             $idUser = $_SESSION['user']['id_user'];
         }
-        $stmt = $this->pdo->prepare(self::SELECT_FROM_FAVS . ' WHERE id_user = ?');
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_FAVS . ' WHERE f.id_user = ?');
         $stmt->execute([$idUser]);
         return $stmt->fetchAll();
     }

@@ -28,4 +28,15 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
                 . '= u.id_user INNER JOIN actions a ON l.id_actions = a.id_actions order by log_date desc');
         return $stmt->fetchAll();
     }
+
+    /**
+     * Function to get the element for pagination
+     * @return array all elements with the limit
+     */
+    public function getAllPagination(int $numberStart, int $numberElements): array {
+        $stmt = $this->pdo->prepare('SELECT * FROM logs l INNER JOIN user u ON l.id_user '
+                . '= u.id_user INNER JOIN actions a ON l.id_actions = a.id_actions LIMIT ?, ? order by log_date desc');
+        $stmt->exeucte([$numberStart, $numberElements]);
+        return $stmt->fetchAll();
+    }
 }

@@ -32,13 +32,32 @@ class LogController extends \Com\Daw2\Core\BaseController {
 
     public function getAll(): void {
         $styles = ['Admin'];
-        $logModel = new \Com\Daw2\Models\LogModel();
         $data = [
             'styles' => $styles,
             'section' => 'AdminLogs',
-            'logs' => $logModel->getAll()
+            'logs' => $this->pagination($pageElements)
         ];
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminLogs.php', 'templates/Footer.php'), $data);
+    }
+
+    /**
+     * Function to paginate the elements in the logs view
+     * @param int $pageElements Elements number for page
+     * @return void
+     */
+    private function pagination(int $pageElements): ?array {
+        $logModel = new \Com\Daw2\Models\LogModel();
+        
+        $numberPageElements = 20;
+        $actualPage = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        //Number of the element from which to start
+        $start = ($actualPage - 1) * $numberPageElements;
+        
+        if($logModel->getAllPagination($start, $numberPageElements)){
+            
+        }
+        
     }
 }

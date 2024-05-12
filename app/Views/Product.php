@@ -99,33 +99,33 @@
                             <h3><?php echo $product['product_name']; ?></h3>
                             <p><?php echo $product['product_description']; ?></p>
 
-                            <div class="description form-floating">
+                            <div class="description form-floating ">
                                 <textarea
                                     class="form-control"
                                     name="description"
                                     id="floatingarea"
                                     cols="30"
                                     rows="10"
-                                    placeholder="Product description"
+                                    placeholder="Order Description"
                                     ></textarea>
-                                <label for="floatingarea">Description</label>
+                                <label for="floatingarea">Order Description</label>
                             </div>
+
+                            <button class="orderBtn">Order</button>
                         </div>
-                        <button class="orderBtn">Enviar</button>
                     </form>
                 </div>
             </article>
         </main>
-        
         <footer>
             <div class="legal">
-                <p id="legalNotices"><a href="">Legal Notices</a></p>
-                <p id="privacity"><a href="">Privacity</a></p>
-                <p id="moreContact">Telf: 645949745</p>
+                <a href="">Legal Notices</a></p>
+                <a href="">Privacity</a></p>
+                <a href="">Contact</a></p>
             </div>
             <p id="copyright">© Creative Commons</p>
             <div class="contact">
-                <i class="fa-brands fa-instagram icon" style="color: #ffffff"></i>
+                <a href="https://www.instagram.com/" class="fa-brands fa-instagram icon" style="color: #ffffff"></a>
                 <i class="fa-brands fa-github icon" style="color: #ffffff"></i>
                 <i class="fa-regular fa-envelope icon" style="color: #ffffff"></i>
             </div>
@@ -135,7 +135,7 @@
         if (isset($jss)) {
             foreach ($jss as $js) {
                 ?>
-                <script src="../../assets/js/<?php echo $js ?>.js"></script>
+                <script src="assets/js/<?php echo $js ?>.js"></script>
                 <?php
             }
         }

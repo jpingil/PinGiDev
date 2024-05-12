@@ -1,5 +1,5 @@
 :root {
-  --height-article: 450px;
+  --height-article: 480px;
 }
 
 main {
@@ -78,7 +78,7 @@ button:hover {
   height: var(--height-article);
   background: white;
   border-radius: 60% / 10%;
-  transform: translateY(-70px);
+  transform: translateY(-80px);
   transition: 0.8s ease-in-out;
 }
 
@@ -98,7 +98,7 @@ button:hover {
 }
 
 #chk:checked ~ .login {
-  transform: translateY(-390px);
+  transform: translateY(-400px);
 }
 
 #chk:checked ~ .login label {

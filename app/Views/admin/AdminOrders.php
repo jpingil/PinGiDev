@@ -20,8 +20,8 @@
                             <td><?php echo $order['email']; ?></td>
                             <td><?php echo $order['product_name']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
-                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $product['id_product']; ?>"></a>
+                                <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $order['id_product']; ?>"></a>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $order['id_product']; ?>"></a>
                             </td>
                         </tr>  
                         <?php

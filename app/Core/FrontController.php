@@ -8,6 +8,19 @@ class FrontController {
 
     static function main() {
         session_start();
+        Route::add('/',
+                function () {
+                    $controlador = new \Com\Daw2\Controllers\InitController();
+                    $controlador->see();
+                }
+                , 'get');
+
+        Route::add('/Hello',
+                function () {
+                    $controlador = new \Com\Daw2\Controllers\InitController();
+                    $controlador->see();
+                }
+                , 'get');
 
         Route::add('/AboutMe',
                 function () {
@@ -185,7 +198,7 @@ class FrontController {
                             $controlador->getAll();
                         }
                         , 'get');
-                        
+
                 Route::add('/AdminOrders',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\OrderController();

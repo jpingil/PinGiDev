@@ -40,7 +40,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
 
-    public function seeProduct(int $id, array $data = null): void {
+    public function seeProduct(int $id): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $styles = ['Product'];
         $product = $productModel->getProductById($id);
@@ -48,8 +48,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $data = [
                 'styles' => $styles,
                 'section' => 'Products',
-                'product' => $product,
-                'jss' => $jss
+                'product' => $product
             ];
         }
 

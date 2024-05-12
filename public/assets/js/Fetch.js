@@ -85,45 +85,4 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
         });
     });
-
-    var removes = document.querySelectorAll(".btnDelete");
-    removes.forEach((remove) => {
-        remove.addEventListener("click", function () {
-
-            //This is done to avoid repeating code.
-            var data = this.id.split('-');
-            var id = '';
-            if (data[0] == 'AdminUsers') {
-                id = 'id_user';
-            } else if (data[0] == 'AdminProducts') {
-                id = 'id_product';
-            }
-            var jsonObject = {};
-            jsonObject[id] = data[1];
-
-            fetch("/" + data[0] + "/ban", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(jsonObject),
-            })
-                    .then(function (response) {
-                        if (!response.ok) {
-                            throw new Error("Response error.");
-                        }
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        if (data.success) {
-
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error("Error: " + error);
-                    });
-        });
-    });
-
-
 });

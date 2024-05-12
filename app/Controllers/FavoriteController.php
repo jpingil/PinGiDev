@@ -46,26 +46,22 @@ class FavoriteController extends \Com\Daw2\Core\BaseController {
             if ($productModel->exists($idProduct)) {
                 $favoriteModel = new \Com\Daw2\Models\FavoriteModel();
 
-                if ($favoriteModel->isFav($idProduct)) {
+                if ($favoriteModel->isFav($_SESSION['user']['id_user'],$idProduct)) {
                     if ($favoriteModel->deleteFav($idProduct)) {
+                        $success = true;
                         $actionName = 'noFav';
                     }
                 } else {
                     if ($favoriteModel->insertFav($idProduct)) {
+                        $success = true;
                         $actionName = 'fav';
                     }
                 }
 
-                if ($actionName !== '') {
-                    $actionModel = new \Com\Daw2\Models\ActionModel();
-                    $action = $actionModel->getActionIdByName($actionName);
-                    if (!is_null($action)) {
-                        $logModel = new \Com\Daw2\Models\LogModel();
-                        if ($logModel->insertLog($_SESSION['user']['id_user'], $action['id_actions'])) {
-                            $success = true;
-                        }
-                    }
-                }
+//                if ($actionName !== '') {
+//                    $logController = new \Com\Daw2\Controllers\LogController();
+//                    $logController->generateLog($_SESSION['user']['id_user'], $actionName);
+//                }
             }
         }
         $response = ['success' => $success, 'action' => $actionName];

@@ -49,7 +49,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
                         $errors['register'] = 'Unexpected error';
                     }
 
-                    header('Location: /AboutMe');
+                    header('Location: /');
                 }
             } else {
                 $errors['register'] = 'Unexpected error.';
@@ -121,7 +121,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
                 } else {
                     $errors['login'] = 'Unexpected error.';
                 }
-                header('Location: /AboutMe');
+                header('Location: /');
             }
         }
 

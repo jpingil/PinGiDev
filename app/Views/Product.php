@@ -88,7 +88,6 @@
         </header>
         <main>
             <article>
-                <h2>Product</h2>
                 <div class="product">
                     <img src="<?php
                     echo '../../assets/' . $product['img_folder'] . '/Main Image/' .

@@ -1,75 +1,96 @@
-body{
-    background-color: gradien;
+h2{
+    margin-bottom: 20px;
 }
 
-#presentation, #skills{
+#presentation{
+    height: calc(90vh - var(--header-height));
+    margin-bottom: 20px
+}
+
+#presentation{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-section{
-    height: calc(100vh - var(--header-height));
+#description{
+    height: 80vh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
     align-items: center;
-    flex-direction: column;
-    z-index: 0;
+    padding: 10px;
 }
 
-section h1,
-h2 {
-    font-weight: bold;
+#description img{
+    width: 350px;
+    border-radius: 10px;
 }
 
-section:nth-child(2) {
-    height: calc(70vh - var(--header-height) + var(--nav-height));
+#description p{
+    width: 80%;
 }
 
-section * {
+section:nth-child(3){
+    height: 70vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+#formation, #skills{
     margin: 20px 0px;
 }
 
-section .description {
-    padding: 0% 20%;
+.aptitudes{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.formation{
+    text-align: center;
+}
+
+section:nth-child(4){
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-section .description * {
-    margin: 10px 0px;
-    text-align: center;
+#carouselProducts{
+    width: 600px;
 }
 
-section .description img {
-    height: 300px;
-    border-radius: 50px;
+#producImg{
+    width: 600px;
+    transition: transform 0.2s ease-in-out;
 }
 
-section .formation {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+#producImg:hover{
+    transform: scale(1.1);
 }
 
-section .aptitudes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    gap: 10px;
+@media screen and (max-width:900px) {
+    #description img{
+        width: 250px;
+    }
+
 }
 
-@media screen and (max-width:500px) {
-    section{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
+@media screen and (max-width:650px) {
+
+    #carouselProducts{
+        width: 500px;
+    }
+
+    #producImg{
+        width: 500px;
     }
 
 }

@@ -1,5 +1,5 @@
 article{
-    height: calc(100vh - var(--header-height));
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +28,8 @@ section{
 }
 
 .presentation p{
-    width: 30%;
+    padding: 10px;
+    width: 50%;
     margin-left: 10%;
 }
 
@@ -38,5 +39,27 @@ section{
     }
     100%{
         opacity: 1;
+    }
+}
+
+
+@media screen and (max-height:1000px) {
+    .presentation img{
+        width: 300px;
+    }
+}
+
+@media screen and (max-width:850px) {
+    article{
+        height: auto;
+    }
+
+    .presentation{
+        flex-direction: column-reverse;
+    }
+
+    .presentation p{
+        margin-left: 0;
+        width: 100%;
     }
 }

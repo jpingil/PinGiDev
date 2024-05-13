@@ -21,9 +21,7 @@
                                     foreach ($favsProducts as $favProduct) {
                                         if ($favProduct['id_product'] == $product['id_product']) {
                                             echo 'fav';
-                                        } else {
-                                            echo 'noFav';
-                                        }
+                                        } 
                                     }
                                 } else {
                                     echo 'noFav';

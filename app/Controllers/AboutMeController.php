@@ -16,15 +16,16 @@ namespace Com\Daw2\Controllers;
  */
 class AboutMeController extends \Com\Daw2\Core\BaseController {
 
-    public function seeAbouMe() :void{
+    public function seeAbouMe(): void {
         $styles = ['AboutMe'];
-        
+        $productModel = new \Com\Daw2\Models\ProductModel();
+
         $data = [
             'styles' => $styles,
-            'section' => 'AboutMe'
+            'section' => 'AboutMe',
+            'products' => $productModel->getAll()
         ];
-        
+
         $this->view->showViews(array('templates/Header.php', 'AboutMe.php', 'templates/Footer.php'), $data);
     }
-
 }

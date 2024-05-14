@@ -2,19 +2,43 @@ h2{
     margin-bottom: 20px;
 }
 
-#presentation{
+section:first-child{
     height: calc(90vh - var(--header-height));
     margin-bottom: 20px
 }
 
-#presentation{
+section:first-child{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#description{
+#presentation{
+    animation-name: scale;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+}
+
+#presentation p{
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px 0px;
+    text-align: center;
+    background-color: rgba(6, 87, 0, 1);
+
+}
+
+@keyframes scale{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.2);
+    }
+}
+
+.grid{
     height: 80vh;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -26,22 +50,29 @@ h2{
 #description img{
     width: 350px;
     border-radius: 10px;
+    box-shadow: -10px -10px white;
+    border: 2px solid white;
 }
 
 #description p{
     width: 80%;
 }
 
-section:nth-child(3){
-    height: 70vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-    align-items: center;
-}
-
 #formation, #skills{
     margin: 20px 0px;
+}
+
+
+#formation{
+    background-color: rgba(6, 87, 0, 1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 10px 10px white;
+    border: 2px solid white;
+}
+
+#formation p{
+    padding: 10px 0px;
 }
 
 .aptitudes{
@@ -49,7 +80,59 @@ section:nth-child(3){
     grid-template-columns: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
+}
+
+.aptitudes div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.aptitudes div i{
+    font-size: 40px;
+    transition: color 0.3s ease-in-out;
+}
+
+.fa-css3-alt:hover{
+    color: rgba(20, 106, 255, 1);
+}
+
+.fa-js:hover{
+    color:yellow;
+}
+
+.fa-html5:hover{
+    color:orange;
+}
+
+.fa-bootstrap:hover{
+    color: purple;
+}
+
+.fa-php:hover{
+    color:rgba(42, 99, 199, 1);
+}
+
+.fa-java:hover{
+    color:red;
+}
+
+.fa-aws:hover{
+    color: orange;
+}
+
+.fa-microsoft:hover{
+    color:yellow;
+}
+
+.fa-database:hover{
+    color: blue;
+}
+
+#formation{
+    width: 80%;
 }
 
 .formation{
@@ -57,6 +140,7 @@ section:nth-child(3){
 }
 
 section:nth-child(4){
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -86,11 +170,27 @@ section:nth-child(4){
 @media screen and (max-width:650px) {
 
     #carouselProducts{
-        width: 500px;
+        width: 350px;
     }
 
     #producImg{
-        width: 500px;
+        width: 350px;
+    }
+
+    .grid{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #description img{
+        margin-bottom: 20px;
+    }
+
+    #formation, #skills{
+        margin-top: 50px;
+        width: 80%;
     }
 
 }

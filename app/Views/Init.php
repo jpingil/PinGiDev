@@ -2,7 +2,7 @@
     <article>
       <section>
         <div class="presentation">
-          <img src="assets/imgs/icon/PinGiDevMini.png" alt="PinGiDev mini icon">
+            <h2>Welcome!</h2>
           <p>Hello, this is pingidev, the website for selling websites. Under products, you will be able to see all the
             products made under the name of this company. You can save the ones you like in favorites, and when you are
             clear, place an order in which you select a project template, and give us a brief summary of what you want

@@ -14,7 +14,7 @@ article {
     height: var(--height-article);
     background: black;
     overflow: hidden;
-    box-shadow: 5px 20px 50px #000;
+    border: 2px solid white;
     border-radius: 10px;
 }
 

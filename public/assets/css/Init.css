@@ -16,7 +16,7 @@ article{
 }
 
 h2{
-    font-size: 50px;
+    font-size: 100px;
 }
 
 .presentation p{
@@ -64,6 +64,9 @@ svg {
 .card i{
     color: black;
     padding: 10px;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 10px;
 }
 
 #relationship{
@@ -92,13 +95,13 @@ svg {
 
 .minimalism{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    grid-template-columns: 1fr 1fr;
     justify-items: center;
     align-items: center;
 }
 
 .minimalism img{
-    width: 500px;
+    width: 1000px;
     padding: 10px;
 }
 
@@ -128,45 +131,88 @@ svg {
 }
 
 
-@media screen and (max-height:1000px) {
-    .presentation img{
-        width: 300px;
-    }
-}
-
-@media screen and (max-width:850px) {
-    article{
-        height: auto;
-    }
-
-    .presentation{
-        flex-direction: column;
-    }
-
-    .presentation p{
-        margin-left: 0;
-        width: 100%;
-    }
-
-    .cards{
+@media screen and (max-width:1024px) {
+    .presentation, .minimalism{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-    .card{
+    .presentation p{
         width: 80%;
         margin: 10px 0px;
     }
 
+    h2{
+        font-size: 100px;
+    }
+
+    .cards{
+        height: 80vh;
+    }
+
+    .card{
+        width: 80%;
+    }
+
     .minimalism{
-        flex-direction: column;
+        height: 100%;
+        justify-content: space-evenly;
+    }
+
+
+    .minimalism img{
+        width: 1000px;
+    }
+
+
+    .minimalism-text{
+        width: 80%;
+    }
+
+}
+
+
+@media screen and (max-width:1000px) {
+    .cards{
+        height: auto;
+        min-height: 80vh;
     }
 
     .minimalism img{
-        width: 300px;
-        margin: 0;
-        margin-bottom: 10px;
+        width: 890px;
+    }
+}
+
+
+@media screen and (max-width:855px) {
+
+    .minimalism img{
+        width: 750px;
+    }
+}
+
+
+@media screen and (max-width:600px) {
+    .minimalism img{
+        width: 550px;
+    }
+}
+
+@media screen and (max-width:450px) {
+    h2{
+        font-size: 50px;
+    }
+
+    .minimalism img{
+        width: 400px;
+    }
+}
+
+
+@media screen and (max-width:380px) {
+    .minimalism img{
+        width: 350px;
     }
 }

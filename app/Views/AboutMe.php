@@ -9,9 +9,9 @@
         <div  class="grid" id="description">
             <img src="assets/imgs/AboutMe/jorge.jpg" alt="PinGiDev selfie" />
             <p>
-                Hello! My name is Jorge, and I am a web developer. I finished the
-                higher education cycle in web development and now I want to study
-                computer enginering.
+                Hello, I'm Jorge, and I'm studying web application development. 
+                I want to continue training while working, and gain experience in the sector. 
+                I am enthusiastic about programming and every day I want to learn more about the world of computing.
             </p>
         </div>
     </section>
@@ -60,8 +60,8 @@
         <div id="formation">
             <h2>Formation</h2>
             <div class="formation">
-                <p>Bachelor's degree</p>
-                <p>Higher Cycle of Web Application Development</p>
+                <p>Baccalaureate</p>
+                <p>Web Application Developer</p>
             </div>
         </div>
     </section>

@@ -1,3 +1,7 @@
+:root{
+    --width-image : 1100px;
+}
+
 h2{
     margin-bottom: 20px;
 }
@@ -148,11 +152,11 @@ section:nth-child(4){
 }
 
 #carouselProducts{
-    width: 600px;
+    width: var(--width-image);
 }
 
 #producImg{
-    width: 600px;
+    width: var(--width-image);
     transition: transform 0.2s ease-in-out;
 }
 

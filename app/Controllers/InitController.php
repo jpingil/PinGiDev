@@ -15,10 +15,12 @@ namespace Com\Daw2\Controllers;
 class InitController extends \Com\Daw2\Core\BaseController {
 
     public function see() {
+        $jss = ['LogoRepeat'];
         $styles = ['Init'];
         $data = ['styles' => $styles];
         $data['section'] = 'Init';
-        
+        $data['jss'] = $jss;
+
         $this->view->showViews(array('templates/Header.php', 'Init.php', 'templates/Footer.php'), $data);
     }
 }

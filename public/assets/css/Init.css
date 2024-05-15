@@ -1,36 +1,121 @@
 article{
-    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-
-section{
-    width: 80%;
-}
-
-
 .presentation{
-    height: 100%;
+    height: calc(95vh - var(--header-height));
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    transition: box-shadow 0.5s ease-in-out;
     animation-name: opacity;
     animation-duration: 8s;
 }
 
-.presentation:hover{
-    box-shadow: 1px 1px white;
+h2{
+    font-size: 50px;
 }
 
 .presentation p{
     padding: 10px;
     width: 50%;
     margin-left: 10%;
+}
+
+.slider {
+    width: 100%;
+    display: flex;
+    background-color: white;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+svg {
+    padding: 0px 10px;
+}
+
+.logo {
+    margin: 0px 10px;
+    animation: scroll 20s linear infinite;
+}
+
+
+.cards{
+    height: calc(100vh - var(--header-height));
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.card{
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    color: black;
+}
+
+.card i{
+    color: black;
+    padding: 10px;
+}
+
+#relationship{
+    box-shadow: 10px 10px grey, -10px -10px grey;
+
+}
+
+#seo{
+    box-shadow: -10px -10px grey;
+
+}
+
+#us{
+    box-shadow: 10px 10px grey;
+}
+
+.minimalism-container{
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+}
+
+.minimalism{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    justify-items: center;
+    align-items: center;
+}
+
+.minimalism img{
+    width: 500px;
+    padding: 10px;
+}
+
+.minimalism-text{
+    padding: 10px;
+    width: 60%;
+    box-shadow: 10px 10px grey;
+    border: 1px solid grey;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-300%);
+    }
 }
 
 @keyframes opacity{
@@ -55,11 +140,33 @@ section{
     }
 
     .presentation{
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 
     .presentation p{
         margin-left: 0;
         width: 100%;
+    }
+
+    .cards{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card{
+        width: 80%;
+        margin: 10px 0px;
+    }
+
+    .minimalism{
+        flex-direction: column;
+    }
+
+    .minimalism img{
+        width: 300px;
+        margin: 0;
+        margin-bottom: 10px;
     }
 }

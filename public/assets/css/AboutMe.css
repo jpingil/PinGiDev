@@ -25,7 +25,7 @@ section:first-child{
     border-radius: 10px;
     padding: 5px 0px;
     text-align: center;
-    background-color: rgba(6, 87, 0, 1);
+    background-color: grey;
 
 }
 
@@ -64,7 +64,7 @@ section:first-child{
 
 
 #formation{
-    background-color: rgba(6, 87, 0, 1);
+    background-color:grey;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 10px 10px white;

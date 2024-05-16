@@ -61,6 +61,7 @@ ul li {
 
 ul li a {
     text-decoration: none;
+    text-align: left;
 }
 
 h2, h3{
@@ -145,6 +146,7 @@ footer {
     .legal {
         display: flex;
         flex-direction: row;
+        align-items: center;
         text-align: center;
     }
 

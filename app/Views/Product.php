@@ -95,9 +95,10 @@
                     ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="producImg">
                     <form method="post">
                         <div class="product-info">
-                            <h3><?php echo $product['product_name']; ?></h3>
-                            <p><?php echo $product['product_description']; ?></p>
-
+                            <div class="infoContainer">
+                                <h3><?php echo $product['product_name']; ?></h3>
+                                <p><?php echo $product['product_description']; ?></p>
+                            </div>
                             <div class="description form-floating ">
                                 <textarea
                                     class="form-control"

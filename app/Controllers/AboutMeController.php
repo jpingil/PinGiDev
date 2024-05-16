@@ -23,7 +23,6 @@ class AboutMeController extends \Com\Daw2\Core\BaseController {
         $data = [
             'styles' => $styles,
             'section' => 'AboutMe',
-            'products' => $productModel->getAll()
         ];
 
         $this->view->showViews(array('templates/Header.php', 'AboutMe.php', 'templates/Footer.php'), $data);

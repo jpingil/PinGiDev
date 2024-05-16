@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2024 a las 19:16:00
+-- Tiempo de generación: 16-05-2024 a las 13:26:00
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -62,7 +62,8 @@ CREATE TABLE `favorites` (
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
 (192, 11, 74),
-(193, 6, 74);
+(262, 6, 75),
+(263, 6, 74);
 
 -- --------------------------------------------------------
 
@@ -166,7 +167,15 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (88, '2024-05-13 18:50:34', 2, 11),
 (89, '2024-05-13 18:50:47', 1, 6),
 (90, '2024-05-13 18:51:03', 2, 6),
-(91, '2024-05-13 18:51:10', 1, 6);
+(91, '2024-05-13 18:51:10', 1, 6),
+(92, '2024-05-13 19:22:50', 2, 6),
+(93, '2024-05-14 17:57:39', 1, 6),
+(94, '2024-05-15 17:56:33', 1, 6),
+(95, '2024-05-15 18:53:28', 2, 6),
+(96, '2024-05-15 18:53:58', 1, 6),
+(97, '2024-05-15 18:54:11', 2, 6),
+(98, '2024-05-15 18:54:29', 1, 6),
+(99, '2024-05-15 18:55:11', 2, 6);
 
 -- --------------------------------------------------------
 
@@ -317,13 +326,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `order`

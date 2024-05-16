@@ -1,3 +1,8 @@
+:root{
+    --width-image : 1100px;
+}
+
+
 article{
     display: flex;
     flex-direction: column;
@@ -20,9 +25,8 @@ h2{
 }
 
 .presentation p{
-    padding: 10px;
+    padding: 50px;
     width: 50%;
-    margin-left: 10%;
 }
 
 .slider {
@@ -110,7 +114,37 @@ svg {
     width: 60%;
     box-shadow: 10px 10px grey;
     border: 1px solid grey;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+
+
+.minimalism-text:hover{
+    transform: scale(1.1);
+    box-shadow: 10px 10px grey, -10px -10px grey;
+}
+
+
+.carouselProducts{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#carouselProducts{
+    width: var(--width-image);
+}
+
+#producImg{
+    width: var(--width-image);
+    transition: transform 0.2s ease-in-out;
+}
+
+#producImg:hover{
+    transform: scale(1.1);
+}
+
 
 @keyframes scroll {
     0% {
@@ -157,7 +191,7 @@ svg {
     }
 
     .minimalism{
-        height: 100%;
+        height: auto;
         justify-content: space-evenly;
     }
 
@@ -175,18 +209,38 @@ svg {
 
 
 @media screen and (max-width:1000px) {
+    :root{
+        --width-image : 870px;
+    }
     .cards{
         height: auto;
         min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .minimalism img{
-        width: 890px;
+        width: 870px;
+    }
+}
+
+
+@media screen and (max-width:900px) {
+    :root{
+        --width-image : 800px;
+    }
+    .minimalism img{
+        width: 800px;
     }
 }
 
 
 @media screen and (max-width:855px) {
+    :root{
+        --width-image : 750px;
+    }
 
     .minimalism img{
         width: 750px;
@@ -194,25 +248,89 @@ svg {
 }
 
 
-@media screen and (max-width:600px) {
+
+@media screen and (max-width:700px) {
+    :root{
+        --width-image : 580px;
+    }
+
     .minimalism img{
-        width: 550px;
+        width: 580px;
     }
 }
 
+
+@media screen and (max-height:680px) {
+    :root{
+        --width-image : 590px;
+    }
+
+    .minimalism img{
+        max-width: 590px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    :root{
+        --width-image : 530px;
+    }
+
+    .minimalism img{
+        width: 530px;
+        margin-bottom: 10px;
+    }
+
+    .minimalism-text:hover{
+        transform: none;
+    }
+}
+
+
+
+@media screen and (max-width:550px) {
+    :root{
+        --width-image : 420px;
+    }
+    .minimalism img{
+        width: 420px;
+    }
+}
+
+
 @media screen and (max-width:450px) {
+    :root{
+        --width-image : 390px;
+    }
     h2{
         font-size: 50px;
     }
 
     .minimalism img{
-        width: 400px;
+        width: 390px;
     }
+
 }
 
 
-@media screen and (max-width:380px) {
+@media screen and (max-width:400px) {
+    :root{
+        --width-image : 350px;
+    }
+
     .minimalism img{
         width: 350px;
     }
 }
+
+
+
+@media screen and (max-width:370px) {
+    :root{
+        --width-image : 300px;
+    }
+
+    .minimalism img{
+        width: 300px;
+    }
+}
+

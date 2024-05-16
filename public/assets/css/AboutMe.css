@@ -1,5 +1,6 @@
-:root{
-    --width-image : 1100px;
+
+main{
+    margin: 0;
 }
 
 h2{
@@ -7,11 +8,7 @@ h2{
 }
 
 section:first-child{
-    height: calc(90vh - var(--header-height));
-    margin-bottom: 20px
-}
-
-section:first-child{
+    height: 101vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,8 +26,16 @@ section:first-child{
     border-radius: 10px;
     padding: 5px 0px;
     text-align: center;
-    background-color: grey;
+    background: linear-gradient(to right, #fc72ff, #8f68ff,#487bff, #8f68ff, #fc72ff);
+    background-size: 200%;
+    animation: gradientAnimation 2.5s linear infinite;
 
+}
+
+@keyframes gradientAnimation {
+    100% {
+        background-position: 200%;
+    }
 }
 
 @keyframes scale{
@@ -51,16 +56,32 @@ section:first-child{
     padding: 10px;
 }
 
+#description{
+    background-color: white;
+}
+
 #description img{
     width: 350px;
     border-radius: 10px;
-    box-shadow: -10px -10px white;
-    border: 2px solid white;
+    box-shadow: -10px -10px black;
+    border: 2px solid black;
 }
 
 #description p{
     width: 80%;
+    padding: 10px;
+    color: black;
+    border: 2px solid grey;
+    box-shadow: 10px 10px grey;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+
+
+#description p:hover{
+    transform: scale(1.1);
+    box-shadow: 10px 10px grey, -10px -10px grey;
+}
+
 
 #formation, #skills{
     margin: 20px 0px;
@@ -143,27 +164,6 @@ section:first-child{
     text-align: center;
 }
 
-section:nth-child(4){
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#carouselProducts{
-    width: var(--width-image);
-}
-
-#producImg{
-    width: var(--width-image);
-    transition: transform 0.2s ease-in-out;
-}
-
-#producImg:hover{
-    transform: scale(1.1);
-}
-
 @media screen and (max-width:900px) {
     #description img{
         width: 250px;
@@ -182,14 +182,23 @@ section:nth-child(4){
     }
 
     .grid{
+        height: auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
+    #description{
+        min-height: 90vh;
+    }
+
     #description img{
         margin-bottom: 20px;
+    }
+
+    #description p:hover{
+        transform: none;
     }
 
     #formation, #skills{

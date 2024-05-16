@@ -39,6 +39,11 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         return $stmt->fetchAll();
     }
 
+    public function getSomeProducts(): array {
+        $stmt = $this->pdo->query(self::SELECT_FROM . ' LIMIT 3');
+        return $stmt->fetchAll();
+    }
+
     public function insert(array $vars): bool {
         $stmt = $this->pdo->prepare('INSERT INTO product (product_name, product_description, '
                 . 'img_folder, img_extension, img_carousel_length) values'

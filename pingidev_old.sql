@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2024 a las 19:20:22
+-- Tiempo de generación: 13-05-2024 a las 19:16:00
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -61,7 +61,8 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(166, 6, 73);
+(192, 11, 74),
+(193, 6, 74);
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,19 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (76, '2024-05-10 17:03:27', 4, 6),
 (77, '2024-05-10 17:03:28', 3, 6),
 (78, '2024-05-10 17:05:38', 4, 6),
-(79, '2024-05-10 17:05:44', 3, 6);
+(79, '2024-05-10 17:05:44', 3, 6),
+(80, '2024-05-13 09:26:37', 1, 6),
+(81, '2024-05-13 12:12:55', 2, 6),
+(82, '2024-05-13 12:32:59', 1, 6),
+(83, '2024-05-13 12:39:40', 2, 6),
+(84, '2024-05-13 12:39:57', 1, 11),
+(85, '2024-05-13 16:17:49', 1, 6),
+(86, '2024-05-13 18:46:15', 2, 6),
+(87, '2024-05-13 18:46:26', 1, 11),
+(88, '2024-05-13 18:50:34', 2, 11),
+(89, '2024-05-13 18:50:47', 1, 6),
+(90, '2024-05-13 18:51:03', 2, 6),
+(91, '2024-05-13 18:51:10', 1, 6);
 
 -- --------------------------------------------------------
 
@@ -197,7 +210,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`, `product_ban`) VALUES
-(73, 'Test Web', 'Web to do a test', 'imgs/Product/Test Web', 'jpg', 1, 0);
+(73, 'Test Web', 'Web to do a test', 'imgs/Product/Test Web', 'jpg', 1, 0),
+(74, 'Product Prueba', 'Prueba web', 'imgs/Product/Product Prueba', 'jpg', 1, 0),
+(75, 'Prueba 1', 'Prueba web', 'imgs/Product/Prueba 1', 'jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -302,13 +317,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -320,7 +335,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

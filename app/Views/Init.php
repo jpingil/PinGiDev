@@ -22,17 +22,11 @@
                     <g
                         fill="#000000"
                         fill-rule="nonzero"
-                        stroke="none"
                         stroke-width="1"
                         stroke-linecap="butt"
                         stroke-linejoin="miter"
                         stroke-miterlimit="10"
-                        stroke-dasharray=""
                         stroke-dashoffset="0"
-                        font-family="none"
-                        font-weight="none"
-                        font-size="none"
-                        text-anchor="none"
                         style="mix-blend-mode: normal"
                         >
                         <g transform="scale(5.12,5.12)">
@@ -122,11 +116,50 @@
                         certain aspects to always choose.
                     </p>
                     <p>
-                       Minimalism is still a web trend, due to its clarity and cleanliness. 
-                       We are also in favor of the use of AI for different websites, as well as the use of voice search.
+                        Minimalism is still a web trend, due to its clarity and cleanliness. 
+                        We are also in favor of the use of AI for different websites, as well as the use of voice search.
                     </p>
                 </div>
             </div>
+        </section>
+        <section class="carouselProducts">
+            <?php
+            if (isset($products) && !empty($products)) {
+                ?>
+                <div id="products">
+                    <h3>Some Products</h3>
+                    <div id="carouselProducts" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+
+                            <?php
+                            $counter = 0;
+                            foreach ($products as $product) {
+                                ?>
+                                <div class="carousel-item <?php echo ($counter === 0) ? 'active' : ''; ?>">
+                                    <img src="<?php
+                                    echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
+                                    $product['product_name'] . '.' . $product['img_extension'];
+                                    ?>" alt="<?php echo $product['product_description']; ?>" class="d-block" id="producImg">                
+                                </div>
+                                <?php
+                                $counter++;
+                            }
+                            ?>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselProducts" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselProducts" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <?php
+            }
+            ?>
         </section>
     </article>
 </main>

@@ -9,6 +9,8 @@
 :root {
     --header-height: 100px;
     --nav-height: 80px;
+    --bgcolor-admin: white;
+    --color-admin : black;
 }
 
 body {

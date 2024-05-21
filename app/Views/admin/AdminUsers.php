@@ -1,5 +1,5 @@
 <main>
-    <article class="col-12">
+    <article>
         <a class="add" href="/AdminUsers/add">Add User</a>
         <h2>PinGiDev Users</h2>
         <?php

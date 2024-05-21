@@ -66,14 +66,18 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     }
 
     public function seeAdd(array $data = null): void {
-        $styles = ['AddAdmins', 'AddProducts'];
+        $styles = ['Admin', 'AddAdmins', 'AddProducts'];
 
         $data['styles'] = $styles;
         $data['js'] = 'FormImages';
 
         if (!isset($data['section'])) {
             $data['title'] = 'Add Product';
-            $data['section'] = '/AdminProducts/add';
+            $data['section'] = 'AdminProducts';
+        }
+
+        if (!isset($data['action'])) {
+            $data['action'] = '/AdminProducts/add';
         }
 
 

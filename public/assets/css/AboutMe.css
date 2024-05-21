@@ -1,3 +1,7 @@
+:root{
+    --imgWidth: 350px;
+}
+
 
 main{
     margin: 0;
@@ -56,12 +60,13 @@ section:first-child{
     padding: 10px;
 }
 
-#description{
+#description, #employeeDescription{
     background-color: white;
+    color: black;
 }
 
 #description img{
-    width: 350px;
+    width: var(--imgWidth);
     border-radius: 10px;
     box-shadow: -10px -10px black;
     border: 2px solid black;
@@ -163,6 +168,25 @@ section:first-child{
 .formation{
     text-align: center;
 }
+
+.card{
+    width: var(--imgWidth);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.card img{
+    width: var(--imgWidth);
+}
+
+.card p{
+    padding: 20px;
+}
+
 
 @media screen and (max-width:900px) {
     #description img{

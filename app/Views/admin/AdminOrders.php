@@ -1,5 +1,5 @@
 <main>
-    <article class="col-12 p-3">
+    <article>
         <h2>PinGiDev Orders</h2>
         <table>
             <thead>

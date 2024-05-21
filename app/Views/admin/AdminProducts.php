@@ -1,5 +1,5 @@
 <main>
-    <article class="col-12 p-3">
+    <article>
         <a class="add" href="/AdminProducts/add">Add New Product</a>
         <h2>PinGiDev Products</h2>
         <?php

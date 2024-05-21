@@ -7,15 +7,22 @@ main {
     height: 85vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 0;
 }
 
 article {
     width: 500px;
     height: var(--height-article);
-    background: black;
+    background-image: linear-gradient(black, grey);
     overflow: hidden;
-    border: 2px solid white;
+    transition: box-shadow 0.3s ease-in-out;
     border-radius: 10px;
+}
+
+article:hover{
+    box-shadow: inset 5px 5px white, inset  -5px -5px white;
+
 }
 
 #chk {

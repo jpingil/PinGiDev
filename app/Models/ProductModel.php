@@ -93,4 +93,5 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         }
         return null;
     }
+    
 }

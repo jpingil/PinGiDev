@@ -52,23 +52,23 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1">
-                            <li class="nav-item  <?php
+                            <li class="nav-item">
+                                <a class="nav-link  <?php
                                 echo(isset($section) &&
                                 $section === 'AdminUsers') ? 'active' : '';
-                                ?>">
-                                <a class="nav-link" href="/AdminUsers">Users</a>
+                                ?>"" href="/AdminUsers">Users</a>
                             </li>
-                            <li class="nav-item <?php
+                            <li class="nav-item">
+                                <a class="nav-link <?php
                                 echo(isset($section) &&
                                 $section === 'AdminProducts') ? 'active' : '';
-                                ?>">
-                                <a class="nav-link " href="/AdminProducts">Products</a>
+                                ?>" href="/AdminProducts">Products</a>
                             </li>
-                            <li class="nav-item <?php
+                            <li class="nav-item">
+                                <a class="nav-link <?php
                                 echo(isset($section) &&
                                 $section === 'AdminOrders') ? 'active' : '';
-                                ?>">
-                                <a class="nav-link" href="/AdminOrders">Orders</a>
+                                ?>" href="/AdminOrders">Orders</a>
                             </li>
                             <li>
                                 <a class="nav-link <?php

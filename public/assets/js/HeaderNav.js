@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var activeElement = document.querySelector(".active");
-    if (activeElement.previousElementSibling) {
-        activeElement.previousElementSibling.classList.add("liBefore");
+    var activeA = document.querySelector(".active");
+    var activeLi = activeA.parentNode;
+    if (activeLi.previousElementSibling) {
+        activeLi.previousElementSibling.firstElementChild.classList.add("liBefore");
+    }
+    if (activeLi.nextElementSibling) {
+        activeLi.nextElementSibling.firstElementChild.classList.add("liNext");
     }
 });

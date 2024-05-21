@@ -157,7 +157,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $userModel = new \Com\Daw2\Models\UserModel();
         $users = $userModel->getAll();
 
-        $data['jss'] = ['Fetch'];
+        $data['jss'] = ['Fetch', 'HeaderNav'];
         $data['section'] = 'AdminUsers';
         $data['users'] = $users;
 

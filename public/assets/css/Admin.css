@@ -1,5 +1,9 @@
+:root{
+    --paddingLi : 10px;
+}
+
 header{
-    padding: 0;
+    padding: 0px 10px;
     position: sticky
 }
 
@@ -20,32 +24,39 @@ header{
 }
 
 ul{
-    background-color: white;
+    padding: 0px 10px;
 }
 
-li{
+ul li{
+    background-color: white;
+    padding: 0;
+}
+
+li:has(.active){
     background-color: black;
 }
 
-.active{
-    background: white;
-    padding: 10px;
-    border-radius: 10px 10px 0px 0px;
-    height: 100%;
-}
-
 .liBefore{
-    border-radius: 0px 0px 20px 0px;
+    border-radius: 0px 0px 10px 0px;
 }
 
-/* The '+' to get the next li*/
-.active + li{
-    border-radius: 0px 0px 0px 20px;
+.liNext{
+    border-radius: 0px 0px 0px 10px;
 }
 
-.active a{
+.nav-link{
+    background-color: black;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding: 15px !important;
+}
+
+li:has(.active) a{
+    height: 100%;
     /* !important because bootstrap change the color */
     color: black !important;
+    background-color: white;
+    border-radius: 20px 20px 0px 0px;
 }
 
 main{
@@ -101,7 +112,7 @@ table tr {
 }
 
 table tr:hover {
-    background-color: rgba(128, 128, 128, 0.5);
+    background-color: rgba(160, 160, 160, 0.25);
 }
 
 

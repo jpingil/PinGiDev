@@ -133,13 +133,14 @@ section:first-child{
 }
 
 .employee{
-    width: var(--imgWidth);
+    width: calc(var(--imgWidth) + 2px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: black;
     color: white;
+    border: 1px solid black;
     border-radius: 0px 0px 10px 10px;
     box-shadow: -10px -10px grey;
     transition: transform 0.3s ease-in-out;
@@ -152,6 +153,7 @@ section:first-child{
 .employeeDescriptionPar .employee{
     background-color: white;
     color: black;
+    border: 1px solid white;
     box-shadow: 10px 10px grey;
 }
 
@@ -168,6 +170,7 @@ section:first-child{
     margin-top: 10px;
     margin-bottom: 0;
 }
+    
 
 .office{
     font-size: 20px;

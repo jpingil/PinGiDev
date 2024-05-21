@@ -7,8 +7,8 @@
 }
 
 :root {
-    --header-height: 100px;
-    --nav-height: 80px;
+    --header-height: 90px;
+    --nav-height: auto;
     --bgcolor-admin: white;
     --color-admin : black;
 }
@@ -44,7 +44,6 @@ header h1 {
 
 header h1 a img {
     width: 200px;
-    height: 100px;
 }
 
 a {
@@ -93,7 +92,7 @@ footer {
     justify-self: end;
 }
 
-.icon {
+footer .icon {
     color: #ffffff;
     font-size: 30px;
     padding: 8px;

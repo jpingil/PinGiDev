@@ -16,11 +16,11 @@
         ?>       
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
         <title>PinGiDev</title>
-        <link rel="icon" href="../../assets/imgs/icon/PinGiDevMini.png">
+        <link rel="icon" href="assets/imgs/icon/PinGiDevMini.png">
     </head>
     <body>
         <header>
-            <h1><a href="Aboutme.html"><img src="../../assets/imgs/icon/PinGiDev.png" alt="Principal icon of PinGiDev"></a></h1>
+            <h1><a href="/"><img src="../../assets/imgs/icon/PinGiDev.png" alt="Principal icon of PinGiDev"></a></h1>
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <button
                     class="navbar-toggler shadow-none border-0"
@@ -48,6 +48,12 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link <?php
+                                echo(isset($section) &&
+                                $section === 'Init') ? 'active' : '';
+                                ?>" href="/Hello">Hello</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link <?php
                                 echo(isset($section) &&

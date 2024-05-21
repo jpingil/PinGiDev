@@ -2,7 +2,6 @@
     --imgWidth: 350px;
 }
 
-
 main{
     margin: 0;
 }
@@ -60,7 +59,7 @@ section:first-child{
     padding: 10px;
 }
 
-#description, #employeeDescription{
+#description, .employeeDescriptionImpar{
     background-color: white;
     color: black;
 }
@@ -125,6 +124,61 @@ section:first-child{
     transition: color 0.3s ease-in-out;
 }
 
+#formation{
+    width: 80%;
+}
+
+.formation{
+    text-align: center;
+}
+
+.employee{
+    width: var(--imgWidth);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: -10px -10px grey;
+    transition: transform 0.3s ease-in-out;
+}
+
+.employeeDescriptionImpar i{
+    color: black;
+}
+
+.employeeDescriptionPar .employee{
+    background-color: white;
+    color: black;
+    box-shadow: 10px 10px grey;
+}
+
+
+.employee:hover{
+    transform: scale(1.02);
+}
+
+.employee img{
+    width: var(--imgWidth);
+}
+
+.employee h3{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.office{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.emplooyeePresentation{
+    padding: 10px;
+}
+
+
 .fa-css3-alt:hover{
     color: rgba(20, 106, 255, 1);
 }
@@ -161,32 +215,17 @@ section:first-child{
     color: blue;
 }
 
-#formation{
-    width: 80%;
+.fa-figma:hover{
+    color: purple;
 }
 
-.formation{
-    text-align: center;
+.fa-google:hover{
+    color: red;
 }
 
-.card{
-    width: var(--imgWidth);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    color: white;
+.fa-file-word:hover{
+    color: orange;
 }
-
-.card img{
-    width: var(--imgWidth);
-}
-
-.card p{
-    padding: 20px;
-}
-
 
 @media screen and (max-width:900px) {
     #description img{
@@ -195,14 +234,9 @@ section:first-child{
 
 }
 
-@media screen and (max-width:650px) {
-
-    #carouselProducts{
-        width: 350px;
-    }
-
-    #producImg{
-        width: 350px;
+@media screen and (max-width:780px) {
+    :root{
+        --imgWidth: 300px;
     }
 
     .grid{
@@ -212,7 +246,7 @@ section:first-child{
         justify-content: center;
         align-items: center;
     }
-
+    
     #description{
         min-height: 90vh;
     }
@@ -228,6 +262,14 @@ section:first-child{
     #formation, #skills{
         margin-top: 50px;
         width: 80%;
+    }
+
+    .employee{
+        margin: 10px 0px;
+    }
+    
+    .employeeDescriptionPar{
+        flex-direction: column-reverse;
     }
 
 }

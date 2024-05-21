@@ -58,7 +58,7 @@
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
                                 $section === 'AboutMe') ? 'active' : '';
-                                ?>" href="/AboutMe">About Me</a>
+                                ?>" href="/AboutMe">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link <?php

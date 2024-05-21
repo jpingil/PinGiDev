@@ -51,24 +51,24 @@
                             ></button>
                     </div>
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link <?php
+                        <ul class="navbar-nav justify-content-end flex-grow-1">
+                            <li class="nav-item  <?php
                                 echo(isset($section) &&
                                 $section === 'AdminUsers') ? 'active' : '';
-                                ?>" href="/AdminUsers">Users</a>
+                                ?>">
+                                <a class="nav-link" href="/AdminUsers">Users</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?php
+                            <li class="nav-item <?php
                                 echo(isset($section) &&
                                 $section === 'AdminProducts') ? 'active' : '';
-                                ?>" href="/AdminProducts">Products</a>
+                                ?>">
+                                <a class="nav-link " href="/AdminProducts">Products</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?php
+                            <li class="nav-item <?php
                                 echo(isset($section) &&
                                 $section === 'AdminOrders') ? 'active' : '';
-                                ?>" href="/AdminOrders">Orders</a>
+                                ?>">
+                                <a class="nav-link" href="/AdminOrders">Orders</a>
                             </li>
                             <li>
                                 <a class="nav-link <?php

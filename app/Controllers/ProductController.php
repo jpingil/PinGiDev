@@ -58,7 +58,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     public function seeAdminProducts(array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $products = $productModel->getAll();
-        $jss = ['Fetch'];
+        $jss = ['Fetch', 'HeaderNav'];
         $data['section'] = 'AdminProducts';
         $data['products'] = $products;
         $data['jss'] = $jss;

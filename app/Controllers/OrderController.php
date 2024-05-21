@@ -17,10 +17,12 @@ class OrderController extends \Com\Daw2\Core\BaseController {
     public function seeAdminOrders(): void {
         $orderModel = new \Com\Daw2\Models\OrderModel();
         $styles = ['Admin'];
+        $jss = ['Fetch', 'HeaderNav'];
         $data = [
             'section' => 'AdminOrders',
             'styles' => $styles,
-            'orders' => $orderModel->getAll()
+            'orders' => $orderModel->getAll(),
+            'jss' => $jss
         ];
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminOrders.php', 'templates/Footer.php'), $data);

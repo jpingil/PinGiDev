@@ -53,40 +53,46 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link  <?php
-                                echo(isset($section) &&
-                                $section === 'AdminUsers') ? 'active' : '';
-                                ?>"" href="/AdminUsers">Users</a>
+                                <?php if ($_SESSION['user']['id_rol'] == 0) { ?>
+                                    <a class="nav-link  <?php
+                                    echo(isset($section) &&
+                                    $section === 'AdminUsers') ? 'active' : '';
+                                    ?>"" href="/AdminUsers">Users</a>
+                                   <?php } else {
+                                       ?>
+                                    <a href="/" class="nav-link username"><?php echo $_SESSION['user']['user_name']; ?></a>
+                                <?php } ?>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'AdminProducts') ? 'active' : '';
-                                ?>" href="/AdminProducts">Products</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'AdminOrders') ? 'active' : '';
-                                ?>" href="/AdminOrders">Orders</a>
-                            </li>
-                            <li>
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'AdminLogs') ? 'active' : '';
-                                ?>" href="/AdminLogs">Logs</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/AboutMe">Web</a>
-                            </li>
-                            <li>
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'LoginRegister') ? 'active' : '';
-                                ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
-                                    <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
-                            </li>
-
+                            <?php if ($_SESSION['user']['id_rol'] == 0) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?php
+                                    echo(isset($section) &&
+                                    $section === 'AdminProducts') ? 'active' : '';
+                                    ?>" href="/AdminProducts">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link <?php
+                                    echo(isset($section) &&
+                                    $section === 'AdminOrders') ? 'active' : '';
+                                    ?>" href="/AdminOrders">Orders</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link <?php
+                                    echo(isset($section) &&
+                                    $section === 'AdminLogs') ? 'active' : '';
+                                    ?>" href="/AdminLogs">Logs</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="/AboutMe">Web</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link <?php
+                                    echo(isset($section) &&
+                                    $section === 'LoginRegister') ? 'active' : '';
+                                    ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
+                                        <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>

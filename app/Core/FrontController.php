@@ -79,6 +79,21 @@ class FrontController {
                     }
                     , 'post');
 
+            Route::add('/Edit',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\UserController();
+                        $controlador->seeEdit($_SESSION['user']['id_user'], true);
+                    }
+                    , 'get');
+                    
+                    
+            Route::add('/Edit',
+                    function () {
+                        $controlador = new \Com\Daw2\Controllers\UserController();
+                        $controlador->processEdit($_SESSION['user']['id_user'], true);
+                    }
+                    , 'post');
+
             if ($_SESSION['user']['rol_name'] == 'admin') {
                 Route::add('/Management',
                         function () {
@@ -245,7 +260,7 @@ class FrontController {
 
         Route::pathNotFound(
                 function () {
-                    header("Location: /AboutMe");
+                    header("Location: /");
                 }
         );
 

@@ -21,7 +21,7 @@
                     name="email"
                     placeholder="PinGiDev"
                     value="<?php echo(isset($input['email'])) ? $input['email'] : ''; ?>"
-
+                    <?php echo (isset($readonly)) ? 'disabled' : ""; ?>
                     />
                 <label for="floatingInput">Email</label>
             </div>
@@ -47,7 +47,7 @@
                 <label for="floatingInput">Verify Pass</label>
             </div>
             <div>
-                <select class="form-select"  name="id_rol">
+                <select class="form-select"  name="id_rol" <?php echo (isset($readonly)) ? 'disabled' : ''; ?>>
                     <?php
                     if (isset($input['id_rol'])) {
                         foreach ($rols as $rol) {

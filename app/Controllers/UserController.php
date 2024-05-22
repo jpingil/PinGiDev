@@ -164,7 +164,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'templates/Footer.php'), $data);
     }
 
-    public function seeAdd(array $data = null): void {
+    public function seeAdd(array $data = null, bool $readonly = false): void {
         $rolModel = new \Com\Daw2\Models\RolModel();
 
         $styles = ['AddAdmins'];
@@ -180,6 +180,12 @@ class UserController extends \Com\Daw2\Core\BaseController {
         if (empty($data['action'])) {
             $data['action'] = '/AdminUser/add';
         }
+
+        if ($readonly) {
+            $data['readonly'] = true;
+        }
+
+
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AddUsers.php', 'templates/Footer.php'), $data);
     }
@@ -198,7 +204,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->seeAdd($data);
     }
 
-    public function seeEdit(int $id): void {
+    public function seeEdit(int $id, bool $readonly = false): void {
         $userModel = new \Com\Daw2\Models\UserModel();
         $user = $userModel->getUserById($id);
         if ($user) {
@@ -206,33 +212,42 @@ class UserController extends \Com\Daw2\Core\BaseController {
             $data['input'] = $user;
             $data['title'] = 'Edit User';
             $data['action'] = '/AdminUser/edit';
-
-            $this->seeAdd($data);
+            if ($readonly) {
+                $data['action'] = '/Edit';
+            }
+            $this->seeAdd($data, $readonly);
         } else {
             Header('Location: /AdminUsers');
         }
     }
 
-    public function processEdit(int $id): void {
+    public function processEdit(int $id, bool $defaultUser = false): void {
         $userModel = new \Com\Daw2\Models\UserModel();
         $errors = $this->checkRegister($userModel->getUserById($id));
         if (empty($errors)) {
             $userModel->updateUser($id, $_POST);
-            header('Location: /AdminUsers');
+            if (!$defaultUser) {
+                header('Location: /AdminUsers');
+            }
+
+            header('Location: /');
         }
 
         $data = [];
         $data['title'] = 'Edit User';
         $data['action'] = '/AdminUser/edit';
+        if ($defaultUser) {
+            $data['action'] = 'edit';
+        }
         $data['errors'] = $errors;
         $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         $this->seeAdd($data);
     }
 
-    /*
+    /**
      * Fetch function to ban users
+     * @return void
      */
-
     public function banUser(): void {
         $success = false;
         $action = 'ban';

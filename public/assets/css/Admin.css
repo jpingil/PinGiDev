@@ -51,6 +51,10 @@ li:has(.active){
     padding: 15px !important;
 }
 
+.username{
+    color: white !important;
+}
+
 li:has(.active) a{
     height: 100%;
     /* !important because bootstrap change the color */

@@ -94,33 +94,52 @@
         </header>
         <main>
             <article>
-                <div class="product">
-                    <img src="<?php
-                    echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
-                    $product['product_name'] . '.' . $product['img_extension'];
-                    ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="producImg">
-                    <form method="post">
-                        <div class="product-info">
-                            <div class="infoContainer">
-                                <h3><?php echo $product['product_name']; ?></h3>
-                                <p><?php echo $product['product_description']; ?></p>
-                            </div>
-                            <div class="description form-floating ">
-                                <textarea
-                                    class="form-control"
-                                    name="description"
-                                    id="floatingarea"
-                                    cols="30"
-                                    rows="10"
-                                    placeholder="Order Description"
-                                    ></textarea>
-                                <label for="floatingarea">Order Description</label>
-                            </div>
+                <section>
+                    <div class="product">
+                        <img src="<?php
+                        echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
+                        $product['product_name'] . '.' . $product['img_extension'];
+                        ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="producImg">
+                        <form method="post">
+                            <div class="product-info">
+                                <div class="infoContainer">
+                                    <h3><?php echo $product['product_name']; ?></h3>
+                                    <p><?php echo $product['product_description']; ?></p>
+                                </div>
+                                <div class="description form-floating ">
+                                    <textarea
+                                        class="form-control"
+                                        name="description"
+                                        id="floatingarea"
+                                        cols="30"
+                                        rows="10"
+                                        placeholder="Order Description"
+                                        ></textarea>
+                                    <label for="floatingarea">Order Description</label>
+                                </div>
 
-                            <button class="orderBtn">Order</button>
-                        </div>
-                    </form>
-                </div>
+                                <button class="orderBtn">Order</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <section class="notices">
+                    <div class="notice">
+                        To request an order, write the characteristics of your 
+                        company, and some general characteristics about what you want.
+                    </div>
+
+                    <div class="notice">
+                        We will contact you as soon as possible via email to arrange 
+                        a meeting and study the project.
+                    </div>
+
+                    <div class="notice">
+                        Do not hesitate to contact us if you have any further questions. 
+                        If we do not contact you within 48 hours, please resubmit the order. 
+                        Thank you very much for trusting our work.
+                    </div>
+                </section>
             </article>
         </main>
         <footer>

@@ -1,4 +1,4 @@
-article{
+section{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,11 +68,10 @@ textarea {
 .form-control:focus{
     background-color: transparent;
     border: none;
-    border: 1px solid white;
+    box-shadow: 0 0 0 0.25rem white;
     resize: none;
     padding: 10px;
     outline: none;
-    box-shadow: none;
     color: white;
 }
 
@@ -112,6 +111,21 @@ textarea {
     border: 1px solid white;
     background-color: white;
     color: black;
+}
+
+.notices{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    justify-items: center;
+    margin-bottom: 20px;
+}
+
+.notice{
+    width: 80%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px white, -5px -5px white;
 }
 
 @media screen and (max-width: 1100px) {

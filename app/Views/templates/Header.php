@@ -80,11 +80,23 @@
                             }
                             ?>
                             <li>
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'LoginRegister') ? 'active' : '';
-                                ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
-                                    <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
+                                <a class="nav-link <?php echo (isset($_SESSION['user'])) ? 'user' : ''; ?>" 
+                                   href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : ''; ?>">
+                                       <?php
+                                       echo(!isset($_SESSION['user'])) ? 'Login/Register' : '<i class="fa-solid fa-gear"></i>';
+                                       ?></a>
+                                <ul class="userOptions">
+                                    <div class="userOption">
+                                        <a href="">Edit</a>
+                                    </div>
+                                    <div class="userOption">
+                                        <a href="/Logout">Logout</a>
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                    </div>
+                                    <div class="userOption">
+                                        <a href="">Delete</a>
+                                    </div>
+                                </ul>
                             </li>
 
                         </ul>

@@ -30,10 +30,11 @@
                             <td><?php echo $user['email']; ?></td>
                             <td><?php echo $user['rol_name']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>"></a>
+                                <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>" data-toggle="tooltip" title="Edit user"></a>
                                 <i class="fa-solid fa-toggle-<?php echo ($user['user_ban'] === 0) ? 'on' : 'off'
-                        ?> icon btnBan" id="AdminUsers-<?php echo $user['id_user']; ?>"></i>
-                                <a class="fa-regular fa-trash-can icon" href="/AdminUsers/delete/<?php echo $user['id_user']; ?>"></a>
+                        ?> icon btnBan" id="AdminUsers-<?php echo $user['id_user']; ?>" data-toggle="tooltip" title="Ban user"></i>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminUsers/delete/<?php echo $user['id_user']; ?>"
+                                   data-toggle="tooltip" title="Delete user"></a>
                             </td>
                         </tr>
                         <?php

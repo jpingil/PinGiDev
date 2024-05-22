@@ -144,6 +144,10 @@ table tbody td .icon {
     transform: scale(1.1);
 }
 
+.icon{
+    transition: color 0.3s ease-in-out;
+}
+
 
 .fa-pen-to-square:hover {
     color: rgb(0, 132, 255);

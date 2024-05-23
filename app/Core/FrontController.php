@@ -8,6 +8,7 @@ class FrontController {
 
     static function main() {
         session_start();
+
         Route::add('/',
                 function () {
                     $controlador = new \Com\Daw2\Controllers\InitController();
@@ -85,8 +86,7 @@ class FrontController {
                         $controlador->seeEdit($_SESSION['user']['id_user'], true);
                     }
                     , 'get');
-                    
-                    
+
             Route::add('/Edit',
                     function () {
                         $controlador = new \Com\Daw2\Controllers\UserController();
@@ -220,6 +220,20 @@ class FrontController {
                             $controlador->seeAdminOrders();
                         }
                         , 'get');
+
+                Route::add('/AdminOrders/edit/([0-9]+)',
+                        function ($id) {
+                            $controlador = new \Com\Daw2\Controllers\OrderController();
+                            $controlador->seeEdit($id);
+                        }
+                        , 'get');
+
+                Route::add('/AdminOrders/edit/([0-9]+)',
+                        function ($id) {
+                            $controlador = new \Com\Daw2\Controllers\OrderController();
+                            $controlador->processEdit($id);
+                        }
+                        , 'post');
             }
         } else {
             Route::add('/LoginRegister',

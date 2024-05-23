@@ -180,7 +180,8 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
         if (!is_null($product)) {
             $data = [
-                'section' => '/AdminProducts/edit/' . $product['id_product'],
+                'section' => 'AdminProducts',
+                'action' => '/AdminProducts/edit/' . $product['id_product'],
                 'title' => 'Edit Product',
                 'data' => $product,
             ];
@@ -231,7 +232,8 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $post = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         $data = [
             'errors' => $errors,
-            'data' => $post
+            'data' => $post,
+            'action' => '/AdminProducts/edit/' . $id
         ];
         $this->seeAdd($data);
     }

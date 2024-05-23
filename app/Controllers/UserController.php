@@ -61,17 +61,26 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->seeLoginRegister($errors, $postData);
     }
 
-    private function checkRegister(array $user = null): array {
+    private function checkRegister(array $user = null, bool $defaultUser = false): array {
         $errors = [];
 
-        if (empty($_POST['user_name']) || empty($_POST['email']) ||
-                empty($_POST['pass']) || empty($_POST['pass2'])) {
-            $errors['register'] = 'There are empty values.';
-        } else {
-            if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $_POST['user_name'])) {
-                $errors['register'] = 'The username can only contain numbers, '
-                        . 'letters, underscores, and must be between 4 and 15 characters.';
+        if ($defaultUser) {
+            if (empty($_POST['user_name']) ||
+                    empty($_POST['pass']) || empty($_POST['pass2'])) {
+                $errors['register'] = 'There are empty values.';
             }
+        } else {
+            if (empty($_POST['user_name']) || empty($_POST['email']) ||
+                    empty($_POST['pass']) || empty($_POST['pass2'])) {
+                $errors['register'] = 'There are empty values.';
+            }
+        }
+        if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $_POST['user_name'])) {
+            $errors['register'] = 'The username can only contain numbers, '
+                    . 'letters, underscores, and must be between 4 and 15 characters.';
+        }
+
+        if (!$defaultUser) {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['register'] = 'The email is not valid.';
             }
@@ -88,13 +97,6 @@ class UserController extends \Com\Daw2\Core\BaseController {
                 }
             }
 
-            if (!preg_match('/^.{8,18}$/', $_POST['pass'])) {
-                $errors['register'] = 'The password must be between 8 and 18 characters long.';
-            }
-            if ($_POST['pass'] !== $_POST['pass2']) {
-                $errors['register'] = 'The passwords must match.';
-            }
-
             if (isset($_POST['id_rol'])) {
                 $rolModel = new \Com\Daw2\Models\RolModel();
                 $_POST['id_rol'] = intval($_POST['id_rol']);
@@ -103,6 +105,14 @@ class UserController extends \Com\Daw2\Core\BaseController {
                 }
             }
         }
+
+        if (!preg_match('/^.{8,18}$/', $_POST['pass'])) {
+            $errors['register'] = 'The password must be between 8 and 18 characters long.';
+        }
+        if ($_POST['pass'] !== $_POST['pass2']) {
+            $errors['register'] = 'The passwords must match.';
+        }
+
         return $errors;
     }
 
@@ -223,8 +233,11 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     public function processEdit(int $id, bool $defaultUser = false): void {
         $userModel = new \Com\Daw2\Models\UserModel();
-        $errors = $this->checkRegister($userModel->getUserById($id));
+        $errors = $this->checkRegister($userModel->getUserById($id), $defaultUser);
         if (empty($errors)) {
+            if ($defaultUser) {
+                $_POST['email'] = $_SESSION['user']['email'];
+            }
             $userModel->updateUser($id, $_POST);
             if (!$defaultUser) {
                 header('Location: /AdminUsers');
@@ -236,11 +249,14 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $data = [];
         $data['title'] = 'Edit User';
         $data['action'] = '/AdminUser/edit';
-        if ($defaultUser) {
-            $data['action'] = 'edit';
-        }
-        $data['errors'] = $errors;
         $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        $data['errors'] = $errors;
+        if ($defaultUser) {
+            $data['action'] = '/Edit';
+            $data['readonly'] = true;
+            $data['input']['email'] = $_SESSION['user']['email'];
+            $data['input']['id_rol'] = $_SESSION['user']['id_rol'];
+        }
         $this->seeAdd($data);
     }
 

@@ -16,7 +16,6 @@ class InitController extends \Com\Daw2\Core\BaseController {
 
     public function see() {
         $productModel = new \Com\Daw2\Models\ProductModel();
-
         $jss = ['LogoRepeat'];
         $styles = ['Init'];
 
@@ -27,6 +26,6 @@ class InitController extends \Com\Daw2\Core\BaseController {
             'jss' => $jss
         ];
 
-        $this->view->showViews(array('templates/Header.php', 'Init.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('templates/Header.php', 'Hello.php', 'templates/Footer.php'), $data);
     }
 }

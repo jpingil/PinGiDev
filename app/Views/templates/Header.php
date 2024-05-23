@@ -93,9 +93,6 @@
                                         <div class="userOption">
                                             <a href="/Logout">Logout</a>
                                         </div>
-                                        <div class="userOption">
-                                            <a href="/Delete">Delete</a>
-                                        </div>
                                     </ul>
                                 <?php } ?>
                             </li>

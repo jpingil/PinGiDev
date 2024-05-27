@@ -1,6 +1,15 @@
 <main>
     <article>
         <h2>PinGiDev Orders</h2>
+        <?php
+        if (isset($message)) {
+            ?>
+            <div class="alert alert-<?= $message['class']; ?> m-2">
+                <p><?php echo $message['message']; ?></p>
+            </div>
+            <?php
+        }
+        ?>
         <table>
             <thead>
             <th scope="col">Order ID</th>

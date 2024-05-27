@@ -81,9 +81,9 @@
                             ?>
                             <li>
                                 <a class="nav-link <?php echo (isset($_SESSION['user'])) ? 'user' : ''; ?>" 
-                                   href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : ''; ?>">
+                                   href="<?php echo(!isset($_SESSION['user'])) ? '/Login' : ''; ?>">
                                        <?php
-                                       echo(!isset($_SESSION['user'])) ? 'Login/Register' : '<i class="fa-solid fa-gear"></i>';
+                                       echo(!isset($_SESSION['user'])) ? 'Login' : '<i class="fa-solid fa-gear"></i>';
                                        ?></a>
                                 <?php if (isset($_SESSION['user'])) { ?>
                                     <ul class="userOptions">

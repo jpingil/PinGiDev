@@ -6,7 +6,9 @@
     justify-content: space-between;
     border-radius: 10px;
     background-color: white;
+    border: 1px solid black;
 }
+
 
 .imgsPreview input{
     display: none;
@@ -20,6 +22,11 @@
     cursor: pointer;
     background-color: black;
     border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.imgsPreview label:hover{
+    transform: scale(1.1);
 }
 
 

@@ -85,13 +85,26 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
         ]);
     }
 
-    public function getProductById(int $id): ?array {
+    public function deleteProduct(int $idProduct): bool {
+        $stmt = $this->pdo->prepare('DELETE FROM product WHERE id_product = ?');
+        return $stmt->execute([$idProduct]);
+    }
+
+    public function getProductById(int $idProduct): ?array {
         $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE id_product = ?');
-        $stmt->execute([$id]);
+        $stmt->execute([$idProduct]);
         if ($row = $stmt->fetch()) {
             return $row;
         }
         return null;
     }
-    
+
+    public function getProductByProductName(string $productName): ?array {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE product_name = ?');
+        $stmt->execute([$productName]);
+        if ($row = $stmt->fetch()) {
+            return $row;
+        }
+        return null;
+    }
 }

@@ -16,12 +16,14 @@ namespace Com\Daw2\Controllers;
  */
 class UserController extends \Com\Daw2\Core\BaseController {
 
-    public function seeLoginRegister(array $errors = null, array $postData = null): void {
-        $styles = ['LoginRegister'];
+    public function seeLogin(array $errors = null, array $postData = null): void {
+        $styles = ['Login'];
+        $jss = ['LoginRegister'];
 
         $data = [
             'styles' => $styles,
-            'section' => 'LoginRegister'
+            'section' => 'Login',
+            'jss' => $jss
         ];
         if (!is_null($errors) && !empty($errors)) {
             $data['errors'] = $errors;
@@ -30,7 +32,47 @@ class UserController extends \Com\Daw2\Core\BaseController {
             $data['data'] = $postData;
         }
 
-        $this->view->showViews(array('templates/Header.php', 'LoginRegister.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('templates/Header.php', 'Login.php', 'templates/Footer.php'), $data);
+    }
+
+    public function seeRegister(array $errors = null, array $postData = null): void {
+        $styles = ['LoginRegister'];
+        $jss = ['LoginRegister'];
+
+        $data = [
+            'styles' => $styles,
+            'section' => 'Login',
+            'jss' => $jss
+        ];
+        if (!is_null($errors) && !empty($errors)) {
+            $data['errors'] = $errors;
+        }
+        if (!is_null($postData) && !empty($postData)) {
+            $data['data'] = $postData;
+        }
+
+        $this->view->showViews(array('templates/Header.php', 'Register.php', 'templates/Footer.php'), $data);
+    }
+
+    /**
+     * Fetch function to display login or register depending on the json received from the onclicks (LoginRegister.js)
+     * @return void
+     */
+    public function seeLoginRegister(): void {
+        $postData = json_decode(file_get_contents("php://input"), true);
+        $view = '';
+
+        if (isset($postData['view'])) {
+            if ($postData['view'] == 'Login' || $postData['view'] == 'Register') {
+                $view = $postData['view'];
+            } else {
+                $view = 'Error';
+            }
+        } else {
+            $view = 'Error';
+        }
+
+        echo json_encode($view);
     }
 
     public function processRegister(): void {
@@ -58,7 +100,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
 
         $postData = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-        $this->seeLoginRegister($errors, $postData);
+        $this->seeRegister($errors, $postData);
     }
 
     private function checkRegister(array $user = null, bool $defaultUser = false): array {
@@ -69,18 +111,19 @@ class UserController extends \Com\Daw2\Core\BaseController {
                     empty($_POST['pass']) || empty($_POST['pass2'])) {
                 $errors['register'] = 'There are empty values.';
             }
-        } else {
-            if (empty($_POST['user_name']) || empty($_POST['email']) ||
-                    empty($_POST['pass']) || empty($_POST['pass2'])) {
-                $errors['register'] = 'There are empty values.';
-            }
         }
+
         if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $_POST['user_name'])) {
             $errors['register'] = 'The username can only contain numbers, '
                     . 'letters, underscores, and must be between 4 and 15 characters.';
         }
 
         if (!$defaultUser) {
+            if (empty($_POST['user_name']) || empty($_POST['email']) ||
+                    empty($_POST['pass']) || empty($_POST['pass2'])) {
+                $errors['register'] = 'There are empty values.';
+            }
+            
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['register'] = 'The email is not valid.';
             }
@@ -135,7 +178,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
             }
         }
 
-        $this->seeLoginRegister($errors);
+        $this->seeLogin($errors);
     }
 
     private function checkLogin(array $data): array {
@@ -160,7 +203,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-        header('Location:/LoginRegister');
+        header('Location: /Login');
     }
 
     public function seeUsers(array $data = null): void {

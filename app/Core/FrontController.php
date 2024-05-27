@@ -44,6 +44,13 @@ class FrontController {
                 }
                 , 'get');
 
+        Route::add('/seeLoginRegister',
+                function () {
+                    $controlador = new \Com\Daw2\Controllers\UserController();
+                    $controlador->seeLoginRegister();
+                }
+                , 'post');
+
         if (isset($_SESSION['user'])) {
             Route::add('/CustomProduct',
                     function () {
@@ -74,9 +81,9 @@ class FrontController {
                     , 'get');
 
             Route::add('/Order/([0-9]+)',
-                    function ($id) {
+                    function ($idProduct) {
                         $controlador = new \Com\Daw2\Controllers\OrderController();
-                        $controlador->processOrder($id);
+                        $controlador->processOrder($idProduct);
                     }
                     , 'post');
 
@@ -200,12 +207,12 @@ class FrontController {
                         }
                         , 'post');
 
-                Route::add('/AdminProducts/delete',
-                        function () {
+                Route::add('/AdminProducts/delete/([0-9]+)',
+                        function ($idProduct) {
                             $controlador = new \Com\Daw2\Controllers\ProductController();
-                            $controlador->deleteProduct();
+                            $controlador->deleteProduct($idProduct);
                         }
-                        , 'post');
+                        , 'get');
 
                 Route::add('/AdminLogs',
                         function () {
@@ -234,25 +241,33 @@ class FrontController {
                             $controlador->processEdit($id);
                         }
                         , 'post');
+
+                Route::add('/AdminOrders/delete/([0-9]+)',
+                        function ($idOrder) {
+                            $controlador = new \Com\Daw2\Controllers\OrderController();
+                            $controlador->deleteOrder($idOrder);
+                        }
+                        , 'get');
             }
         } else {
-            Route::add('/LoginRegister',
+            Route::add('/Login',
                     function () {
                         $controlador = new \Com\Daw2\Controllers\UserController();
-                        $controlador->seeLoginRegister();
+                        $controlador->seeLogin();
                     }
                     , 'get');
 
             Route::add('/Favorites',
                     function () {
                         $controlador = new \Com\Daw2\Controllers\UserController();
-                        $controlador->seeLoginRegister();
+                        $controlador->seeLogin();
                     }
                     , 'get');
+
             Route::add('/CustomProduct',
                     function () {
                         $controlador = new \Com\Daw2\Controllers\UserController();
-                        $controlador->seeLoginRegister();
+                        $controlador->seeLogin();
                     }
                     , 'get');
 

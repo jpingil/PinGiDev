@@ -40,17 +40,16 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $this->view->showViews(array('templates/Header.php', 'Products.php', 'templates/Footer.php'), $data);
     }
 
-    public function seeProduct(int $id): void {
+    public function seeProduct(int $id, array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
         $styles = ['Product'];
         $product = $productModel->getProductById($id);
         if (!is_null($product)) {
-            $data = [
-                'styles' => $styles,
-                'section' => 'Products',
-                'product' => $product
-            ];
+            $data['styles'] = $styles;
+            $data['section'] = 'Products';
+            $data['product'] = $product;
         }
+
 
         $this->view->show('Product.php', $data);
     }
@@ -62,7 +61,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $data['section'] = 'AdminProducts';
         $data['products'] = $products;
         $data['jss'] = $jss;
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminProducts.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminProducts.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function seeAdd(array $data = null): void {
@@ -81,7 +80,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         }
 
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddProduct.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function processAdd(): void {
@@ -102,19 +101,19 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                     move_uploaded_file($_FILES['image']['tmp_name'], $mainImageFile . $mainImageName);
                 }
             }
-
-            foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-                $carouselImageName = $_FILES['images']['name'][$key];
-                $extension = pathinfo($carouselImageName, PATHINFO_EXTENSION);
-
-                if (in_array($extension, $validExtensions)) {
-                    $carouselImagesFile = '../public/assets/imgs/Product/' . $_POST['product_name'] . '/Carousel Images/';
-                    mkdir($carouselImagesFile, 0777, true);
-
-                    $uniqueFilename = $_POST['product_name'] . '_' . $key . '.' . $extension;
-                    move_uploaded_file($_FILES['images']['tmp_name'][$key], $carouselImagesFile . $uniqueFilename);
-                }
-            }
+//
+//            foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+//                $carouselImageName = $_FILES['images']['name'][$key];
+//                $extension = pathinfo($carouselImageName, PATHINFO_EXTENSION);
+//
+//                if (in_array($extension, $validExtensions)) {
+//                    $carouselImagesFile = '../public/assets/imgs/Product/' . $_POST['product_name'] . '/Carousel Images/';
+//                    mkdir($carouselImagesFile, 0777, true);
+//
+//                    $uniqueFilename = $_POST['product_name'] . '_' . $key . '.' . $extension;
+//                    move_uploaded_file($_FILES['images']['tmp_name'][$key], $carouselImagesFile . $uniqueFilename);
+//                }
+//            }
 
 
 
@@ -137,11 +136,17 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         if (empty($_POST['product_name']) || empty($_POST['product_description'])) {
             $errors['form'] = 'Empty fields';
         } else {
+            $productModel = new \Com\Daw2\Models\ProductModel();
+            if($productModel->getProductByProductName($_POST['product_name'])){
+                $errors['product_name'] = 'A product with that name already exists.';
+            }
+            
             if (!preg_match('/^[a-zA-Z0-9\s]{4,15}$/', $_POST['product_name'])) {
                 $errors['product_name'] = 'The product name can only contain letters, '
                         . 'numbers, and spaces. It should be between 4 and 15 '
                         . 'characters long.';
             }
+            
             if (!preg_match('/^(?:[a-zA-Z0-9]+\s*){5,100}$/', $_POST['product_description'])) {
                 $errors['product_description'] = 'The product name can only contain letters, '
                         . 'numbers, and spaces. It should be between 4 and 15 '
@@ -158,17 +163,18 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                     }
                 }
 
-                for ($i = 0;
-                        $i < count($_FILES['images']['error']);
-                        $i++) {
-                    if ($_FILES['images']['error'][$i] !== 0) {
-                        $errors['images'] = 'The error to load the image is the ' . $_FILES['images']['error'][$i];
-                    } else {
-                        if ($_FILES['images']['size'][$i] > self::MAX_FILE_SIZE_BYTES) {
-                            $errors['images'] = 'The image cannot be larger than ' . self::MAX_FILE_SIZE_BYTES . 'KB.';
-                        }
-                    }
-                }
+
+//                for ($i = 0;
+//                        $i < count($_FILES['images']['error']);
+//                        $i++) {
+//                    if ($_FILES['images']['error'][$i] !== 0) {
+//                        $errors['images'] = 'The error to load the image is the ' . $_FILES['images']['error'][$i];
+//                    } else {
+//                        if ($_FILES['images']['size'][$i] > self::MAX_FILE_SIZE_BYTES) {
+//                            $errors['images'] = 'The image cannot be larger than ' . self::MAX_FILE_SIZE_BYTES . 'KB.';
+//                        }
+//                    }
+//                }
             }
         }
         return $errors;
@@ -272,6 +278,30 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         ];
 
         echo json_encode($response);
+    }
+
+    public function deleteProduct($idProduct): void {
+        $idProduct = intval($idProduct);
+        $message = $this->verifyProduct($idProduct);
+        if (empty($message)) {
+            $productModel = new \Com\Daw2\Models\ProductModel();
+
+            if ($productModel->deleteProduct($idProduct)) {
+                $message = [
+                    'class' => 'success',
+                    'message' => 'The product was delete.'
+                ];
+            } else {
+                $message = [
+                    'class' => 'danger',
+                    'message' => 'Unexpected error.'
+                ];
+            }
+        }
+
+        $data = [];
+        $data['message'] = $message;
+        $this->seeAdminProducts($data);
     }
 
     private function verifyProduct(int $idProduct): ?array {

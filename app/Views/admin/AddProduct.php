@@ -23,7 +23,7 @@
             </div>
             <?php if (isset($errors['product_name'])) {
                 ?>
-                <div class="bg-danger">
+                <div class="alert alert-danger">
                     <p><?= $errors['product_name'] ?></p>
                 </div>  
                 <?php
@@ -42,7 +42,7 @@
             </div>
             <?php if (isset($errors['product_description'])) {
                 ?>
-                <div class="bg-danger">
+                <div class="alert alert-danger">
                     <p><?= $errors['product_description'] ?></p>
                 </div>  
                 <?php
@@ -50,8 +50,6 @@
             ?>
             <div class="imgsPreview">
                 <div id="image-preview"></div>
-
-
                 <?php
                 if (isset($section) && strpos($section, 'edit') !== false) {
                     ?>
@@ -64,43 +62,11 @@
                 }
                 ?>
                 <label for="image">Image</label>
-
             </div>
             <?php if (isset($errors['image'])) {
                 ?>
                 <div class="alert alert-danger">
                     <p><?= $errors['image'] ?></p>
-                </div>  
-                <?php
-            }
-            ?>
-            <div class="imgsPreview">
-                <div id="images-preview"></div>
-
-                <?php
-                if (isset($section) && strpos($section, 'edit') !== false) {
-                    ?>
-                    <p><?php echo $data['img_folder'] . '/Carousel'; ?></p>
-                    <?php
-                } else {
-                    ?>
-                    <input
-                        type="file"
-                        id="images"
-                        name="images[]"
-                        multiple
-                        />
-                        <?php
-                    }
-                    ?>
-
-                <label for="images">Images</label>
-            </div>
-            <?php
-            if (isset($errors['images'])) {
-                ?>
-                <div class="alert alert-danger">
-                    <p><?= $errors['images'] ?></p>
                 </div>  
                 <?php
             }

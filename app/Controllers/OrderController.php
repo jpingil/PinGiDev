@@ -14,25 +14,25 @@ namespace Com\Daw2\Controllers;
  */
 class OrderController extends \Com\Daw2\Core\BaseController {
 
-    public function seeAdminOrders(): void {
+    public function seeAdminOrders(array $data = null): void {
         $orderModel = new \Com\Daw2\Models\OrderModel();
         $styles = ['Admin'];
         $jss = ['Fetch', 'HeaderNav'];
-        $data = [
-            'section' => 'AdminOrders',
-            'styles' => $styles,
-            'orders' => $orderModel->getAll(),
-            'jss' => $jss
-        ];
+        
+        $data['section'] = 'AdminOrders';
+        $data['styles'] = $styles;
+        $data['orders'] = $orderModel->getAll();
+        $data['jss'] = $jss;
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminOrders.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminOrders.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function processOrder(int $idProduct) {
-        $error = $this->checkOrder();
-        if (empty($error)) {
+        $errors = $this->checkOrder();
+        if (empty($errors)) {
             $orderModel = new \Com\Daw2\Models\OrderModel();
-            if ($orderModel->insertOrder($_SESSION['user']['id_user'], $idProduct, $_POST['description'])) {
+            if ($orderModel->insertOrder($_SESSION['user']['id_user'], $idProduct, 
+                    $_POST['order_description'])) {
                 $logController = new \Com\Daw2\Controllers\LogController();
                 $logController->generateLog($_SESSION['user']['id_user'], 'order');
             }
@@ -40,7 +40,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         }
 
         $data = [];
-        $data['error'] = $error;
+        $data['error'] = $errors;
         $productController = new \Com\Daw2\Controllers\ProductController();
         $productController->seeProduct($idProduct, $data);
     }
@@ -63,7 +63,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
             $data['action'] = '/AdminOrders/edit';
         }
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddOrder.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AddOrder.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function seeEdit(int $id): void {
@@ -72,7 +72,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         if (!is_null($order)) {
             $data = [
                 'section' => 'AdminOrders',
-                'action' => '/AdminOrders/edit/' . $order['id_product'],
+                'action' => '/AdminOrders/edit/' . $order['id_order'],
                 'title' => 'Edit Order',
                 'input' => $order,
             ];
@@ -81,25 +81,28 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         }
     }
 
-    public function processEdit(int $id): void {
-        $errors = $this->checkOrder();
+    public function processEdit(int $idOrder): void {
+        $errors = $this->checkOrder($idOrder);
         if (empty($errors)) {
             $orderModel = new \Com\Daw2\Models\OrderModel();
+            $order = $orderModel->getOrderById($idOrder);
             $userModel = new \Com\Daw2\Models\UserModel();
-
             $vars = [
-                'id_order' => $id,
+                'id_order' => $order['id_order'],
                 'id_user' => $_POST['id_user'],
                 'id_product' => $_POST['id_product'],
                 'order_description' => $_POST['order_description']
             ];
-            $orderModel->update($vars);
-            header('Location: /AdminOrders');
+            if ($orderModel->update($vars)) {
+                header('Location: /AdminOrders');
+            } else {
+                $data['errors']['form'] = 'Unexpected error';
+            }
         }
 
         $data = [];
         $data['title'] = 'Edit User';
-        $data['action'] = '/AdminOrders/edit/' . $id;
+        $data['action'] = '/AdminOrders/edit/' . $idOrder;
         $data['input'] = filter_var_array($_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         $data['errors'] = $errors;
         $this->seeAdd($data);
@@ -110,13 +113,19 @@ class OrderController extends \Com\Daw2\Core\BaseController {
      * @param bool $addEdit flag to know if we need check idUser
      * @return array
      */
-    private function checkOrder(bool $addEdit = false): array {
+    private function checkOrder(int $idOrder = null, bool $addEdit = false): array {
         $errors = [];
 
         if (empty($_POST['order_description'])) {
             $errors['order_description'] = 'Empty description.';
         } else {
             if ($addEdit) {
+                $orderModel = new \Com\Daw2\Models\OrderModel();
+                $order = $orderModel->getOrderById($idOrder);
+                if (is_null($idOrder)) {
+                    $errors['form'] = 'That order doesn´t exist.';
+                }
+
                 if (empty($_POST['id_user'])) {
                     $errors['email'] = 'Empty email.';
                 } else {
@@ -142,5 +151,45 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         }
 
         return $errors;
+    }
+
+    public function deleteOrder($idOrder): void {
+        $idOrder = intval($idOrder);
+        $message = $this->verifyOrder($idOrder);
+        if (empty($message)) {
+            $orderModel = new \Com\Daw2\Models\OrderModel();
+
+            if ($orderModel->deleteOrder($idOrder)) {
+                $message = [
+                    'class' => 'success',
+                    'message' => 'The order was delete.'
+                ];
+            } else {
+                $message = [
+                    'class' => 'danger',
+                    'message' => 'Unexpected error.'
+                ];
+            }
+        }
+
+        $data = [];
+        $data['message'] = $message;
+        $this->seeAdminOrders($data);
+    }
+
+    private function verifyOrder(int $idOrder): ?array {
+        $message = [];
+
+        if (filter_var($idOrder, FILTER_VALIDATE_INT) && $idOrder > 0) {
+            $orderModel = new \Com\Daw2\Models\OrderModel();
+            if (is_null($orderModel->getOrderById($idOrder))) {
+                $message = [
+                    'class' => 'danger',
+                    'message' => 'This order doesn´t exists.'
+                ];
+            }
+        }
+
+        return $message;
     }
 }

@@ -5,8 +5,8 @@
         <?php
         if (isset($message)) {
             ?>
-            <div class="alert alert-<?= $class; ?> m-2">
-                <p><?php echo $message; ?></p>
+            <div class="alert alert-<?= $message['class']; ?> m-2">
+                <p><?php echo $message['message']; ?></p>
             </div>
             <?php
         }
@@ -34,7 +34,7 @@
                                 <a class="fa-regular fa-pen-to-square icon" href="/AdminProducts/edit/<?= $product['id_product']; ?>"></a>
                                 <i class="fa-solid fa-toggle-<?php echo ($product['product_ban']) ? 'off' : 'on'; ?> icon btnBan" 
                                    id="AdminProducts-<?php echo $product['id_product']; ?>"></i>
-                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $product['id_product'];?>"></a>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminProducts/delete/<?php echo $product['id_product']; ?>"></a>
                             </td>
                         </tr>  
                         <?php

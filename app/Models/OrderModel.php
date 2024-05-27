@@ -56,4 +56,9 @@ class OrderModel extends \Com\Daw2\Core\BaseDbModel {
 
         return null;
     }
+
+    public function deleteOrder(int $idOrder): bool {
+        $stmt = $this->pdo->prepare("DELETE FROM `order` WHERE id_order = ?");
+        return $stmt->execute([$idOrder]);
+    }
 }

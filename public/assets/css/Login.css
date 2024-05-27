@@ -1,0 +1,152 @@
+
+
+article{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.fadeIn{
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+.fadeOut{
+    animation-name: fadeOut;
+    animation-duration: 0.5s;
+}
+
+.loginContainer, .registerContainer{
+    width: 80%;
+    height: 60%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: center;
+    gap: 20px;
+    border: 1px solid white;
+    transition: box-shadow 0.3s;
+}
+
+.loginContainer:hover, .registerContainer:hover{
+    box-shadow: 10px 10px grey, -10px -10px grey;
+}
+
+.form-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: black;
+    padding: 10px;
+}
+
+.form-container h2{
+    margin-bottom: 20px;
+}
+
+.form-container form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border: none;
+    margin: 5px 0px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+
+.inputContainer i{
+    color: black;
+    margin-right: 10px;
+}
+
+
+.form-container form input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: black;
+}
+
+.form-container form input:focus{
+    outline: none;
+}
+
+.input-container:focus-within {
+    border: 1px solid black;
+}
+
+.form-container form button{
+    padding: 10px;
+    border: none;
+    margin: 5px 0px;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 0px 0px 10px 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.paddingP{
+    padding: 20px;
+}
+
+.form-container form button:hover{
+    background-color: black;
+    color: white;
+}
+
+#register{
+    color: blue;
+    cursor: pointer;
+}
+
+@media screen and (min-width:793px) {
+    main{
+        margin-top: 0;
+    }
+    
+    article{
+        height: 90vh;
+    }
+}
+
+@media screen and (max-width:793px) {
+    .registerContainer{
+        margin-bottom: 50px;
+    }
+    
+    .loginContainer:first-child h2{
+        margin: 50px 0px 0px 0px;
+    }
+}

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     //Fetch to favorites
     var favIcons = document.querySelectorAll(".btnFav");
     favIcons.forEach((favIcon) => {

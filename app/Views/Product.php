@@ -100,7 +100,7 @@
                         echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
                         $product['product_name'] . '.' . $product['img_extension'];
                         ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="producImg">
-                        <form method="post">
+                        <form action="/Order/<?php echo $product['id_product']; ?>" method="post">
                             <div class="product-info">
                                 <div class="infoContainer">
                                     <h3><?php echo $product['product_name']; ?></h3>
@@ -109,7 +109,7 @@
                                 <div class="description form-floating ">
                                     <textarea
                                         class="form-control"
-                                        name="description"
+                                        name="order_description"
                                         id="floatingarea"
                                         cols="30"
                                         rows="10"
@@ -117,7 +117,11 @@
                                         ></textarea>
                                     <label for="floatingarea">Order Description</label>
                                 </div>
-
+                                <p><?php
+                                    if (isset($errors['order_description'])) {
+                                        echo $errors['order_description'];
+                                    }
+                                    ?></p>
                                 <button class="orderBtn">Order</button>
                             </div>
                         </form>
@@ -155,12 +159,12 @@
                 <i class="fa-regular fa-envelope icon" style="color: #ffffff"></i>
             </div>
         </footer>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
         <?php
         if (isset($jss)) {
             foreach ($jss as $js) {
                 ?>
-                <script src="assets/js/<?php echo $js ?>.js"></script>
+                <script src="../assets/js/<?php echo $js ?>.js"></script>
                 <?php
             }
         }

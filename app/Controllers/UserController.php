@@ -36,7 +36,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function seeRegister(array $errors = null, array $postData = null): void {
-        $styles = ['LoginRegister'];
+        $styles = ['Login'];
         $jss = ['LoginRegister'];
 
         $data = [

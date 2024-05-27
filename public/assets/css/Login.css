@@ -1,5 +1,3 @@
-
-
 article{
     height: auto;
     display: flex;
@@ -147,6 +145,6 @@ article{
     }
     
     .loginContainer:first-child h2{
-        margin: 50px 0px 0px 0px;
+        margin: 20px 0px 0px 0px;
     }
 }

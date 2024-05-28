@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2024 a las 19:29:29
+-- Tiempo de generación: 28-05-2024 a las 19:26:30
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -28,15 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `actions` (
-  `id_actions` int(11) NOT NULL,
-  `actions_name` varchar(200) NOT NULL
+  `id_action` int(11) NOT NULL,
+  `action_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `actions`
 --
 
-INSERT INTO `actions` (`id_actions`, `actions_name`) VALUES
+INSERT INTO `actions` (`id_action`, `action_name`) VALUES
 (0, 'register'),
 (1, 'login'),
 (2, 'logout'),
@@ -61,7 +61,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(266, 6, 77);
+(269, 6, 76);
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
 CREATE TABLE `logs` (
   `id_log` int(11) NOT NULL,
   `log_date` varchar(45) NOT NULL,
-  `id_actions` int(11) NOT NULL,
+  `id_action` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -80,7 +80,7 @@ CREATE TABLE `logs` (
 -- Volcado de datos para la tabla `logs`
 --
 
-INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
+INSERT INTO `logs` (`id_log`, `log_date`, `id_action`, `id_user`) VALUES
 (7, '2024-05-08 18:27:52', 4, 6),
 (8, '2024-05-08 18:27:53', 3, 6),
 (9, '2024-05-08 18:27:54', 4, 6),
@@ -185,7 +185,13 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (108, '2024-05-27 16:18:46', 2, 6),
 (109, '2024-05-27 18:28:55', 1, 6),
 (110, '2024-05-27 18:34:57', 2, 6),
-(111, '2024-05-27 18:35:04', 1, 11);
+(111, '2024-05-27 18:35:04', 1, 11),
+(112, '2024-05-28 09:31:25', 1, 6),
+(113, '2024-05-28 16:18:08', 1, 6),
+(114, '2024-05-28 16:19:32', 3, 6),
+(115, '2024-05-28 16:19:33', 4, 6),
+(116, '2024-05-28 16:19:34', 4, 6),
+(117, '2024-05-28 16:19:36', 3, 6);
 
 -- --------------------------------------------------------
 
@@ -263,7 +269,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
-(6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
+(6, 'jorgito', '$2y$10$OjHQqAVcwAs8fNG2R5HBzu8RUDhz6akkMwoAtZdtk14lZDgD0sHGi', 'jorgepinogil013@gmail.com', 0, 0),
 (11, 'jorgepino', '$2y$10$PX6SLs1EIPGAQ0.tJq6E4OXxxZH85mN3PaCIf63zC9RT1bMn9ptQS', 'jorge@a.com', 0, 0);
 
 --
@@ -274,7 +280,7 @@ INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban
 -- Indices de la tabla `actions`
 --
 ALTER TABLE `actions`
-  ADD PRIMARY KEY (`id_actions`);
+  ADD PRIMARY KEY (`id_action`);
 
 --
 -- Indices de la tabla `favorites`
@@ -290,7 +296,7 @@ ALTER TABLE `favorites`
 ALTER TABLE `logs`
   ADD PRIMARY KEY (`id_log`),
   ADD KEY `fk_Actions_has_User_User1_idx` (`id_user`),
-  ADD KEY `fk_Actions_has_User_Actions1_idx` (`id_actions`);
+  ADD KEY `fk_Actions_has_User_Actions1_idx` (`id_action`);
 
 --
 -- Indices de la tabla `order`
@@ -327,13 +333,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=267;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -368,7 +374,7 @@ ALTER TABLE `favorites`
 -- Filtros para la tabla `logs`
 --
 ALTER TABLE `logs`
-  ADD CONSTRAINT `fk_Actions_has_User_Actions1` FOREIGN KEY (`id_actions`) REFERENCES `actions` (`id_actions`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Actions_has_User_Actions1` FOREIGN KEY (`id_action`) REFERENCES `actions` (`id_action`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Actions_has_User_User1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

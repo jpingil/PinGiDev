@@ -9,7 +9,7 @@
             foreach ($products as $product) {
                 if ($product['product_ban'] !== 1) {
                     ?>
-                    <div class="product">
+                    <div class="productCard">
                         <a href="/Product/<?php echo $product['id_product']; ?>">
                             <img src="assets/<?php echo $product['img_folder'] . '/Main Image/' . $product['product_name'] . '.' . $product['img_extension']; ?>" alt="<?php echo $product['product_description']; ?>"/>
                         </a>

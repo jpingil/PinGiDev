@@ -17,6 +17,7 @@ namespace Com\Daw2\Controllers;
 class ProductController extends \Com\Daw2\Core\BaseController {
 
     private const MAX_FILE_SIZE_BYTES = 512000 * 2;
+    private const MAX_MORE_PRODUCTS_LENGTH = 3;
 
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
@@ -42,12 +43,26 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
     public function seeProduct(int $id, array $data = null): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
-        $styles = ['Product'];
+        $styles = ['Products', 'Product'];
         $product = $productModel->getProductById($id);
+        $products = $productModel->getAll();
+
+        // Number of additional products that we can see in the product view
+        $length = 0;
+
         if (!is_null($product)) {
             $data['styles'] = $styles;
             $data['section'] = 'Products';
             $data['product'] = $product;
+            $data['products'] = $products;
+
+            if (count($products) > self::MAX_MORE_PRODUCTS_LENGTH) {
+                $length = self::MAX_MORE_PRODUCTS_LENGTH;
+            } else {
+                $length = count($products);
+            }
+
+            $data['length'] = $length;
         }
 
 
@@ -137,16 +152,16 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $errors['form'] = 'Empty fields';
         } else {
             $productModel = new \Com\Daw2\Models\ProductModel();
-            if($productModel->getProductByProductName($_POST['product_name'])){
+            if ($productModel->getProductByProductName($_POST['product_name'])) {
                 $errors['product_name'] = 'A product with that name already exists.';
             }
-            
+
             if (!preg_match('/^[a-zA-Z0-9\s]{4,15}$/', $_POST['product_name'])) {
                 $errors['product_name'] = 'The product name can only contain letters, '
                         . 'numbers, and spaces. It should be between 4 and 15 '
                         . 'characters long.';
             }
-            
+
             if (!preg_match('/^(?:[a-zA-Z0-9]+\s*){5,100}$/', $_POST['product_description'])) {
                 $errors['product_description'] = 'The product name can only contain letters, '
                         . 'numbers, and spaces. It should be between 4 and 15 '

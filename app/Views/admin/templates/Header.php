@@ -19,8 +19,17 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             />
+        <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css"/>
+        <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min"/>
         <title>PinGiDev</title>
         <link rel="icon" href="../../assets/imgs/icon/PinGiDevMini.png">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../../plugins/select2/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.select2').select2();
+            });
+        </script>
     </head>
     <body>
         <header>

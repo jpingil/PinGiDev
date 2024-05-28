@@ -217,7 +217,14 @@ class FrontController {
                 Route::add('/AdminLogs',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\LogController();
-                            $controlador->getAll();
+                            $controlador->seeLogs();
+                        }
+                        , 'get');
+
+                Route::add('/AdminLogs/filter',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\LogController();
+                            $controlador->processFilter();
                         }
                         , 'get');
 

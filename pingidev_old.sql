@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-05-2024 a las 13:26:00
+-- Tiempo de generación: 27-05-2024 a las 19:29:29
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -61,9 +61,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(192, 11, 74),
-(262, 6, 75),
-(263, 6, 74);
+(266, 6, 77);
 
 -- --------------------------------------------------------
 
@@ -175,7 +173,19 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_actions`, `id_user`) VALUES
 (96, '2024-05-15 18:53:58', 1, 6),
 (97, '2024-05-15 18:54:11', 2, 6),
 (98, '2024-05-15 18:54:29', 1, 6),
-(99, '2024-05-15 18:55:11', 2, 6);
+(99, '2024-05-15 18:55:11', 2, 6),
+(100, '2024-05-24 18:40:55', 5, 6),
+(101, '2024-05-24 18:47:21', 5, 6),
+(102, '2024-05-24 18:58:50', 1, 6),
+(103, '2024-05-27 11:25:24', 1, 6),
+(104, '2024-05-27 11:25:53', 2, 6),
+(105, '2024-05-27 16:14:18', 1, 6),
+(106, '2024-05-27 16:14:33', 2, 6),
+(107, '2024-05-27 16:14:40', 1, 6),
+(108, '2024-05-27 16:18:46', 2, 6),
+(109, '2024-05-27 18:28:55', 1, 6),
+(110, '2024-05-27 18:34:57', 2, 6),
+(111, '2024-05-27 18:35:04', 1, 11);
 
 -- --------------------------------------------------------
 
@@ -189,14 +199,6 @@ CREATE TABLE `order` (
   `id_product` int(11) NOT NULL,
   `order_description` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `order`
---
-
-INSERT INTO `order` (`id_order`, `id_user`, `id_product`, `order_description`) VALUES
-(1, 6, 73, 'asdfadf'),
-(2, 6, 73, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.\r\n');
 
 -- --------------------------------------------------------
 
@@ -219,9 +221,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`, `product_ban`) VALUES
-(73, 'Test Web', 'Web to do a test', 'imgs/Product/Test Web', 'jpg', 1, 0),
-(74, 'Product Prueba', 'Prueba web', 'imgs/Product/Product Prueba', 'jpg', 1, 0),
-(75, 'Prueba 1', 'Prueba web', 'imgs/Product/Prueba 1', 'jpg', 1, 0);
+(76, 'Prueba', 'Prueba', 'imgs/Product/Prueba', 'jpg', 0, 0),
+(77, 'Prueba 2', 'prueba 2', 'imgs/Product/Prueba 2', 'jpg', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -263,7 +264,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
 (6, 'jpingil', '$2y$10$QnIlDJdDkT/W0EA/4DzFsOaEAPrS3HOB.YgHI7q2Jtpv4y2NHnu1m', 'jorgepinogil013@gmail.com', 0, 0),
-(11, 'jorgeprueba', '$2y$10$Y9m5ZJKS.8CsUz9RaaCdt.JYTFKBz2MaQVm.UNgexWPs0/sY.LBmK', 'jorge@a.com', 1, 0);
+(11, 'jorgepino', '$2y$10$PX6SLs1EIPGAQ0.tJq6E4OXxxZH85mN3PaCIf63zC9RT1bMn9ptQS', 'jorge@a.com', 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -326,25 +327,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=267;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
 --
 ALTER TABLE `order`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -360,7 +361,7 @@ ALTER TABLE `user`
 -- Filtros para la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  ADD CONSTRAINT `fk_users_has_products_products1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_users_has_products_products1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_users_has_products_users1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -374,7 +375,7 @@ ALTER TABLE `logs`
 -- Filtros para la tabla `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `fk_user_has_product_product1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_product_product1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user_has_product_user1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

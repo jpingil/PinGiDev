@@ -8,7 +8,7 @@
             foreach ($favorites as $favorite) {
                 if ($favorite['product_ban'] !== 1) {
                     ?>
-                    <div class="product">
+                    <div class="productCard">
                         <a href="/Product/<?php echo $favorite['id_product']; ?>">
                             <img src="assets/<?php echo $favorite['img_folder'] . '/Main Image/' . $favorite['product_name'] . '.' . $favorite['img_extension']; ?>" alt="<?php echo $favorite['product_description']; ?>"/>
                         </a>

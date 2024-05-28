@@ -22,7 +22,7 @@ class LogController extends \Com\Daw2\Core\BaseController {
         $action = $actionModel->getActionIdByName($actionName);
         if (!is_null($action)) {
             $logModel = new \Com\Daw2\Models\LogModel();
-            if ($logModel->insertLog($idUser, $action['id_actions'])) {
+            if ($logModel->insertLog($idUser, $action['id_action'])) {
                 return true;
             }
         }
@@ -30,36 +30,76 @@ class LogController extends \Com\Daw2\Core\BaseController {
         return false;
     }
 
-    public function getAll(): void {
-        $logs = new \Com\Daw2\Models\LogModel();
+    public function seeLogs(array $data = null): void {
+        $userModel = new \Com\Daw2\Models\UserModel();
+        $logModel = new \Com\Daw2\Models\LogModel();
+        $actionModel = new \Com\Daw2\Models\ActionModel();
         $styles = ['Admin'];
-        
-        $data = [
-            'styles' => $styles,
-            'section' => 'AdminLogs',
-            'logs' => $logs->getAll()
-        ];
+
+        $data['styles'] = $styles;
+        $data['section'] = 'AdminLogs';
+        $data['users'] = $userModel->getAll();
+        $data['actions'] = $actionModel->getAll();
+        $data['dates'] = $logModel->getDates();
+
+        if (empty($data['logs'])) {
+            $data['logs'] = $logModel->getAll();
+        }
+
 
         $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminLogs.php', 'templates/Footer.php'), $data);
     }
 
-//    /**
-//     * Function to paginate the elements in the logs view
-//     * @param int $pageElements Elements number for page
-//     * @return void
-//     */
-//    private function pagination(int $pageElements): ?array {
-//        $logModel = new \Com\Daw2\Models\LogModel();
-//        
-//        $numberPageElements = 20;
-//        $actualPage = isset($_GET['page']) ? $_GET['page'] : 1;
-//
-//        //Number of the element from which to start
-//        $start = ($actualPage - 1) * $numberPageElements;
-//        
-//        if($logModel->getAllPagination($start, $numberPageElements)){
-//            
-//        }
-//        
-//    }
+    public function processFilter(): void {
+        $errors = $this->checkFilter();
+        if (empty($errors)) {
+            $logModel = new \Com\Daw2\Models\LogModel();
+            $logs = $logModel->getFilterLogs($_GET);
+            $data['logs'] = $logs;
+            $data['input'] = $_GET;
+            $this->seeLogs($data);
+        } else {
+            $data['errors'] = $errors;
+            $this->seeLogs($data);
+        }
+    }
+
+    private function checkFilter(): array {
+        $errors = [];
+
+        if (!empty($_GET['id_user'])) {
+            $userModel = new \Com\Daw2\Models\UserModel();
+            if (!filter_var($_GET['id_user'], FILTER_VALIDATE_EMAIL)) {
+                $error['id_user'] = 'This is a invalid user.';
+            }
+
+            if (is_null($userModel->getUserById($_GET['id_user']))) {
+                $error['id_user'] = "That user doesn't exist";
+            }
+        }
+
+        if (!empty($_GET['id_actions'])) {
+            $actionModel = new \Com\Daw2\Models\ActionModel();
+            if (!filter_var($_GET['id_action'], FILTER_VALIDATE_INT)) {
+                $error['id_action'] = 'This is a invalid action.';
+            }
+
+            if (is_null($actionModel->getActionById($_GET['id_action']))) {
+                $error['id_action'] = 'This action doesn´t exist';
+            }
+        }
+
+        if (!empty($_GET['log_date'])) {
+            $logModel = new \Com\Daw2\Models\LogModel();
+            if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $_GET['log_date'])) {
+                $error['log_date'] = 'This is a invalid date.';
+            }
+
+            if (is_null($logModel->($_GET['id_action']))) {
+                $error['log_date'] = 'This action doesn´t exist';
+            }
+        }
+
+        return $errors;
+    }
 }

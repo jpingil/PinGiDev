@@ -94,7 +94,7 @@
         </header>
         <main>
             <article>
-                <section>
+                <section class="productContainer">
                     <div class="product">
                         <img src="<?php
                         echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
@@ -127,23 +127,47 @@
                         </form>
                     </div>
                 </section>
-                <section class="notices">
-                    <div class="notice">
-                        To request an order, write the characteristics of your 
-                        company, and some general characteristics about what you want.
-                    </div>
-
-                    <div class="notice">
-                        We will contact you as soon as possible via email to arrange 
-                        a meeting and study the project.
-                    </div>
-
-                    <div class="notice">
-                        Do not hesitate to contact us if you have any further questions. 
-                        If we do not contact you within 48 hours, please resubmit the order. 
-                        Thank you very much for trusting our work.
-                    </div>
-                </section>
+                <?php
+                if (isset($length) && $length > 1) {
+                    ?>
+                    <section>
+                        <h3>More products</h3>
+                        <div class="products">
+                            <?php
+                            foreach ($products as $moreProduct) {
+                                if ($moreProduct['id_product'] !== $product['id_product']) {
+                                    ?>
+                                    <div class="productCard">
+                                        <a href="/Product/<?php echo $moreProduct['id_product']; ?>">
+                                            <img src="../../assets/<?php echo $moreProduct['img_folder'] . '/Main Image/' . $moreProduct['product_name'] . '.' . $moreProduct['img_extension']; ?>" alt="<?php echo $moreProduct['product_description']; ?>"/>
+                                        </a>
+                                        <div class="button-container">
+                                            <h3><?php echo $moreProduct['product_name']; ?></h3>
+                                            <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?>>
+                                                <i class="fa-solid fa-heart btnFav <?php
+                                                if (isset($_SESSION['user'])) {
+                                                    foreach ($favsProducts as $favProduct) {
+                                                        if ($favProduct['id_product'] == $moreProduct['id_product']) {
+                                                            echo 'fav';
+                                                        }
+                                                    }
+                                                } else {
+                                                    echo 'noFav';
+                                                }
+                                                ?>"  id="<?php echo $moreProduct['id_product']; ?>"></i>
+                                            </a>
+                                        </div>
+                                        <div class="moreInformation">
+                                            <a href="/Product/<?php echo $moreProduct['id_product']; ?>">More information</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </section>
+                <?php } ?>
             </article>
         </main>
         <footer>

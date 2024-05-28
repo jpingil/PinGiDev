@@ -1,4 +1,5 @@
 <main>
+    
     <article>
         <a class="add" href="/AdminProducts/add">Add New Product</a>
         <h2>PinGiDev Products</h2>
@@ -18,7 +19,6 @@
             <th scope="col">Description</th>
             <th scope="col">Folder</th>
             <th scope="col">Actions</th>
-
             </thead>
             <tbody>
                 <?php

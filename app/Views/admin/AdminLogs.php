@@ -3,7 +3,6 @@
         <h2>PinGiDev Logs</h2>
         <div class="card mt-4 mb-4">
             <form method="get" action="/AdminLogs/filter">       
-                <input type="hidden" name="order" value="<?php echo $order; ?>" />
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-dark">Filter</h6>                                    
@@ -14,7 +13,7 @@
                         <div class="col-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="id_user">User email:</label>
-                                <select name="id_user" id="id_user" class="form-control select2" data-placeholder="email">
+                                <select name="id_user" id="id_user" class="form-control select2" data-placeholder="Email">
                                     <option value="">-</option>
                                     <?php foreach ($users as $user) { ?>
                                         <option value="<?php echo $user['id_user']; ?>" <?php echo (isset($input['id_user']) && $user['id_user'] == $input['id_user']) ? 'selected' : ''; ?>><?php echo ucfirst($user['email']); ?></option>

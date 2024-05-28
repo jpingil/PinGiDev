@@ -67,6 +67,11 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
             $params['id_action'] = intval($vars['id_action']);
         }
 
+        if (!empty($vars['log_date'])) {
+            $conds[] = 'DATE(l.log_date) = :log_date';
+            $params['log_date'] = $vars['log_date'];
+        }
+
         if (!empty($conds)) {
             $sql .= ' WHERE ' . implode(' AND ', $conds);
         }

@@ -95,8 +95,8 @@ class LogController extends \Com\Daw2\Core\BaseController {
                 $error['log_date'] = 'This is a invalid date.';
             }
 
-            if (is_null($logModel->($_GET['id_action']))) {
-                $error['log_date'] = 'This action doesn´t exist';
+            if (is_null($logModel->getLogsByDate($_GET['log_date']))) {
+                $error['log_date'] = 'The indicated date has no records.';
             }
         }
 

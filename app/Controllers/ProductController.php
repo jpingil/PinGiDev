@@ -63,10 +63,15 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             }
 
             $data['length'] = $length;
+
+            if (isset($_SESSION['user'])) {
+                $favoriteModel = new \Com\Daw2\Models\FavoriteModel();
+                $userFavorites = $favoriteModel->getFavsByIdUser();
+                $data['favsProducts'] = $userFavorites;
+            }
+
+            $this->view->show('Product.php', $data);
         }
-
-
-        $this->view->show('Product.php', $data);
     }
 
     public function seeAdminProducts(array $data = null): void {

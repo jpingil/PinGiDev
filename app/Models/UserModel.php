@@ -84,6 +84,37 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         return $stmt->execute([$idUser]);
     }
 
+    public function getFilterUsers(array $vars): array {
+        $sql = self::SELECT_FROM_ALL;
+        $conds = [];
+        $params = [];
+
+        if (!empty($vars['user_name'])) {
+            $conds[] = 'u.user_name LIKE :user_name';
+            $params['user_name'] = '%' . $vars['user_name'] . '%';
+        }
+
+        if (!empty($conds)) {
+            $sql .= ' WHERE ' . implode(' AND ', $conds);
+        }
+
+        $sql .= ' ORDER BY id_user';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        
+        return $stmt->fetchAll();
+    }
+
+    public function getUserById(int $id): ?array {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.id_user = ?');
+        $stmt->execute([$id]);
+        if ($row = $stmt->fetch()) {
+            return $row;
+        }
+        return null;
+    }
+
     public function getUserByEmail(string $email): ?array {
         $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.email = ?');
         $stmt->execute([$email]);
@@ -93,9 +124,9 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
         return null;
     }
 
-    public function getUserById(int $id): ?array {
-        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.id_user = ?');
-        $stmt->execute([$id]);
+    public function getUserByUserName(string $userName): ?array {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_ALL . ' WHERE u.user_name = ?');
+        $stmt->execute([$userName]);
         if ($row = $stmt->fetch()) {
             return $row;
         }

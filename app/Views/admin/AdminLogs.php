@@ -1,64 +1,53 @@
 <main>
     <article    >
         <h2>PinGiDev Logs</h2>
-        <div class="card mt-4 mb-4">
+        <div class="filter">
             <form method="get" action="/AdminLogs/filter">       
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-dark">Filter</h6>                                    
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-lg-4">
-                            <div class="mb-3">
-                                <label for="id_user">User email:</label>
-                                <select name="id_user" id="id_user" class="form-control select2" data-placeholder="Email">
-                                    <option value="">-</option>
-                                    <?php foreach ($users as $user) { ?>
-                                        <option value="<?php echo $user['id_user']; ?>" <?php echo (isset($input['id_user']) && $user['id_user'] == $input['id_user']) ? 'selected' : ''; ?>><?php echo ucfirst($user['email']); ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
+                <div class="filterParams">
+                    <div class="mb-3">
+                        <label for="id_user">User email:</label>
+                        <select name="id_user" id="id_user" class="select2" data-placeholder="Email">
+                            <option value=""></option>
+                            <?php foreach ($users as $user) { ?>
+                                <option value="<?php echo $user['id_user']; ?>" <?php echo (isset($input['id_user']) && $user['id_user'] == $input['id_user']) ? 'selected' : ''; ?>><?php echo $user['email']; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <p><?php echo isset($errors['id_user']) ? $errors['id_user'] : ''; ?></p>
+                    </div>
 
-                        <div class="col-12 col-lg-4">
-                            <div class="mb-3">
-                                <label for="id_action">Action:</label>
-                                <select name="id_action" id="id_action" class="form-control select2" data-placeholder="Action">
-                                    <option value="">-</option>
-                                    <?php foreach ($actions as $action) { ?>
-                                        <option value="<?php echo $action['id_action']; ?>" <?php echo (isset($input['id_action']) && $action['id_action'] == $input['id_action']) ? 'selected' : ''; ?>><?php echo ucfirst($action['action_name']); ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div> 
+                    <div class="mb-3">
+                        <label for="id_action">Action:</label>
+                        <select name="id_action" id="id_action" class="select2" data-placeholder="Action">
+                            <option value=""></option>
+                            <?php foreach ($actions as $action) { ?>
+                                <option value="<?php echo $action['id_action']; ?>" <?php echo (isset($input['id_action']) && $action['id_action'] == $input['id_action'] && $input['id_action'] !== '') ? 'selected' : ''; ?>><?php echo $action['action_name']; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <p class="text-danger"><?php echo isset($errors['id_action']) ? $errors['id_action'] : ''; ?></p>
+                    </div>
 
-                        <div class="col-12 col-lg-4">
-                            <div class="mb-3">
-                                <label for="log_date">Date:</label>
-                                <select name="log_date" id="log_date" class="form-control select2" data-placeholder="Dates">
-                                    <option value="">-</option>
-                                    <?php foreach ($dates as $date) { ?>
-                                        <option value="<?php echo $date['date']; ?>" <?php echo (isset($input['date']) && $date == $input['date']) ? 'selected' : ''; ?>><?php echo $date['date']; ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div> 
+                    <div class="mb-3">
+                        <label for="log_date">Date:</label>
+                        <select name="log_date" id="log_date" class="select2" data-placeholder="Dates">
+                            <option value=""></option>
+                            <?php foreach ($dates as $date) { ?>
+                                <option value="<?php echo $date['date']; ?>" <?php echo (isset($input['log_date']) && $date['date'] == $input['log_date']) ? 'selected' : ''; ?>><?php echo $date['date']; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <p><?php echo isset($errors['log_date']) ? $errors['log_date'] : ''; ?></p>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="col-12 text-right">                     
-                        <a href="/usuarios" value="" name="reiniciar" class="btn btn-danger">Reiniciar filtros</a>
-                        <input type="submit" value="Aplicar filtros" name="enviar" class="btn btn-primary ml-2" href="/AdminLogs/filter"/>
-                    </div>
+                <div class="filterButtons">
+                    <a href="/AdminLogs" value="" name="reiniciar" class="btn btn-danger">Reiniciar filtros</a>
+                    <input type="submit" value="Aplicar filtros" name="enviar" class="btn btn-primary ml-2" href="/AdminLogs/filter"/>
                 </div>
+                <p class="mb-3 text-danger"><?php echo isset($errors['form']) ? $errors['form'] : ''; ?></p>
             </form>
         </div>
         <table>

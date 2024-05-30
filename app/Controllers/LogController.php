@@ -35,26 +35,33 @@ class LogController extends \Com\Daw2\Core\BaseController {
         $logModel = new \Com\Daw2\Models\LogModel();
         $actionModel = new \Com\Daw2\Models\ActionModel();
         $styles = ['Admin'];
+        $jss = ['HeaderNav'];
 
         $data['styles'] = $styles;
         $data['section'] = 'AdminLogs';
         $data['users'] = $userModel->getAll();
         $data['actions'] = $actionModel->getAll();
         $data['dates'] = $logModel->getDates();
+        $data['jss'] = $jss;
 
         if (empty($data['logs'])) {
             $data['logs'] = $logModel->getAll();
         }
 
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminLogs.php', 'templates/Footer.php'), $data);
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminLogs.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function processFilter(): void {
         $errors = $this->checkFilter();
+
         if (empty($errors)) {
             $logModel = new \Com\Daw2\Models\LogModel();
             $logs = $logModel->getFilterLogs($_GET);
+            if(empty($logs)){
+                $errors['form'] = 'There are no records with that data.';
+                $data['errors'] = $errors;
+            }
             $data['logs'] = $logs;
             $data['input'] = $_GET;
             $this->seeLogs($data);
@@ -66,37 +73,42 @@ class LogController extends \Com\Daw2\Core\BaseController {
 
     private function checkFilter(): array {
         $errors = [];
-
+        
         if (!empty($_GET['id_user'])) {
             $userModel = new \Com\Daw2\Models\UserModel();
-            if (!filter_var($_GET['id_user'], FILTER_VALIDATE_EMAIL)) {
-                $error['id_user'] = 'This is a invalid user.';
+            $_GET['id_user'] = intval($_GET['id_user']);
+            if (!filter_var($_GET['id_user'], FILTER_VALIDATE_INT)) {
+                $errors['id_user'] = 'This is a invalid user.';
             }
 
             if (is_null($userModel->getUserById($_GET['id_user']))) {
-                $error['id_user'] = "That user doesn't exist";
+                $errors['id_user'] = "That user doesn't exist";
             }
         }
 
-        if (!empty($_GET['id_actions'])) {
+        if (!empty($_GET['id_action']) || $_GET['id_action'] === '0') {
             $actionModel = new \Com\Daw2\Models\ActionModel();
-            if (!filter_var($_GET['id_action'], FILTER_VALIDATE_INT)) {
-                $error['id_action'] = 'This is a invalid action.';
+            $logModel = new \Com\Daw2\Models\LogModel();
+            $_GET['id_action'] = intval($_GET['id_action']);
+            
+            if ($_GET['id_action'] !== 0) {
+                if (!filter_var($_GET['id_action'], FILTER_VALIDATE_INT)) {
+                    $errors['id_action'] = 'This is a invalid action.';
+                }
             }
-
             if (is_null($actionModel->getActionById($_GET['id_action']))) {
-                $error['id_action'] = 'This action doesn´t exist';
+                $errors['id_action'] = 'This action doesn´t exist';
             }
         }
 
         if (!empty($_GET['log_date'])) {
             $logModel = new \Com\Daw2\Models\LogModel();
-            if (preg_match("/^\d{4}-\d{2}-\d{2}$/", $_GET['log_date'])) {
-                $error['log_date'] = 'This is a invalid date.';
+            if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $_GET['log_date'])) {
+                $errors['log_date'] = 'This is a invalid date.';
             }
 
             if (is_null($logModel->getLogsByDate($_GET['log_date']))) {
-                $error['log_date'] = 'The indicated date has no records.';
+                $errors['log_date'] = 'The indicated date has no records.';
             }
         }
 

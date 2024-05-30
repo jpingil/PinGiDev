@@ -93,19 +93,32 @@ article h2{
     border: 2px solid grey;
 }
 
-.card{
+.filter{
+    margin-top: 50px;
     width: 80%;
-    box-shadow: none !important;
     border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 10px 10px grey;
 }
 
-.card-body, .card-footer{
-    border-top: 1px solid black;
+.filterParams{
+    padding: 10px;
+    border-bottom: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-items: center;
 }
 
+.filterButtons{
+    padding: 10px;
+}
 
-.card, .card-header, .card-body, .card-footer{
-    background-color: transparent;
+.filterParams div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .select2-results{
@@ -116,6 +129,16 @@ article h2{
 .select2-results__options{
     display: initial;
     color: black;
+}
+
+.select2-container{
+    width: 90% !important;
+}
+
+.adminInput{
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid grey;
 }
 
 table {
@@ -129,6 +152,7 @@ table {
 table thead{
     background-color: black;
     color: white;
+    text-align: center;
 }
 
 table thead th{

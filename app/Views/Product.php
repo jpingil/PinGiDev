@@ -134,31 +134,32 @@
                         <h3>More products</h3>
                         <div class="products">
                             <?php
-                            foreach ($products as $moreProduct) {
-                                if ($moreProduct['id_product'] !== $product['id_product']) {
+                            for ($i = 0; $i < $length; $i++) {
+
+                                if ($products[$i]['id_product'] !== $product['id_product']) {
                                     ?>
                                     <div class="productCard">
-                                        <a href="/Product/<?php echo $moreProduct['id_product']; ?>">
-                                            <img src="../../assets/<?php echo $moreProduct['img_folder'] . '/Main Image/' . $moreProduct['product_name'] . '.' . $moreProduct['img_extension']; ?>" alt="<?php echo $moreProduct['product_description']; ?>"/>
+                                        <a href="/Product/<?php echo $products[$i]['id_product']; ?>">
+                                            <img src="../../assets/<?php echo $products[$i]['img_folder'] . '/Main Image/' . $products[$i]['product_name'] . '.' . $products[$i]['img_extension']; ?>" alt="<?php echo $products[$i]['product_description']; ?>"/>
                                         </a>
                                         <div class="button-container">
-                                            <h3><?php echo $moreProduct['product_name']; ?></h3>
+                                            <h3><?php echo $products[$i]['product_name']; ?></h3>
                                             <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?>>
                                                 <i class="fa-solid fa-heart btnFav <?php
                                                 if (isset($_SESSION['user'])) {
                                                     foreach ($favsProducts as $favProduct) {
-                                                        if ($favProduct['id_product'] == $moreProduct['id_product']) {
+                                                        if ($favProduct['id_product'] == $products[$i]['id_product']) {
                                                             echo 'fav';
                                                         }
                                                     }
                                                 } else {
                                                     echo 'noFav';
                                                 }
-                                                ?>"  id="<?php echo $moreProduct['id_product']; ?>"></i>
+                                                ?>"  id="<?php echo $products[$i]['id_product']; ?>"></i>
                                             </a>
                                         </div>
                                         <div class="moreInformation">
-                                            <a href="/Product/<?php echo $moreProduct['id_product']; ?>">More information</a>
+                                            <a href="/Product/<?php echo $products[$i]['id_product']; ?>">More information</a>
                                         </div>
                                     </div>
                                     <?php

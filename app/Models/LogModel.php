@@ -62,7 +62,7 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
             $params['id_user'] = intval($vars['id_user']);
         }
 
-        if (!empty($vars['id_action'])) {
+        if (!empty($vars['id_action']) || $vars['id_action'] === 0) {
             $conds[] = 'l.id_action = :id_action';
             $params['id_action'] = intval($vars['id_action']);
         }
@@ -76,6 +76,8 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
             $sql .= ' WHERE ' . implode(' AND ', $conds);
         }
 
+        $sql .= ' order by log_date desc';
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
 
@@ -86,6 +88,17 @@ class LogModel extends \Com\Daw2\Core\BaseDbModel {
         //Date() because the log_date have dates and hours.
         $stmt = $this->pdo->prepare(self::SELECT_FROM_JOIN . ' WHERE DATE(log_date) = :log_date');
         $stmt->execute([$logDate]);
+        if ($row = $stmt->fetch()) {
+            return $row;
+        }
+
+        return null;
+    }
+
+    public function getLogsByAction(int $logAction): ?array {
+        //Date() because the log_date have dates and hours.
+        $stmt = $this->pdo->prepare(self::SELECT_FROM_JOIN . ' WHERE l.id_action = :id_action');
+        $stmt->execute([$logAction]);
         if ($row = $stmt->fetch()) {
             return $row;
         }

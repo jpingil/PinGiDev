@@ -17,7 +17,7 @@ namespace Com\Daw2\Controllers;
 class ProductController extends \Com\Daw2\Core\BaseController {
 
     private const MAX_FILE_SIZE_BYTES = 512000 * 2;
-    private const MAX_MORE_PRODUCTS_LENGTH = 3;
+    private const MAX_MORE_PRODUCTS_LENGTH = 4;
 
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
@@ -59,9 +59,9 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             if (count($products) > self::MAX_MORE_PRODUCTS_LENGTH) {
                 $length = self::MAX_MORE_PRODUCTS_LENGTH;
             } else {
-                $length = count($products);
+                $length = count($products)-1;
             }
-
+            
             $data['length'] = $length;
 
             if (isset($_SESSION['user'])) {

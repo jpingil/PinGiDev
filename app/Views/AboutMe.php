@@ -1,12 +1,12 @@
 <main>
     <article>
-        <section>
+        <section class="impar">
             <div id="presentation">
                 <h1>Jorge Pino Gil</h1>
                 <p>Web Developer</p>
             </div>
         </section>
-        <section>
+        <section class="par">
             <div  class="grid" id="description">
                 <img src="assets/imgs/AboutMe/jorge.jpg" alt="PinGiDev selfie" />
                 <p>

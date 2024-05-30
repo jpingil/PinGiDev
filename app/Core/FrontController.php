@@ -165,6 +165,13 @@ class FrontController {
                         }
                         , 'get');
 
+                Route::add('/AdminUsers/filter',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\UserController();
+                            $controlador->processFilter();
+                        }
+                        , 'get');
+
                 Route::add('/AdminProducts',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\ProductController();

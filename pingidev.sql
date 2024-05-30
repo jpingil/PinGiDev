@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2024 a las 19:26:30
+-- Tiempo de generación: 30-05-2024 a las 19:21:53
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -61,7 +61,9 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(269, 6, 76);
+(272, 6, 78),
+(273, 6, 80),
+(274, 6, 82);
 
 -- --------------------------------------------------------
 
@@ -191,7 +193,31 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_action`, `id_user`) VALUES
 (114, '2024-05-28 16:19:32', 3, 6),
 (115, '2024-05-28 16:19:33', 4, 6),
 (116, '2024-05-28 16:19:34', 4, 6),
-(117, '2024-05-28 16:19:36', 3, 6);
+(117, '2024-05-28 16:19:36', 3, 6),
+(118, '2024-05-29 09:06:19', 1, 6),
+(119, '2024-05-29 09:06:30', 4, 6),
+(120, '2024-05-29 09:06:31', 3, 6),
+(121, '2024-05-29 10:48:10', 1, 6),
+(122, '2024-05-29 11:04:36', 3, 6),
+(123, '2024-05-29 11:04:37', 3, 6),
+(124, '2024-05-29 11:04:39', 3, 6),
+(125, '2024-05-29 11:26:15', 2, 6),
+(126, '2024-05-29 11:27:05', 0, 12),
+(127, '2024-05-29 11:27:09', 2, 12),
+(128, '2024-05-29 11:27:14', 1, 6),
+(129, '2024-05-29 16:34:09', 1, 6),
+(130, '2024-05-29 17:48:30', 1, 6),
+(131, '2024-05-29 18:45:28', 3, 6),
+(132, '2024-05-29 18:45:29', 3, 6),
+(133, '2024-05-29 18:45:30', 3, 6),
+(134, '2024-05-29 18:45:34', 4, 6),
+(135, '2024-05-29 18:45:35', 4, 6),
+(136, '2024-05-29 18:45:36', 4, 6),
+(137, '2024-05-29 18:45:37', 4, 6),
+(138, '2024-05-30 09:27:09', 1, 6),
+(139, '2024-05-30 11:10:19', 1, 6),
+(140, '2024-05-30 12:18:53', 1, 6),
+(141, '2024-05-30 16:06:57', 1, 6);
 
 -- --------------------------------------------------------
 
@@ -228,7 +254,12 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`, `product_ban`) VALUES
 (76, 'Prueba', 'Prueba', 'imgs/Product/Prueba', 'jpg', 0, 0),
-(77, 'Prueba 2', 'prueba 2', 'imgs/Product/Prueba 2', 'jpg', 0, 0);
+(77, 'Prueba 2', 'prueba 2', 'imgs/Product/Prueba 2', 'jpg', 0, 0),
+(78, 'Prueba 3', 'Prueba', 'imgs/Product/Prueba 3', 'jpg', 0, 0),
+(79, 'Prueba 5', 'Prueba', 'imgs/Product/Prueba 5', 'jpg', 0, 0),
+(80, 'Prueba 6', 'Prueba', 'imgs/Product/Prueba 6', 'jpg', 0, 0),
+(81, 'Prueba 7', 'prueba', 'imgs/Product/Prueba 7', 'jpg', 0, 0),
+(82, 'Prueba 8', 'Prueba', 'imgs/Product/Prueba 8', 'jpg', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -270,7 +301,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `pass`, `email`, `id_rol`, `user_ban`) VALUES
 (6, 'jorgito', '$2y$10$OjHQqAVcwAs8fNG2R5HBzu8RUDhz6akkMwoAtZdtk14lZDgD0sHGi', 'jorgepinogil013@gmail.com', 0, 0),
-(11, 'jorgepino', '$2y$10$PX6SLs1EIPGAQ0.tJq6E4OXxxZH85mN3PaCIf63zC9RT1bMn9ptQS', 'jorge@a.com', 0, 0);
+(11, 'jorgepino', '$2y$10$PX6SLs1EIPGAQ0.tJq6E4OXxxZH85mN3PaCIf63zC9RT1bMn9ptQS', 'jorge@a.com', 0, 0),
+(12, 'registerprueba', '$2y$10$.IRoOGJb5KdILoBKM7hfv.yXec/ravZ7dHFyjSx/CYBrw8HjSKABq', 'register@c.com', 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -333,13 +365,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -351,13 +383,13 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

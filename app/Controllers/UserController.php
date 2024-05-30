@@ -123,7 +123,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
                     empty($_POST['pass']) || empty($_POST['pass2'])) {
                 $errors['register'] = 'There are empty values.';
             }
-            
+
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['register'] = 'The email is not valid.';
             }
@@ -208,13 +208,18 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     public function seeUsers(array $data = null): void {
         $userModel = new \Com\Daw2\Models\UserModel();
+        $rolModel = new \Com\Daw2\Models\RolModel();
         $users = $userModel->getAll();
 
         $data['jss'] = ['Fetch', 'HeaderNav'];
         $data['section'] = 'AdminUsers';
-        $data['users'] = $users;
+        $data['rols'] = $rolModel->getAll();
 
-        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'templates/Footer.php'), $data);
+        if (!isset($data['users'])) {
+            $data['users'] = $users;
+        }
+
+        $this->view->showViews(array('admin/templates/Header.php', 'admin/AdminUsers.php', 'admin/templates/Footer.php'), $data);
     }
 
     public function seeAdd(array $data = null, bool $readonly = false): void {
@@ -386,5 +391,31 @@ class UserController extends \Com\Daw2\Core\BaseController {
         }
 
         return $message;
+    }
+
+    public function processFilter(): void {
+        $errors = $this->checkFilter();
+
+        if (empty($errors)) {
+            $userModel = new \Com\Daw2\Models\UserModel();
+            $users = $userModel->getFilterUsers($_GET);
+
+            if (empty($users)) {
+                $errors['form'] = 'There are no records with that data.';
+                $data['errors'] = $errors;
+            }
+            $data['users'] = $users;
+            $data['input'] = $_GET;
+            $this->seeUsers($data);
+        } else {
+            $data['errors'] = $errors;
+            $this->seeUsers($data);
+        }
+    }
+
+    private function checkFilter(): array {
+        $errors = [];
+
+        return $errors;
     }
 }

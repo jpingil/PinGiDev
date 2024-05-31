@@ -55,13 +55,20 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $data['section'] = 'Products';
             $data['product'] = $product;
             $data['products'] = $products;
+            $data['jss'] = ['Fetch'];
+            $data['fav'] = false;
+
+            $favoriteModel = new \Com\Daw2\Models\FavoriteModel;
+            if (isset($_SESSION['user']) && $favoriteModel->isFav($_SESSION['user']['id_user'], $product['id_product'])) {
+                $data['fav'] = true;
+            }
 
             if (count($products) > self::MAX_MORE_PRODUCTS_LENGTH) {
                 $length = self::MAX_MORE_PRODUCTS_LENGTH;
             } else {
-                $length = count($products)-1;
+                $length = count($products) - 1;
             }
-            
+
             $data['length'] = $length;
 
             if (isset($_SESSION['user'])) {
@@ -157,9 +164,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $errors['form'] = 'Empty fields';
         } else {
             $productModel = new \Com\Daw2\Models\ProductModel();
-            if ($productModel->getProductByProductName($_POST['product_name'])) {
-                $errors['product_name'] = 'A product with that name already exists.';
-            }
 
             if (!preg_match('/^[a-zA-Z0-9\s]{4,15}$/', $_POST['product_name'])) {
                 $errors['product_name'] = 'The product name can only contain letters, '
@@ -181,6 +185,10 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                     if ($_FILES['image']['size'] > self::MAX_FILE_SIZE_BYTES) {
                         $errors['image'] = 'The image cannot be larger than ' . self::MAX_FILE_SIZE_BYTES . 'KB.';
                     }
+                }
+
+                if ($productModel->getProductByProductName($_POST['product_name'])) {
+                    $errors['product_name'] = 'A product with that name already exists.';
                 }
 
 

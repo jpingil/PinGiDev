@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2024 a las 19:21:53
+-- Tiempo de generación: 31-05-2024 a las 19:23:24
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -62,8 +62,7 @@ CREATE TABLE `favorites` (
 
 INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
 (272, 6, 78),
-(273, 6, 80),
-(274, 6, 82);
+(280, 6, 82);
 
 -- --------------------------------------------------------
 
@@ -217,7 +216,45 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_action`, `id_user`) VALUES
 (138, '2024-05-30 09:27:09', 1, 6),
 (139, '2024-05-30 11:10:19', 1, 6),
 (140, '2024-05-30 12:18:53', 1, 6),
-(141, '2024-05-30 16:06:57', 1, 6);
+(141, '2024-05-30 16:06:57', 1, 6),
+(142, '2024-05-31 09:52:56', 1, 6),
+(143, '2024-05-31 09:53:37', 3, 6),
+(144, '2024-05-31 09:54:30', 4, 6),
+(145, '2024-05-31 09:54:40', 3, 6),
+(146, '2024-05-31 09:54:42', 4, 6),
+(147, '2024-05-31 10:02:37', 4, 6),
+(148, '2024-05-31 10:02:37', 3, 6),
+(149, '2024-05-31 10:02:38', 4, 6),
+(150, '2024-05-31 10:02:40', 3, 6),
+(151, '2024-05-31 10:23:55', 3, 6),
+(152, '2024-05-31 10:23:55', 4, 6),
+(153, '2024-05-31 10:23:57', 3, 6),
+(154, '2024-05-31 10:23:58', 4, 6),
+(155, '2024-05-31 10:24:00', 3, 6),
+(156, '2024-05-31 17:31:17', 1, 6),
+(157, '2024-05-31 19:12:32', 4, 6),
+(158, '2024-05-31 19:12:38', 3, 6),
+(159, '2024-05-31 19:12:55', 4, 6),
+(160, '2024-05-31 19:12:56', 3, 6),
+(161, '2024-05-31 19:13:25', 4, 6),
+(162, '2024-05-31 19:13:26', 3, 6),
+(163, '2024-05-31 19:14:13', 4, 6),
+(164, '2024-05-31 19:17:18', 3, 6),
+(165, '2024-05-31 19:17:19', 4, 6),
+(166, '2024-05-31 19:17:49', 3, 6),
+(167, '2024-05-31 19:17:50', 4, 6),
+(168, '2024-05-31 19:17:50', 3, 6),
+(169, '2024-05-31 19:17:50', 4, 6),
+(170, '2024-05-31 19:17:51', 4, 6),
+(171, '2024-05-31 19:17:51', 3, 6),
+(172, '2024-05-31 19:17:51', 4, 6),
+(173, '2024-05-31 19:17:54', 3, 6),
+(174, '2024-05-31 19:17:55', 4, 6),
+(175, '2024-05-31 19:17:55', 3, 6),
+(176, '2024-05-31 19:17:55', 4, 6),
+(177, '2024-05-31 19:18:00', 2, 6),
+(178, '2024-05-31 19:18:08', 1, 6),
+(179, '2024-05-31 19:18:28', 5, 6);
 
 -- --------------------------------------------------------
 
@@ -254,7 +291,7 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`, `product_ban`) VALUES
 (76, 'Prueba', 'Prueba', 'imgs/Product/Prueba', 'jpg', 0, 0),
-(77, 'Prueba 2', 'prueba 2', 'imgs/Product/Prueba 2', 'jpg', 0, 0),
+(77, 'Prueba 2', 'Alberto es tonto y necesite que le explique esto\r\n', 'imgs/Product/Prueba 2', 'jpg', 0, 0),
 (78, 'Prueba 3', 'Prueba', 'imgs/Product/Prueba 3', 'jpg', 0, 0),
 (79, 'Prueba 5', 'Prueba', 'imgs/Product/Prueba 5', 'jpg', 0, 0),
 (80, 'Prueba 6', 'Prueba', 'imgs/Product/Prueba 6', 'jpg', 0, 0),
@@ -365,19 +402,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=293;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
 --
 ALTER TABLE `order`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `product`

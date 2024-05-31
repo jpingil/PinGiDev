@@ -94,6 +94,16 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
             $params['user_name'] = '%' . $vars['user_name'] . '%';
         }
 
+        if (!empty($vars['filterEmail'])) {
+            $conds[] = 'u.email = :filterEmail';
+            $params['filterEmail'] = $vars['filterEmail'];
+        }
+
+        if (!empty($vars['id_rol']) || $vars['id_rol'] === 0) {
+            $conds[] = 'r.id_rol = :id_rol';
+            $params['id_rol'] = $vars['id_rol'];
+        }
+
         if (!empty($conds)) {
             $sql .= ' WHERE ' . implode(' AND ', $conds);
         }
@@ -102,7 +112,7 @@ class UserModel extends \Com\Daw2\Core\BaseDbModel {
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
-        
+
         return $stmt->fetchAll();
     }
 

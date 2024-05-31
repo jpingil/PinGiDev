@@ -12,21 +12,21 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="id_user">User email:</label>
-                        <select name="id_user" id="id_user" class="select2" data-placeholder="Email">
+                        <label for="email">User email:</label>
+                        <select name="filterEmail" id="filterEmail" class="select2" data-placeholder="Email">
                             <option value=""></option>
-                            <?php foreach ($users as $user) { ?>
-                                <option value="<?php echo $user['id_user']; ?>" <?php echo (isset($input['id_user']) && $user['id_user'] == $input['id_user']) ? 'selected' : ''; ?>><?php echo $user['email']; ?></option>
+                            <?php foreach ($filterUsers as $user) { ?>
+                                <option value="<?php echo $user['email']; ?>" <?php echo (isset($input['filterEmail']) && $user['email'] == $input['filterEmail']) ? 'selected' : ''; ?>><?php echo $user['email']; ?></option>
                                 <?php
                             }
                             ?>
                         </select>
-                        <p><?php echo isset($errors['id_user']) ? $errors['id_user'] : ''; ?></p>
+                        <p><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></p>
                     </div>
 
                     <div class="mb-3">
-                        <label for="log_date">Rol:</label>
-                        <select name="log_date" id="log_date" class="select2" data-placeholder="Rols">
+                        <label for="rol">Rol:</label>
+                        <select name="id_rol" id="id_rol" class="select2" data-placeholder="Rols">
                             <option value=""></option>
                             <?php foreach ($rols as $rol) { ?>
                                 <option value="<?php echo $rol['id_rol']; ?>" <?php echo (isset($input['id_rol']) && $rol['id_rol'] == $input['id_rol']) ? 'selected' : ''; ?>><?php echo $rol['rol_name']; ?></option>
@@ -34,7 +34,7 @@
                             }
                             ?>
                         </select>
-                        <p><?php echo isset($errors['log_date']) ? $errors['log_date'] : ''; ?></p>
+                        <p><?php echo isset($errors['rol']) ? $errors['rol'] : ''; ?></p>
                     </div>
                 </div>
                 <div class="filterButtons">

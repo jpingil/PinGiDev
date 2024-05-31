@@ -103,7 +103,20 @@
                         <form action="/Order/<?php echo $product['id_product']; ?>" method="post">
                             <div class="product-info">
                                 <div class="infoContainer">
-                                    <h3><?php echo $product['product_name']; ?></h3>
+                                    <div>
+                                        <h3><?php echo $product['product_name']; ?></h3>
+                                        <a <?php echo (!isset($_SESSION['user'])) ? 'href="/Login"' : 'disabled'; ?>>
+                                            <i class="fa-solid fa-heart btnFav <?php
+                                            if (isset($_SESSION['user'])) {
+                                                if ($fav) {
+                                                    echo 'fav';
+                                                }
+                                            } else {
+                                                echo 'noFav';
+                                            }
+                                            ?>"  id="<?php echo $product['id_product']; ?>"></i>
+                                        </a>
+                                    </div>
                                     <p><?php echo $product['product_description']; ?></p>
                                 </div>
                                 <div class="description form-floating ">

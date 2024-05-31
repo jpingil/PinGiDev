@@ -4,12 +4,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 60px;
 }
 
 .product {
     width: 90%;
+    background-color: white;
+    color: black;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    align-items: center;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.product:hover{
+    box-shadow: 10px 10px grey, -10px -10px grey;
 }
 
 .product img {
@@ -35,20 +44,48 @@ form{
     align-items: center;
 }
 
-.product-info p{
-    margin-bottom: 20px;
+.infoContainer{
+    width: 40%;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.infoContainer div{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+    color: white;
+    border-top: none;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.infoContainer div h3{
+    margin-right: 30px;
+    margin-bottom: 0;
+}
+
+.infoContainer div a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoContainer p{
+    border: 1px solid grey;
+    padding: 10px;
 }
 
 .description{
-    color: white;
     width: 100%;
-    border: 2px solid black;
+    border: 1px solid grey;
     border-radius: 10px;
     transition: border 0.2s ease-in-out;
 }
 
 .description:hover{
-    border: 2px solid white;
+    border: 1px solid black;
 }
 
 
@@ -59,7 +96,7 @@ textarea {
 .form-control{
     background-color: transparent;
     border: none;
-    border: 1px solid white;
+    border: 1px solid black;
     resize: none;
     padding: 10px;
     outline: none;
@@ -68,11 +105,11 @@ textarea {
 .form-control:focus{
     background-color: transparent;
     border: none;
-    box-shadow: 0 0 0 0.25rem white;
+    box-shadow: 0 0 0 -0.25rem black;
     resize: none;
     padding: 10px;
     outline: none;
-    color: white;
+    color: black;
 }
 
 
@@ -89,19 +126,19 @@ textarea {
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
 .form-floating > .form-select ~ label {
-    color: white;
+    color: black;
 }
 
 .orderBtn {
     margin-top: 10px;
     padding: 10px;
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: white;
     border-radius: 10px;
     border: none;
     cursor: pointer;
     text-align: center;
-    border: 1px solid white;
+    border: 1px solid black;
     width: 100%;
     transition: all 0.5s ease-in-out;
 }
@@ -109,8 +146,8 @@ textarea {
 
 .orderBtn:hover {
     border: 1px solid white;
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
 }
 
 .notices{
@@ -130,6 +167,26 @@ textarea {
 
 .products{
     margin-bottom: 50px;
+}
+
+
+.btnFav{
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btnFav:hover{
+    transform: scale(1.2);
+}
+
+.noFav{
+    color: black;
+}
+
+.fav{
+    color: #ff0000;
 }
 
 @media screen and (max-width: 1100px) {

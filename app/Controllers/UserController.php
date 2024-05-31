@@ -214,6 +214,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $data['jss'] = ['Fetch', 'HeaderNav'];
         $data['section'] = 'AdminUsers';
         $data['rols'] = $rolModel->getAll();
+        $data['filterUsers'] = $users;
 
         if (!isset($data['users'])) {
             $data['users'] = $users;
@@ -415,6 +416,29 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     private function checkFilter(): array {
         $errors = [];
+        $userModel = new \Com\Daw2\Models\UserModel();
+
+        if (!empty($_GET['email'])) {
+            if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
+                $error['filterEmail'] = 'That data does not match the requested data.';
+            } else {
+                if (is_null($userModel->getUserByEmail($_GET['email']))) {
+                    $errors['filterEmail'] = 'There is no a user with that email.';
+                }
+            }
+        }
+
+        $_GET['id_rol'] = intval($_GET['id_rol']);
+        if (!empty($_GET['id_rol']) || $_GET['id_rol'] === 0) {
+            if (!filter_var($_GET['id_rol'], FILTER_VALIDATE_INT)) {
+                
+            }else{
+                $rolModel = new \Com\Daw2\Models\RolModel();
+                if(is_null($rolModel->getRolById($_GET['id_rol']))){
+                    $errors['rol'] = 'There is no such role.';
+                }
+            }
+        }
 
         return $errors;
     }

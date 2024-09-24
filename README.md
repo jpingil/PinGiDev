@@ -8,5 +8,5 @@ Este proyecto combina diversas tecnologías. En el backend, se utiliza PHP junto
 del ciclo de Desarrollo de Aplicaciones Web me familiaricé con esta tecnología y resultaba lo más óptimo para el proyecto. Para el frontend, 
 se emplean tecnologías clásicas como HTML5 y CSS3, complementadas con componentes de Bootstrap que facilitaron el trabajo realizado.
 
-
+![Captura de pantalla de la parte de productos de la web.](public/assets/imgs/CapturaGitHub.png)
 

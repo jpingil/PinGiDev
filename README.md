@@ -1,5 +1,5 @@
-#PINGIDEV
-##Por Jorge Pino Gil
+# PINGIDEV
+## Por Jorge Pino Gil
 
 PinGiDev es una empresa ficticia especializada en la creación y venta de sitios web, con un enfoque en diseños minimalistas y elegantes 
 que priorizan tanto la estética como la funcionalidad. La plataforma cuenta con una interfaz pública, accesible para los usuarios, y una

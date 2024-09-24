@@ -15,7 +15,7 @@
                         </a>
                         <div class="button-container">
                                                     <h3><?php echo $product['product_name']; ?></h3>
-                            <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?>>
+                            <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?> aria-label="favorite">
                                 <i class="fa-solid fa-heart btnFav <?php
                                 if (isset($_SESSION['user'])) {
                                     foreach ($favsProducts as $favProduct) {

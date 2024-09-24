@@ -6,13 +6,13 @@
             <form method="get" action="/AdminUsers/filter">       
                 <div class="filterParams">
                     <div class="mb-3">
-                        <label for="id_user">User Name:</label>
+                        <label for="user_name">User Name:</label>
                         <input class="adminInput" id="user_name" name="user_name" value="<?php echo (isset($input['user_name'])) ? $input['user_name'] : ''; ?>" placeholder="User name"/>
                         <p><?php echo isset($errors['user_name']) ? $errors['user_name'] : ''; ?></p>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email">User email:</label>
+                        <label for="filterEmail">User email:</label>
                         <select name="filterEmail" id="filterEmail" class="select2" data-placeholder="Email">
                             <option value=""></option>
                             <?php foreach ($filterUsers as $user) { ?>
@@ -25,11 +25,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="rol">Rol:</label>
-                        <select name="id_rol" id="id_rol" class="select2" data-placeholder="Rols">
+                        <label for="rol_name">Rol:</label>
+                        <select name="rol_name" id="rol_name" class="select2" data-placeholder="Rols">
                             <option value=""></option>
                             <?php foreach ($rols as $rol) { ?>
-                                <option value="<?php echo $rol['id_rol']; ?>" <?php echo (isset($input['id_rol']) && $rol['id_rol'] == $input['id_rol']) ? 'selected' : ''; ?>><?php echo $rol['rol_name']; ?></option>
+                                <option value="<?php echo $rol['rol_name']; ?>" <?php echo (isset($input['rol_name']) && $rol['rol_name'] == $input['rol_name']) ? 'selected' : ''; ?>><?php echo $rol['rol_name']; ?></option>
                                 <?php
                             }
                             ?>
@@ -72,11 +72,11 @@
                             <td><?php echo $user['email']; ?></td>
                             <td><?php echo $user['rol_name']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>" data-toggle="tooltip" title="Edit user"></a>
+                                <a class="fa-regular fa-pen-to-square icon" href="/AdminUsers/edit/<?php echo $user['id_user']; ?>" data-toggle="tooltip" title="Edit user" aria-label="edit user"></a>
                                 <i class="fa-solid fa-toggle-<?php echo ($user['user_ban'] === 0) ? 'on' : 'off'
-                        ?> icon btnBan" id="AdminUsers-<?php echo $user['id_user']; ?>" data-toggle="tooltip" title="Ban user"></i>
+                        ?> icon btnBan" id="AdminUsers-<?php echo $user['id_user']; ?>" data-toggle="tooltip" title="Ban user" aria-label="ban user"></i>
                                 <a class="fa-regular fa-trash-can icon" href="/AdminUsers/delete/<?php echo $user['id_user']; ?>"
-                                   data-toggle="tooltip" title="Delete user"></a>
+                                   data-toggle="tooltip" title="Delete user" aria-label="delete user"></a>
                             </td>
                         </tr>
                         <?php

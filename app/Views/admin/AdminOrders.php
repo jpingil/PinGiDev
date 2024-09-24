@@ -29,8 +29,8 @@
                             <td><?php echo $order['email']; ?></td>
                             <td><?php echo $order['product_name']; ?></td>
                             <td>
-                                <a class="fa-regular fa-pen-to-square icon" href="/AdminOrders/edit/<?= $order['id_order']; ?>"></a>
-                                <a class="fa-regular fa-trash-can icon" href="/AdminOrders/delete/<?php echo $order['id_order']; ?>"></a>
+                                <a class="fa-regular fa-pen-to-square icon" href="/AdminOrders/edit/<?= $order['id_order']; ?>" aria-label="edit order"></a>
+                                <a class="fa-regular fa-trash-can icon" href="/AdminOrders/delete/<?php echo $order['id_order']; ?>" aria-label="delete order"></a>
                             </td>
                         </tr>  
                         <?php

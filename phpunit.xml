@@ -1,0 +1,15 @@
+<phpunit>
+    <php>
+        <env name="db.host" value="localhost"/>
+        <env name="db.user" value="admin"/>
+        <env name="db.pass" value="daw2pass"/>
+        <env name="db.schema" value="test"/>
+        <env name="db.charset" value="utf8mb4"/>
+        <env name="db.emulated" value="0"/>
+    </php>
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>test</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -29,4 +29,13 @@ class RolModel extends \Com\Daw2\Core\BaseDbModel {
         }
         return null;
     }
+
+    public function getRolByName(string $rolName): ?array {
+        $stmt = $this->pdo->prepare(self::SELECT_FROM . ' WHERE rol_name = ?');
+        $stmt->execute([$rolName]);
+        if ($row = $stmt->fetch()) {
+            return $row;
+        }
+        return null;
+    }
 }

@@ -18,7 +18,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         $orderModel = new \Com\Daw2\Models\OrderModel();
         $styles = ['Admin'];
         $jss = ['Fetch', 'HeaderNav'];
-        
+
         $data['section'] = 'AdminOrders';
         $data['styles'] = $styles;
         $data['orders'] = $orderModel->getAll();
@@ -28,11 +28,13 @@ class OrderController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processOrder(int $idProduct) {
-        $errors = $this->checkOrder();
+        $_POST['id_product'] = $idProduct;
+        $_POST['id_user'] = $_SESSION['user']['id_user'];
+        $errors = $this->checkOrder($_POST, null, true);
         if (empty($errors)) {
             $orderModel = new \Com\Daw2\Models\OrderModel();
-            if ($orderModel->insertOrder($_SESSION['user']['id_user'], $idProduct, 
-                    $_POST['order_description'])) {
+            if ($orderModel->insertOrder($_SESSION['user']['id_user'], $idProduct,
+                            $_POST['order_description'])) {
                 $logController = new \Com\Daw2\Controllers\LogController();
                 $logController->generateLog($_SESSION['user']['id_user'], 'order');
             }
@@ -40,7 +42,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
         }
 
         $data = [];
-        $data['error'] = $errors;
+        $data['errors'] = $errors;
         $productController = new \Com\Daw2\Controllers\ProductController();
         $productController->seeProduct($idProduct, $data);
     }
@@ -82,7 +84,7 @@ class OrderController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processEdit(int $idOrder): void {
-        $errors = $this->checkOrder($idOrder);
+        $errors = $this->checkOrder($_POST, $idOrder);
         if (empty($errors)) {
             $orderModel = new \Com\Daw2\Models\OrderModel();
             $order = $orderModel->getOrderById($idOrder);
@@ -113,39 +115,42 @@ class OrderController extends \Com\Daw2\Core\BaseController {
      * @param bool $addEdit flag to know if we need check idUser
      * @return array
      */
-    private function checkOrder(int $idOrder = null, bool $addEdit = false): array {
+    private function checkOrder(array $post, int $idOrder = null, bool $add = false, bool $edit = false): array {
         $errors = [];
 
-        if (empty($_POST['order_description'])) {
+        if (empty($post['order_description'])) {
             $errors['order_description'] = 'Empty description.';
         } else {
-            if ($addEdit) {
-                $orderModel = new \Com\Daw2\Models\OrderModel();
-                $order = $orderModel->getOrderById($idOrder);
-                if (is_null($idOrder)) {
-                    $errors['form'] = 'That order doesn´t exist.';
+            if ($edit || $add) {
+
+                if (!$add) {
+                    $orderModel = new \Com\Daw2\Models\OrderModel();
+                    $order = $orderModel->getOrderById($idOrder);
+                    if (is_null($idOrder)) {
+                        $errors['form'] = 'That order doesn´t exist.';
+                    }
                 }
 
-                if (empty($_POST['id_user'])) {
+                if (empty($post['id_user'])) {
                     $errors['email'] = 'Empty email.';
                 } else {
                     $userModel = new \Com\Daw2\Models\UserModel();
-                    if (is_null($userModel->getUserById($_POST['id_user']))) {
+                    if (is_null($userModel->getUserById($post['id_user']))) {
                         $errors['order_description'] = 'That user doesn´t exist.';
                     }
                 }
 
-                if (empty($_POST['id_product'])) {
+                if (empty($post['id_product'])) {
                     $errors['product'] = 'Empty product.';
                 } else {
                     $productModel = new \Com\Daw2\Models\ProductModel();
-                    if (is_null($productModel->getProductById($_POST['id_product']))) {
+                    if (is_null($productModel->getProductById($post['id_product']))) {
                         $errors['product'] = 'This product doesn´t exist.';
                     }
                 }
             }
 
-            if (!preg_match('/^[a-zA-Z,. ]{1,200}/', $_POST['order_description'])) {
+            if (!preg_match('/^[a-zA-Z,. ]{1,200}/', $post['order_description'])) {
                 $errors['order_description'] = 'Only letters are allowed, with a maximum of 200 words.';
             }
         }

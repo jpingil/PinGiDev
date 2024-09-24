@@ -76,7 +76,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processRegister(): void {
-        $errors = $this->checkRegister();
+        $errors = $this->checkRegister($_POST);
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
             if ($userModel->register($_POST)) {
@@ -103,63 +103,63 @@ class UserController extends \Com\Daw2\Core\BaseController {
         $this->seeRegister($errors, $postData);
     }
 
-    private function checkRegister(array $user = null, bool $defaultUser = false): array {
+    private function checkRegister(array $post, array $user = null, bool $defaultUser = false): array {
         $errors = [];
 
         if ($defaultUser) {
-            if (empty($_POST['user_name']) ||
-                    empty($_POST['pass']) || empty($_POST['pass2'])) {
+            if (empty($post['user_name']) ||
+                    empty($post['pass']) || empty($post['pass2'])) {
                 $errors['register'] = 'There are empty values.';
             }
         }
 
-        if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $_POST['user_name'])) {
+        if (!preg_match('/^[a-zA-Z0-9_]{4,15}$/', $post['user_name'])) {
             $errors['register'] = 'The username can only contain numbers, '
                     . 'letters, underscores, and must be between 4 and 15 characters.';
         }
 
         if (!$defaultUser) {
-            if (empty($_POST['user_name']) || empty($_POST['email']) ||
-                    empty($_POST['pass']) || empty($_POST['pass2'])) {
+            if (empty($post['user_name']) || empty($post['email']) ||
+                    empty($post['pass']) || empty($post['pass2'])) {
                 $errors['register'] = 'There are empty values.';
             }
 
-            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['register'] = 'The email is not valid.';
             }
 
             $userModel = new \Com\Daw2\Models\UserModel();
             if (is_null($user)) {
-                if (!is_null($userModel->getUserByEmail($_POST['email']))) {
+                if (!is_null($userModel->getUserByEmail($post['email']))) {
                     $errors['register'] = 'That email is already in use.';
                 }
             } else {
-                $updateUser = $userModel->getUserByEmail($_POST['email']);
+                $updateUser = $userModel->getUserByEmail($post['email']);
                 if (($updateUser['email'] !== $user['email']) && (!is_null($updateUser))) {
                     $errors['register'] = 'That email is already in use.';
                 }
             }
 
-            if (isset($_POST['id_rol'])) {
+            if (isset($post['id_rol'])) {
                 $rolModel = new \Com\Daw2\Models\RolModel();
-                $_POST['id_rol'] = intval($_POST['id_rol']);
-                if (is_null($rolModel->getRolById($_POST['id_rol'])) && !empty($_POST['id_rol'])) {
+                $post['id_rol'] = intval($post['id_rol']);
+                if (is_null($rolModel->getRolById($post['id_rol'])) && !empty($post['id_rol'])) {
                     $errors['register'] = 'The rol is not valid.';
                 }
             }
         }
 
-        if (!preg_match('/^.{8,18}$/', $_POST['pass'])) {
+        if (!preg_match('/^.{8,18}$/', $post['pass'])) {
             $errors['register'] = 'The password must be between 8 and 18 characters long.';
         }
-        if ($_POST['pass'] !== $_POST['pass2']) {
+        if ($post['pass'] !== $post['pass2']) {
             $errors['register'] = 'The passwords must match.';
         }
 
         return $errors;
     }
 
-    public function processLogin() {
+    public function processLogin():void {
         $errors = $this->checkLogin($_POST);
 
         if (empty($errors)) {
@@ -187,7 +187,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
         if (empty($data['email']) || empty($data['pass'])) {
             $errors['login'] = 'There are empty values.';
         } else {
-            if (!filter_var($data['email'], FILTER_SANITIZE_EMAIL)) {
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['login'] = 'Invalid data.';
             }
         }
@@ -250,7 +250,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processAdd(): void {
-        $errors = $this->checkRegister();
+        $errors = $this->checkRegister($_POST);
         if (empty($errors)) {
             $userModel = new \Com\Daw2\Models\UserModel();
             $userModel->register($_POST);
@@ -282,7 +282,7 @@ class UserController extends \Com\Daw2\Core\BaseController {
 
     public function processEdit(int $id, bool $defaultUser = false): void {
         $userModel = new \Com\Daw2\Models\UserModel();
-        $errors = $this->checkRegister($userModel->getUserById($id), $defaultUser);
+        $errors = $this->checkRegister($_POST, $userModel->getUserById($id), $defaultUser);
         if (empty($errors)) {
             if ($defaultUser) {
                 $_POST['email'] = $_SESSION['user']['email'];
@@ -428,15 +428,10 @@ class UserController extends \Com\Daw2\Core\BaseController {
             }
         }
 
-        $_GET['id_rol'] = intval($_GET['id_rol']);
-        if (!empty($_GET['id_rol']) || $_GET['id_rol'] === 0) {
-            if (!filter_var($_GET['id_rol'], FILTER_VALIDATE_INT)) {
-                
-            }else{
-                $rolModel = new \Com\Daw2\Models\RolModel();
-                if(is_null($rolModel->getRolById($_GET['id_rol']))){
-                    $errors['rol'] = 'There is no such role.';
-                }
+        if (!empty($_GET['rol_name'])) {
+            $rolModel = new \Com\Daw2\Models\RolModel();
+            if (is_null($rolModel->getRolByName($_GET['rol_name']))) {
+                $errors['rol'] = 'There is no such role.';
             }
         }
 

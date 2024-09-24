@@ -18,8 +18,8 @@
 }
 
 .productCard img {
-    max-width: 400px;
-    max-height: 400px;
+    width: 400px;
+    height: 300px;
 }
 
 .productCard:hover{
@@ -76,15 +76,6 @@
     color: #ff0000;
 }
 
-
-@media screen and (max-height: 660px){
-
-    .productCard img{
-        max-width: 300px;
-        max-height: 300px;
-    }
-}
-
 @media screen and (max-width: 450px){
 
     .products{
@@ -94,7 +85,7 @@
     }
 
     .productCard img{
-        max-width: 300px;
-        max-height: 300px;
+        width: 300px;
+        height: auto;
     }
 }

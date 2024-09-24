@@ -1,5 +1,5 @@
 article{
-    height: auto;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -146,5 +146,13 @@ article{
     
     .loginContainer:first-child h2{
         margin: 20px 0px 0px 0px;
+    }
+    
+    .loginContainer, .registerContainer{
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }

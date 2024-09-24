@@ -1,5 +1,7 @@
 var imagePreview = document.getElementById("image-preview");
+console.log("hola");
 document.getElementById("image").addEventListener("change", function () {
+    console.log("estamos");
     var files = this.files;
     var img = document.createElement("img");
     var reader = new FileReader();

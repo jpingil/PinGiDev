@@ -18,6 +18,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
     private const MAX_FILE_SIZE_BYTES = 512000 * 2;
     private const MAX_MORE_PRODUCTS_LENGTH = 4;
+    private const VALID_IMG_EXTENSIONS = ['jpeg', 'jpg', 'png'];
 
     public function seeProducts(): void {
         $productModel = new \Com\Daw2\Models\ProductModel();
@@ -66,7 +67,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             if (count($products) > self::MAX_MORE_PRODUCTS_LENGTH) {
                 $length = self::MAX_MORE_PRODUCTS_LENGTH;
             } else {
-                $length = count($products) - 1;
+                $length = count($products);
             }
 
             $data['length'] = $length;
@@ -93,9 +94,10 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 
     public function seeAdd(array $data = null): void {
         $styles = ['Admin', 'AddAdmins', 'AddProducts'];
+        $jss = ['FormImages'];
 
         $data['styles'] = $styles;
-        $data['js'] = 'FormImages';
+        $data['jss'] = $jss;
 
         if (!isset($data['section'])) {
             $data['title'] = 'Add Product';
@@ -111,15 +113,16 @@ class ProductController extends \Com\Daw2\Core\BaseController {
     }
 
     public function processAdd(): void {
-        $errors = $this->checkAdd();
+        if (isset($_FILES['image'])) {
+            $_POST['image'] = $_FILES['image'];
+        }
+        $errors = $this->checkAdd($_POST);
 
         if (empty($errors)) {
             $productModel = new \Com\Daw2\Models\ProductModel();
-            $validExtensions = ['jpeg', 'jpg', 'png'];
             $_POST['img_extension'] = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-            $_POST['img_carousel_length'] = count($_FILES['images']['name']);
 
-            if (in_array($_POST['img_extension'], $validExtensions)) {
+            if (in_array($_POST['img_extension'], self::VALID_IMG_EXTENSIONS)) {
                 if ($productModel->insert($_POST)) {
                     $mainImageFile = '../public/assets/imgs/Product/' .
                             $_POST['product_name'] . '/Main Image/';
@@ -156,40 +159,49 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $this->seeAdd($data);
     }
 
-    public function checkAdd(bool $edit = null): array {
+    private function checkAdd(array $post, bool $edit = null): array {
 
         $errors = [];
 
-        if (empty($_POST['product_name']) || empty($_POST['product_description'])) {
+        if (empty($post['product_name']) || empty($post['product_description'])) {
             $errors['form'] = 'Empty fields';
         } else {
             $productModel = new \Com\Daw2\Models\ProductModel();
+            $productName = $productModel->getProductByProductName($post['product_name']);
 
-            if (!preg_match('/^[a-zA-Z0-9\s]{4,15}$/', $_POST['product_name'])) {
+            if ($productName) {
+                $errors['product_name'] = "This product name exists";
+            }
+
+            if (!preg_match('/^[a-zA-Z0-9\s]{4,15}$/', $post['product_name'])) {
                 $errors['product_name'] = 'The product name can only contain letters, '
                         . 'numbers, and spaces. It should be between 4 and 15 '
                         . 'characters long.';
             }
 
-            if (!preg_match('/^(?:[a-zA-Z0-9]+\s*){5,100}$/', $_POST['product_description'])) {
-                $errors['product_description'] = 'The product name can only contain letters, '
-                        . 'numbers, and spaces. It should be between 4 and 15 '
+            if (!preg_match('/^[a-zA-Z0-9\sáéíóúÁÉÍÓÚñÑ]{10,100}$/', $post['product_description'])) {
+                $errors['product_description'] = 'The product description can only contain letters, '
+                        . 'numbers, and spaces. It should be between 10 and 100 '
                         . 'characters long.';
             }
 
             if (is_null($edit)) {
-                // ERROR 0 = all ok
-                if ($_FILES['image']['error'] !== 0) {
-                    $errors['image'] = $_FILES['image']['error'];
+                if (empty($post['image'])) {
+                    $errors['form'] = 'Empty fields';
                 } else {
-                    if ($_FILES['image']['size'] > self::MAX_FILE_SIZE_BYTES) {
-                        $errors['image'] = 'The image cannot be larger than ' . self::MAX_FILE_SIZE_BYTES . 'KB.';
+                    // ERROR 0 = all ok
+                    $post['image']['error'] = intval($post['image']['error']);
+                    if ($post['image']['error'] !== 0) {
+                        $errors['image'] = $post['image']['error'];
+                    } else {
+                        if ($post['image']['size'] > self::MAX_FILE_SIZE_BYTES) {
+                            $errors['image'] = 'The image cannot be larger than ' . self::MAX_FILE_SIZE_BYTES . 'KB.';
+                        }
                     }
-                }
 
-                if ($productModel->getProductByProductName($_POST['product_name'])) {
-                    $errors['product_name'] = 'A product with that name already exists.';
-                }
+                    if ($productModel->getProductByProductName($post['product_name'])) {
+                        $errors['product_name'] = 'A product with that name already exists.';
+                    }
 
 
 //                for ($i = 0;
@@ -203,6 +215,7 @@ class ProductController extends \Com\Daw2\Core\BaseController {
 //                        }
 //                    }
 //                }
+                }
             }
         }
         return $errors;
@@ -231,7 +244,6 @@ class ProductController extends \Com\Daw2\Core\BaseController {
             $product_old = $productModel->getProductById($id);
             $_POST['id_product'] = $id;
             if ($productModel->update($_POST)) {
-
                 //Change direcory  name
                 rename(('../public/assets/imgs/Product/' .
                         $product_old['product_name']), ('../public/assets/imgs/Product/' .
@@ -247,15 +259,15 @@ class ProductController extends \Com\Daw2\Core\BaseController {
                 rename($oldImgRoute, $newImgRoute);
 
                 //Change carousel imgs names
-                for ($i = 0; $i < count($product_old['img_carousel_length']); $i++) {
-                    $oldImgRoute = '../public/assets/imgs/Product/' .
-                            $_POST['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
-                            '.' . $product_old['img_extension'];
-                    $newImgRoute = '../public/assets/imgs/Product/' .
-                            $_POST['product_name'] . '/Carousel Images/' . $_POST['product_name'] . $i .
-                            '.' . $product_old['img_extension'];
-                    rename($oldImgRoute, $newImgRoute);
-                }
+//                for ($i = 0; $i < count($product_old['img_carousel_length']); $i++) {
+//                    $oldImgRoute = '../public/assets/imgs/Product/' .
+//                            $_POST['product_name'] . '/Carousel Images/' . $product_old['product_name'] . $i .
+//                            '.' . $product_old['img_extension'];
+//                    $newImgRoute = '../public/assets/imgs/Product/' .
+//                            $_POST['product_name'] . '/Carousel Images/' . $_POST['product_name'] . $i .
+//                            '.' . $product_old['img_extension'];
+//                    rename($oldImgRoute, $newImgRoute);
+//                }
 
                 header('Location: /AdminProducts');
             } else {
@@ -313,17 +325,27 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         $message = $this->verifyProduct($idProduct);
         if (empty($message)) {
             $productModel = new \Com\Daw2\Models\ProductModel();
+            $product = $productModel->getProductById($idProduct);
 
-            if ($productModel->deleteProduct($idProduct)) {
-                $message = [
-                    'class' => 'success',
-                    'message' => 'The product was delete.'
-                ];
-            } else {
+            unlink('../public/assets/' . $product['img_folder'] . '/Main Image/' . $product['product_name'] . '.' . $product['img_extension']);
+            if (!rmdir('../public/assets/' . $product['img_folder'] . '/Main Image') || !rmdir('../public/assets/' . $product['img_folder'])) {
+
                 $message = [
                     'class' => 'danger',
-                    'message' => 'Unexpected error.'
+                    'message' => 'Delete folder error.'
                 ];
+            } else {
+                if ($productModel->deleteProduct($idProduct)) {
+                    $message = [
+                        'class' => 'success',
+                        'message' => 'The product was delete.'
+                    ];
+                } else {
+                    $message = [
+                        'class' => 'danger',
+                        'message' => 'Unexpected error.'
+                    ];
+                }
             }
         }
 
@@ -346,5 +368,40 @@ class ProductController extends \Com\Daw2\Core\BaseController {
         }
 
         return $message;
+    }
+
+    public function processFilter(): void {
+        $errors = $this->checkFilter();
+
+        if (empty($errors)) {
+            $productModel = new \Com\Daw2\Models\ProductModel();
+            $products = $productModel->getFilterProduct($_GET);
+
+            if (empty($products)) {
+                $errors['form'] = 'There are no records with that data.';
+                $data['errors'] = $errors;
+            }
+
+            $data['users'] = $products;
+            $data['input'] = $_GET;
+            $this->seeAdminProducts($data);
+        } else {
+            $data['errors'] = $errors;
+            $this->seeAdminProducts($data);
+        }
+    }
+
+    private function checkFilter(): array {
+        $errors = [];
+        $userModel = new \Com\Daw2\Models\UserModel();
+        if (preg_match('/^[a-zA-Z0-9\s]{15}$/', $_GET['product_name'])) {
+            $errors['product_name'] = 'Invalid product name.';
+        }
+
+        if (preg_match('/^(?:[a-zA-Z0-9]+\s*){100}$/', $_GET['product_description'])) {
+            $errors['product_description'] = 'Invalid product description.';
+        }
+
+        return $errors;
     }
 }

@@ -1,5 +1,5 @@
 <main>
-    <article    >
+    <article>
         <h2>PinGiDev Logs</h2>
         <div class="filter">
             <form method="get" action="/AdminLogs/filter">       

@@ -16,7 +16,7 @@
         ?>       
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
         <title>PinGiDev</title>
-        <link rel="icon" href="assets/imgs/icon/PinGiDevMini.png">
+        <link rel="icon" href="../../assets/imgs/icon/PinGiDevMini.png">
     </head>
     <body>
         <header>
@@ -36,7 +36,6 @@
                     class="offcanvas offcanvas-end bg-black text-bg-dark"
                     tabindex="-1"
                     id="offcanvasDarkNavbar"
-                    aria-labelledby="offcanvasDarkNavbarLabel"
                     >
                     <div class="offcanvas-header">
                         <button
@@ -58,7 +57,7 @@
                                 <a class="nav-link <?php
                                 echo(isset($section) &&
                                 $section === 'AboutMe') ? 'active' : '';
-                                ?>" href="/AboutMe">About Me</a>
+                                ?>" href="/AboutMe">About Us</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link <?php
@@ -80,11 +79,22 @@
                             }
                             ?>
                             <li>
-                                <a class="nav-link <?php
-                                echo(isset($section) &&
-                                $section === 'LoginRegister') ? 'active' : '';
-                                ?>" href="<?php echo(!isset($_SESSION['user'])) ? '/LoginRegister' : '/Logout'; ?>">
-                                    <?php echo(!isset($_SESSION['user'])) ? 'Login/Register' : 'Logout'; ?></a>
+                                <a class="nav-link <?php echo (isset($_SESSION['user'])) ? 'user' : ''; ?>" 
+                                   href="/Login" 
+                                   <?php echo (isset($_SESSION['user'])) ? 'disabled aria-label="configuration"' : 'aria-label="Login"'; ?>>
+                                       <?php
+                                       echo(!isset($_SESSION['user'])) ? 'Login' : '<i class="fa-solid fa-gear"></i>';
+                                       ?></a>
+                                <?php if (isset($_SESSION['user'])) { ?>
+                                    <ul class="userOptions">
+                                        <div class="userOption">
+                                            <a href="/Edit">Edit</a>
+                                        </div>
+                                        <div class="userOption">
+                                            <a href="/Logout">Logout</a>
+                                        </div>
+                                    </ul>
+                                <?php } ?>
                             </li>
 
                         </ul>
@@ -99,13 +109,13 @@
                         <img src="<?php
                         echo '../../assets/' . $product['img_folder'] . '/Main Image/' .
                         $product['product_name'] . '.' . $product['img_extension'];
-                        ?>" alt="<?php echo $product['product_description']; ?>" class="d-block w-100" id="producImg">
+                        ?>" alt="<?php echo $product['product_name']; ?>" class="d-block" id="producImg">
                         <form action="/Order/<?php echo $product['id_product']; ?>" method="post">
                             <div class="product-info">
                                 <div class="infoContainer">
                                     <div>
-                                        <h3><?php echo $product['product_name']; ?></h3>
-                                        <a <?php echo (!isset($_SESSION['user'])) ? 'href="/Login"' : 'disabled'; ?>>
+                                        <h2><?php echo $product['product_name']; ?></h2>
+                                        <a <?php echo (!isset($_SESSION['user'])) ? 'href="/Login"' : 'disabled'; ?> aria-label="favorite">
                                             <i class="fa-solid fa-heart btnFav <?php
                                             if (isset($_SESSION['user'])) {
                                                 if ($fav) {
@@ -130,7 +140,7 @@
                                         ></textarea>
                                     <label for="floatingarea">Order Description</label>
                                 </div>
-                                <p><?php
+                                <p class="text-danger mt-3"><?php
                                     if (isset($errors['order_description'])) {
                                         echo $errors['order_description'];
                                     }
@@ -153,11 +163,11 @@
                                     ?>
                                     <div class="productCard">
                                         <a href="/Product/<?php echo $products[$i]['id_product']; ?>">
-                                            <img src="../../assets/<?php echo $products[$i]['img_folder'] . '/Main Image/' . $products[$i]['product_name'] . '.' . $products[$i]['img_extension']; ?>" alt="<?php echo $products[$i]['product_description']; ?>"/>
+                                            <img src="../../assets/<?php echo $products[$i]['img_folder'] . '/Main Image/' . $products[$i]['product_name'] . '.' . $products[$i]['img_extension']; ?>" alt="<?php echo $products[$i]['product_name']; ?>"/>
                                         </a>
                                         <div class="button-container">
                                             <h3><?php echo $products[$i]['product_name']; ?></h3>
-                                            <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?>>
+                                            <a <?php echo (!isset($_SESSION['user'])) ? 'href="/LoginRegister"' : 'disabled'; ?> aria-label="favorite">
                                                 <i class="fa-solid fa-heart btnFav <?php
                                                 if (isset($_SESSION['user'])) {
                                                     foreach ($favsProducts as $favProduct) {
@@ -192,17 +202,17 @@
             </div>
             <p id="copyright">© Creative Commons</p>
             <div class="contact">
-                <a href="https://www.instagram.com/" class="fa-brands fa-instagram icon" style="color: #ffffff"></a>
-                <i class="fa-brands fa-github icon" style="color: #ffffff"></i>
-                <i class="fa-regular fa-envelope icon" style="color: #ffffff"></i>
+                <a href="https://www.instagram.com/" class="fa-brands fa-instagram icon" style="color: #ffffff" aria-label="Instagram"></a>
+                <a class="fa-brands fa-github icon" style="color: #ffffff" aria-label="GitHub"></a>
+                <a class="fa-regular fa-envelope icon" style="color: #ffffff" aria-label="Linkedln"></a>
             </div>
         </footer>
-        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/bootstrap.min.js"></script>
         <?php
         if (isset($jss)) {
             foreach ($jss as $js) {
                 ?>
-                <script src="../assets/js/<?php echo $js ?>.js"></script>
+                <script src="../../assets/js/<?php echo $js ?>.js"></script>
                 <?php
             }
         }

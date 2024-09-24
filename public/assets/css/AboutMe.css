@@ -42,7 +42,7 @@ div{
     text-align: center;
     background: linear-gradient(to right, #fc72ff, #8f68ff,#487bff, #8f68ff, #fc72ff);
     background-size: 200%;
-    animation: gradientAnimation 2.5s linear infinite;
+    /*animation: gradientAnimation 2.5s linear infinite;*/
 
 }
 
@@ -105,7 +105,7 @@ div{
 
 
 #formation{
-    background-color:grey;
+    background-color:rgb(60, 60, 60);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 10px 10px white;
@@ -133,7 +133,7 @@ div{
 
 .aptitudes div i{
     font-size: 40px;
-    transition: color 0.3s ease-in-out;
+    transition: color 0.2s ease-in-out;
 }
 
 #formation{
@@ -285,6 +285,14 @@ div{
 
     .employeeDescriptionPar{
         flex-direction: column-reverse;
+    }
+    
+    section{
+        height: auto;
+    }
+    
+    section:first-child{
+        height: 100vh;
     }
 
 }

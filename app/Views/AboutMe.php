@@ -8,7 +8,7 @@
         </section>
         <section class="par">
             <div  class="grid" id="description">
-                <img src="assets/imgs/AboutMe/jorge.jpg" alt="PinGiDev selfie" />
+                <img src="assets/imgs/AboutMe/jorge.jpg" alt="Jorge" />
                 <p>
                     Hello, I'm Jorge, and I'm studying web application development. 
                     I want to continue training while working, and gain experience in the sector. 
@@ -69,7 +69,7 @@
         <section>
             <div  class="grid employeeDescriptionImpar">
                 <div class="employee">
-                    <img src="assets/imgs/AboutMe/yolanda.jpg" alt="PinGiDev selfie" />
+                    <img src="assets/imgs/AboutMe/yolanda.jpg" alt="Yolanda" />
                     <h3>Yolanda Fernández</h3>
                     <p class="office">Web Designer</p>
                     <p class="emplooyeePresentation">
@@ -159,9 +159,9 @@
                     </div>
                 </div>
                 <div class="employee">
-                    <img src="assets/imgs/AboutMe/alberto.jpg" alt="PinGiDev selfie" />
+                    <img src="assets/imgs/AboutMe/alberto.jpg" alt="Alberto" />
                     <h3>Alberto Pérez</h3>
-                    <p class="office">Web Designer</p>
+                    <p class="office">Business Management</p>
                     <p class="emplooyeePresentation">
                         Hello, my name is Alberto, and I studied business administration 
                         and management. He was part of this wonderful team, 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2024 a las 19:23:24
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 7.4.30
+-- Servidor: localhost:3306
+-- Tiempo de generación: 24-09-2024 a las 14:05:07
+-- Versión del servidor: 10.6.7-MariaDB-2ubuntu1.1
+-- Versión de PHP: 8.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -55,14 +55,6 @@ CREATE TABLE `favorites` (
   `id_user` int(11) NOT NULL,
   `id_product` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `favorites`
---
-
-INSERT INTO `favorites` (`id_favorites`, `id_user`, `id_product`) VALUES
-(272, 6, 78),
-(280, 6, 82);
 
 -- --------------------------------------------------------
 
@@ -254,7 +246,11 @@ INSERT INTO `logs` (`id_log`, `log_date`, `id_action`, `id_user`) VALUES
 (176, '2024-05-31 19:17:55', 4, 6),
 (177, '2024-05-31 19:18:00', 2, 6),
 (178, '2024-05-31 19:18:08', 1, 6),
-(179, '2024-05-31 19:18:28', 5, 6);
+(179, '2024-05-31 19:18:28', 5, 6),
+(180, '2024-09-24 12:46:48', 1, 6),
+(181, '2024-09-24 13:12:21', 1, 6),
+(182, '2024-09-24 13:33:22', 3, 6),
+(183, '2024-09-24 13:33:24', 4, 6);
 
 -- --------------------------------------------------------
 
@@ -290,13 +286,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `product_name`, `product_description`, `img_folder`, `img_extension`, `img_carousel_length`, `product_ban`) VALUES
-(76, 'Prueba', 'Prueba', 'imgs/Product/Prueba', 'jpg', 0, 0),
-(77, 'Prueba 2', 'Alberto es tonto y necesite que le explique esto\r\n', 'imgs/Product/Prueba 2', 'jpg', 0, 0),
-(78, 'Prueba 3', 'Prueba', 'imgs/Product/Prueba 3', 'jpg', 0, 0),
-(79, 'Prueba 5', 'Prueba', 'imgs/Product/Prueba 5', 'jpg', 0, 0),
-(80, 'Prueba 6', 'Prueba', 'imgs/Product/Prueba 6', 'jpg', 0, 0),
-(81, 'Prueba 7', 'prueba', 'imgs/Product/Prueba 7', 'jpg', 0, 0),
-(82, 'Prueba 8', 'Prueba', 'imgs/Product/Prueba 8', 'jpg', 0, 0);
+(84, 'Back To School', 'Diseño web de vuelta al cole en Freepick', 'imgs/Product/Back To School', 'jpg', 0, 0),
+(85, 'UIUX Design', 'Diseño web de página de diseño y desarrollo por Freepick', 'imgs/Product/UIUX Design', 'jpg', 0, 0),
+(86, 'UIUX Gradiente', 'Diseño con gradiente de página web de diseño de Freepick', 'imgs/Product/UIUX Gradiente', 'jpg', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -402,13 +394,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=293;
+  MODIFY `id_favorites` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 
 --
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT de la tabla `order`
@@ -420,7 +412,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

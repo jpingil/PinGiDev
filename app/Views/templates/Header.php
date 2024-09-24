@@ -20,7 +20,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="/"><img src="assets/imgs/icon/PinGiDev.png" alt="Principal icon of PinGiDev"></a></h1>
+            <h1><a href="/"><img src="assets/imgs/icon/PinGiDevMini.png" alt="PinGiDev icon"></a></h1>
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <button
                     class="navbar-toggler shadow-none border-0"
@@ -36,7 +36,6 @@
                     class="offcanvas offcanvas-end bg-black text-bg-dark"
                     tabindex="-1"
                     id="offcanvasDarkNavbar"
-                    aria-labelledby="offcanvasDarkNavbarLabel"
                     >
                     <div class="offcanvas-header">
                         <button
@@ -81,7 +80,8 @@
                             ?>
                             <li>
                                 <a class="nav-link <?php echo (isset($_SESSION['user'])) ? 'user' : ''; ?>" 
-                                   href="<?php echo(!isset($_SESSION['user'])) ? '/Login' : ''; ?>">
+                                   href="/Login" 
+                                   <?php echo (isset($_SESSION['user'])) ? 'disabled aria-label="configuration"' : 'aria-label="Login"'; ?>>
                                        <?php
                                        echo(!isset($_SESSION['user'])) ? 'Login' : '<i class="fa-solid fa-gear"></i>';
                                        ?></a>

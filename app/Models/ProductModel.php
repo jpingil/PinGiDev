@@ -46,14 +46,13 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
 
     public function insert(array $vars): bool {
         $stmt = $this->pdo->prepare('INSERT INTO product (product_name, product_description, '
-                . 'img_folder, img_extension, img_carousel_length) values'
-                . ' (:product_name, :product_description, :img_folder, :img_extension, :img_carousel_length)');
+                . 'img_folder, img_extension, img_carousel_length, product_ban) values'
+                . ' (:product_name, :product_description, :img_folder, :img_extension, 0, 0)');
         return $stmt->execute([
                     'product_name' => $vars['product_name'],
                     'product_description' => $vars['product_description'],
                     'img_folder' => self::ROUTE_IMG_FOLDER . $vars['product_name'],
-                    'img_extension' => $vars['img_extension'],
-                    'img_carousel_length' => $vars['img_carousel_length']
+                    'img_extension' => $vars['img_extension']
         ]);
     }
 
@@ -88,6 +87,32 @@ class ProductModel extends \Com\Daw2\Core\BaseDbModel {
     public function deleteProduct(int $idProduct): bool {
         $stmt = $this->pdo->prepare('DELETE FROM product WHERE id_product = ?');
         return $stmt->execute([$idProduct]);
+    }
+
+    public function getFilterProduct(array $vars): array {
+        $sql = self::SELECT_FROM;
+        $conds = [];
+        $params = [];
+
+        if (!empty($vars['product_name'])) {
+            $conds[] = 'product_name LIKE :product_name';
+            $params['product_name'] = '%' . $vars['product_name'] . '%';
+        }
+
+        if (!empty($conds)) {
+            $sql .= ' WHERE ' . implode(' AND ', $conds);
+        }
+
+        $sql .= ' ORDER BY id_product';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+
+        echo $sql;
+        var_dump($vars);
+        die();
+
+        return $stmt->fetchAll();
     }
 
     public function getProductById(int $idProduct): ?array {

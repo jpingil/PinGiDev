@@ -221,6 +221,13 @@ class FrontController {
                         }
                         , 'get');
 
+                Route::add('/AdminProducts/filter',
+                        function () {
+                            $controlador = new \Com\Daw2\Controllers\ProductController();
+                            $controlador->processFilter();
+                        }
+                        , 'get');
+
                 Route::add('/AdminLogs',
                         function () {
                             $controlador = new \Com\Daw2\Controllers\LogController();

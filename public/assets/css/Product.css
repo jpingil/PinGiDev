@@ -12,7 +12,7 @@
     background-color: white;
     color: black;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     align-items: center;
     transition: box-shadow 0.3s ease-in-out;
 }
@@ -45,20 +45,17 @@ form{
 }
 
 .infoContainer{
-    width: 40%;
+    width: 100%;
     margin-bottom: 30px;
     border-radius: 10px;
 }
 
 .infoContainer div{
+    width: 100%;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: grey;
-    color: white;
-    border-top: none;
-    border-radius: 10px 10px 0px 0px;
 }
 
 .infoContainer div h3{
@@ -73,8 +70,17 @@ form{
 }
 
 .infoContainer p{
-    border: 1px solid grey;
     padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px 10px 0px 0px;
+    transition: all 0.3s ease-in-out;
+}
+
+.infoContainer p:hover{
+    background-color: black;
+    color: white;
+    border-radius: 0px 0px 10px 10px;
+    transform: scale(1.05);
 }
 
 .description{
@@ -195,7 +201,7 @@ textarea {
     }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1020px) {
     .productCard{
         display: flex;
         flex-direction: column;
@@ -220,5 +226,14 @@ textarea {
 
     .product-info{
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .product{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
